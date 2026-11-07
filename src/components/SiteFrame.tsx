@@ -2,6 +2,7 @@ import Image from 'next/image'
 import {Fragment,type ReactNode} from 'react'
 import {address,dealer,cars} from '../catalog'
 import {site} from '../site-metadata'
+import {vehicleMenuImagery} from '../vehicle-imagery'
 import logo from '../assets/logo.webp'
 import ShowroomMenu from './ShowroomMenu'
 import BrowserInteractions from './BrowserInteractions'
@@ -22,8 +23,7 @@ export default function SiteFrame({title,path,crumbs=[],noindex=false,schema,chi
   <div className="wrap header-row">
     <ShowroomMenu links={nav} path={path} models={cars.map(({slug,title,image,category,variants})=>({
       slug,title,category,
-      image:slug==='/toyota/vios/' ? variants?.[0]?.image || image : image,
-      containImage:slug==='/toyota/vios/' || slug==='/toyota/toyota-land-cruiser-fj/',
+      image:vehicleMenuImagery[slug] || (slug==='/toyota/vios/' ? variants?.[0]?.image || image : image),
     }))} />
     <a href="/" className="brand"><Image src={logo} width={194} height={63} alt={dealer} /></a>
   </div>

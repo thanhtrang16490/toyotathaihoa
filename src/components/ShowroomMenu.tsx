@@ -2,7 +2,7 @@
 
 import {useEffect,useRef,useState} from 'react'
 
-type MenuModel={slug:string,title:string,image:string,category:string,containImage:boolean}
+type MenuModel={slug:string,title:string,image:string,category:string}
 
 export default function ShowroomMenu({links,path,models}:{links:string[][],path:string,models:MenuModel[]}) {
   const drawer=useRef<HTMLDialogElement>(null)
@@ -113,7 +113,7 @@ export default function ShowroomMenu({links,path,models}:{links:string[][],path:
             </div>
             <a className="showroom-menu-model" href={model.slug} aria-current={path===model.slug?'page':undefined}>
               <span className="showroom-model-name">{model.title}</span>
-              <img data-contain={model.containImage} src={model.image} width="400" height="200" alt="" loading="lazy" />
+              <img src={model.image} width="720" height="320" alt="" loading="lazy" />
               <span className="showroom-model-tag">{model.category}</span>
             </a>
             <div className="showroom-model-actions">
@@ -125,7 +125,7 @@ export default function ShowroomMenu({links,path,models}:{links:string[][],path:
           </div> : showModels ? <>
             {models.map((vehicle,index)=><button id={'showroom-model-'+index} className="showroom-menu-model" key={vehicle.slug} type="button" onClick={()=>selectModel(vehicle)}>
               <span className="showroom-model-name">{vehicle.title.replace(/^Toyota /,'')}</span>
-              <img data-contain={vehicle.containImage} src={vehicle.image} width="400" height="200" alt="" loading="lazy" />
+              <img src={vehicle.image} width="720" height="320" alt="" loading="lazy" />
               <span className="showroom-model-tag">{vehicle.category}</span>
             </button>)}
             <a className="showroom-menu-all" href="/xe-toyota-moi/">Xem tất cả dòng xe →</a>
