@@ -2,7 +2,7 @@ import Image from 'next/image'
 import {Fragment,type ReactNode} from 'react'
 import {address,dealer,phone,hours,directions,cars} from '../catalog'
 import {site} from '../site-metadata'
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.webp'
 import ShowroomMenu from './ShowroomMenu'
 import BrowserInteractions from './BrowserInteractions'
 const nav = [['Xe Toyota','/xe-toyota-moi/'],['Ưu đãi','/uu-dai/'],['Dịch vụ','/dich-vu/'],['Tin tức','/tin-tuc/'],['Giới thiệu','/gioi-thieu/'],['Liên hệ','/contact/']]

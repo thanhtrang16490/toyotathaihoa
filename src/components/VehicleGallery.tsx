@@ -3,8 +3,8 @@
 import {useEffect,useRef,useState} from 'react'
 
 const fjCaptions: Record<string, [string, string]> = {
-  '/media/36c91af4c0c9e3ee.jpg': ['Thiết kế ngoại thất', 'Thân xe vuông vức và vòm bánh rõ nét tạo nên dáng Land Cruiser đặc trưng.'],
-  '/media/62f522f143914703.jpg': ['Vận hành', 'Động cơ xăng 2,7 L kết hợp hộp số tự động 6 cấp.'],
+  '/media/36c91af4c0c9e3ee.webp': ['Thiết kế ngoại thất', 'Thân xe vuông vức và vòm bánh rõ nét tạo nên dáng Land Cruiser đặc trưng.'],
+  '/media/62f522f143914703.webp': ['Vận hành', 'Động cơ xăng 2,7 L kết hợp hộp số tự động 6 cấp.'],
 }
 
 export default function VehicleGallery({images,title,editorial=false}:{images:string[],title:string,editorial?:boolean}) {

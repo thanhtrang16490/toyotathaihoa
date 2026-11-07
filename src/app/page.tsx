@@ -6,7 +6,7 @@ import HomeHeroMotion from '../components/HomeHeroMotion'
 import {cars, dealer} from '../catalog'
 import hero from '../assets/generated/corolla-cross-coastal-hero-v2.webp'
 import {vehicleImagery} from '../vehicle-imagery'
-import workshop from '../assets/workshop.jpg'
+import workshop from '../assets/workshop.webp'
 import {pageMetadata} from '../site-metadata'
 export const metadata = pageMetadata({title:dealer,path:'/',image:hero.src})
 const modelPhotos = Object.entries(vehicleImagery).map(([slug,photo])=>({slug,photo}))

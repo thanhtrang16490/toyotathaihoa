@@ -87,11 +87,11 @@ const isFj = path === '/toyota/toyota-land-cruiser-fj/'
 const gallery = [...new Set([
   ...(entry?.gallery ?? []),
   ...(isFj ? [
-    '/media/36c91af4c0c9e3ee.jpg',
-    '/media/62f522f143914703.jpg',
-    '/media/8a2b4107700ed040.jpg',
-    '/media/d8bec76498456aed.jpg',
-    '/media/7e8373cf75856cd6.jpg',
+    '/media/36c91af4c0c9e3ee.webp',
+    '/media/62f522f143914703.webp',
+    '/media/8a2b4107700ed040.webp',
+    '/media/d8bec76498456aed.webp',
+    '/media/7e8373cf75856cd6.webp',
   ] : []),
 ])]
 const cover = isFj ? "/media/land-cruiser-fj-studio.webp" : entry?.image
@@ -162,7 +162,7 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
       <TechnicalDetails rows={fjSpecs} />
       </div>
       <div className="fj-performance-photo">
-        <Image src="/media/62f522f143914703.jpg" alt="Land Cruiser FJ màu trắng trên đường đất" fill sizes="(max-width: 760px) 100vw, 55vw" />
+        <Image src="/media/62f522f143914703.webp" alt="Land Cruiser FJ màu trắng trên đường đất" fill sizes="(max-width: 760px) 100vw, 55vw" />
       </div>
     </section>}
   {isFj && <section className="wrap fj-introduction" aria-labelledby="fj-introduction-title">
@@ -171,7 +171,7 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
   </section>}
   {isFj && <section id="thiet-ke-fj" className="fj-editorial fj-editorial-wide" aria-labelledby="fj-design-title">
     <div className="fj-editorial-photo">
-      <Image src="/media/36c91af4c0c9e3ee.jpg" alt="Toyota Land Cruiser FJ" fill sizes="(max-width: 760px) 100vw, 65vw" />
+      <Image src="/media/36c91af4c0c9e3ee.webp" alt="Toyota Land Cruiser FJ" fill sizes="(max-width: 760px) 100vw, 65vw" />
     </div>
     <div className="fj-editorial-copy">
       <p className="eyebrow">THIẾT KẾ LAND CRUISER FJ</p>
