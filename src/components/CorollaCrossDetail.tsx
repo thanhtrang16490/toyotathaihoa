@@ -1,6 +1,7 @@
 import Image from 'next/image'
+import type {CSSProperties} from 'react'
 import type {Entry} from '../catalog'
-import {corollaConfigPath,corollaTrims} from '../vehicle-options'
+import {corollaConfigPath,corollaTrimSpecs,corollaTrims} from '../vehicle-options'
 import TechnicalDetails from './TechnicalDetails'
 import VehicleGallery from './VehicleGallery'
 import CorollaFeatureRail from './CorollaFeatureRail'
@@ -27,8 +28,24 @@ const driving = [
 ]
 const gallery = ['/media/b5348f166e3ed75b.webp','/media/ce5c27bbe4094f30.webp','/media/9d2fff279d21b0f2.webp','/media/aaa46a9e3581c01e.webp','/media/2f459289783ee6ef.webp']
 
+function RollingNumber({value}:{value:string}) {
+  return <span className={styles.rollingNumber} data-rolling-number="">
+    <span className={styles.rollingValue}>{value}</span>
+    <span className={styles.rollingDigits} aria-hidden="true">
+      {[...value].map((character,index)=>{
+        if (character==='.') return <span key={index}>.</span>
+        const digit = Number(character)
+        return <span className={styles.rollingWindow} key={index}>
+          <span className={styles.rollingReel} style={{'--digit-offset':-100*digit/(digit+1)+'%'} as CSSProperties}>
+            {Array.from({length:digit+1},(_,step)=><span key={step}>{step}</span>)}
+          </span>
+        </span>
+      })}
+    </span>
+  </span>
+}
+
 export default function CorollaCrossDetail({model}:{model:Entry}) {
-  const testDrive = '/dang-ky-lai-thu/?'+new URLSearchParams({model:model.title})
   return <div className={styles.detail}>
     <section id="tong-quan" className="product-intro corolla-intro">
       <div className={styles.studio}>
@@ -44,9 +61,9 @@ export default function CorollaCrossDetail({model}:{model:Entry}) {
         <span className={styles.fuel}>Xăng / Hybrid</span>
         <p>Liên hệ để xác nhận giá theo phiên bản</p>
         <div className="actions model-stage-actions">
-          <a id="chon-mau-xe" className="btn" href={corollaConfigPath}>Chọn mẫu xe</a>
-          <a id="chon-phien-ban" className="btn outline" href={corollaConfigPath}>Chọn cấu hình</a>
-          <a className="btn outline" href={testDrive} data-event="cta_click">Đăng ký lái thử</a>
+          <a id="chon-mau-xe" className="btn" href="#chon-phien-ban" aria-haspopup="dialog">Chọn mẫu xe</a>
+          <a className="btn outline" href={corollaConfigPath}>Chọn cấu hình</a>
+          <button className="btn outline" type="button" data-test-drive="vehicle-options" aria-haspopup="dialog" aria-controls="test-drive-drawer" data-event="cta_click">Đăng ký lái thử</button>
         </div>
       </div>
     </section>
@@ -60,9 +77,9 @@ export default function CorollaCrossDetail({model}:{model:Entry}) {
     <section className={styles.specs} aria-label="Thông số nổi bật">
       <div>
         <dl>
-          <div><dt>Dung tích động cơ xăng</dt><dd>1.798 <small>cc</small></dd></div>
-          <div><dt>Chiều dài cơ sở</dt><dd>2.640 <small>mm</small></dd></div>
-          <div><dt>Số chỗ ngồi</dt><dd>5</dd></div>
+          <div><dt>Dung tích động cơ xăng</dt><dd><RollingNumber value="1.798" /> <small>cc</small></dd></div>
+          <div><dt>Chiều dài cơ sở</dt><dd><RollingNumber value="2.640" /> <small>mm</small></dd></div>
+          <div><dt>Số chỗ ngồi</dt><dd><RollingNumber value="5" /></dd></div>
         </dl>
         <TechnicalDetails rows={specs} modelName="COROLLA CROSS" />
       </div>
@@ -92,7 +109,7 @@ export default function CorollaCrossDetail({model}:{model:Entry}) {
         <h2 id="corolla-driving">Vận hành.</h2>
         <p>Khám phá hai lựa chọn động cơ và những công nghệ hỗ trợ người lái trên Corolla Cross.</p>
       </div>
-      <CorollaFeatureRail features={driving} label="Tính năng vận hành" />
+      <CorollaFeatureRail features={driving} label="Tính năng vận hành" groups={[{label:"Động cơ",start:0},{label:"Hỗ trợ lái",start:1}]} />
     </section>
     <section id="hinh-anh-xe" className={styles.gallery}>
       <h2>Corolla Cross từ mọi góc nhìn.</h2>
@@ -101,10 +118,20 @@ export default function CorollaCrossDetail({model}:{model:Entry}) {
     <section id="chi-tiet-xe" className={styles.specTable}>
       <h2>Thông số kỹ thuật.</h2>
       <dl>{specs.map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
-      <p>Đối chiếu thông số và trang bị theo phiên bản tại Toyota Việt Nam.</p>
       <div className="actions">
-        <a className="btn outline" href="https://www.toyota.com.vn/corolla-cross-1-8v">Thông số 1.8V ↗</a>
-        <a className="btn outline" href="https://www.toyota.com.vn/corolla-cross-1-8hev">Thông số HEV ↗</a>
+        {corollaTrims.map(trim=><a className="btn outline" key={trim} href={'#'+corollaTrimSpecs[trim].id}>Thông số {trim}</a>)}
+      </div>
+      <div className={styles.trimSpecs}>
+        {corollaTrims.map(trim=>{
+          const {id,powertrain,transmission} = corollaTrimSpecs[trim]
+          return <section key={trim} id={id} aria-labelledby={id+'-title'}>
+            <h3 id={id+'-title'}>Corolla Cross {trim}</h3>
+            <dl>
+              <div><dt>Hệ truyền động</dt><dd>{powertrain}</dd></div>
+              <div><dt>Hộp số</dt><dd>{transmission}</dd></div>
+            </dl>
+          </section>
+        })}
       </div>
     </section>
     <section className="vehicle-next">
@@ -112,7 +139,7 @@ export default function CorollaCrossDetail({model}:{model:Entry}) {
       <h2>Trải nghiệm Corolla Cross.</h2>
       <p>Đặt lịch lái thử hoặc trao đổi với đại lý về phiên bản bạn quan tâm.</p>
       <div className="actions">
-        <a className="btn" href={testDrive} data-event="cta_click">Đăng ký lái thử</a>
+        <button className="btn" type="button" data-test-drive="vehicle-options" aria-haspopup="dialog" aria-controls="test-drive-drawer" data-event="cta_click">Đăng ký lái thử</button>
         <a className="btn outline" href="/contact/">Liên hệ đại lý ↗</a>
       </div>
     </section>

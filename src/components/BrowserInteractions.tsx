@@ -1,5 +1,6 @@
 'use client'
 import {useEffect} from 'react'
+import {todayInVietnam} from '../test-drive'
 declare global { interface Window { dataLayer?: Record<string, unknown>[] } }
 export default function BrowserInteractions({path}:{path:string}){
  useEffect(()=>{
@@ -50,6 +51,8 @@ export default function BrowserInteractions({path}:{path:string}){
 {
 
   for(const form of document.querySelectorAll<HTMLFormElement>('[data-lead-form]')){
+    const preferredDate = form.elements.namedItem('preferred_date')
+    if (preferredDate instanceof HTMLInputElement) preferredDate.min = todayInVietnam()
     const model = form.elements.namedItem('model')
     const initial = new URLSearchParams(location.search).get('model')
     if(model instanceof HTMLSelectElement && initial && Array.from(model.options).some(option=>option.value===initial)) model.value=initial
@@ -67,14 +70,48 @@ export default function BrowserInteractions({path}:{path:string}){
       selection.textContent = labels.join(' · ')
       selection.hidden = !labels.length
     }
+    const driveDrawer = form.closest<HTMLDialogElement>('#test-drive-drawer')
     if (model instanceof HTMLSelectElement) model.addEventListener('change', syncSelection, {signal})
     syncSelection()
     const status = form.querySelector<HTMLElement>('.form-status')!
     const button = form.querySelector<HTMLButtonElement>('button')!
     let retryKey:string|undefined
+    if (driveDrawer && selection) {
+      for (const trigger of document.querySelectorAll<HTMLButtonElement>('button[data-test-drive]')) {
+        trigger.addEventListener('click',()=>{
+          const options = trigger.dataset.testDrive==='vehicle-options'
+            ? document.querySelector<HTMLFormElement>('[data-vehicle-options]')
+            : null
+          const selected = options && new FormData(options)
+          const trim = form.elements.namedItem('trim')
+          const color = form.elements.namedItem('color')
+          if (!(trim instanceof HTMLInputElement) || !(color instanceof HTMLInputElement)) return
+          const nextTrim = String(selected?.get('trim') ?? trigger.dataset.driveTrim ?? '')
+          const nextColor = String(selected?.get('color') ?? trigger.dataset.driveColor ?? '')
+          if (trim.value!==nextTrim || color.value!==nextColor) {
+            retryKey=undefined
+            status.textContent=''
+          }
+          trim.defaultValue=nextTrim
+          color.defaultValue=nextColor
+          trim.value=nextTrim
+          color.value=nextColor
+          selection.textContent=[nextTrim && 'Phiên bản: '+nextTrim,nextColor && 'Màu xe: '+nextColor].filter(Boolean).join(' · ')
+          selection.hidden=!selection.textContent
+          if (!driveDrawer.open) driveDrawer.showModal()
+        },{signal})
+      }
+      driveDrawer.addEventListener('click',event=>{
+        if (event.target!==driveDrawer) return
+        const bounds=driveDrawer.getBoundingClientRect()
+        if (event.clientX<bounds.left || event.clientX>bounds.right ||
+            event.clientY<bounds.top || event.clientY>bounds.bottom) driveDrawer.close()
+      },{signal})
+    }
     form.addEventListener('input',()=>{retryKey=undefined},{signal})
     form.addEventListener('submit', async event=>{
       event.preventDefault()
+      if (button.disabled) return
       button.disabled=true
       status.textContent='Đang gửi yêu cầu…'
       const body=new URLSearchParams()
@@ -109,7 +146,7 @@ export default function BrowserInteractions({path}:{path:string}){
     const original = cover && {src: cover.src, srcset: cover.getAttribute('srcset'), alt: cover.alt}
     const initialPreview = preview?.src
     const drawer = form.closest('dialog')
-    const modelPicker = document.querySelector<HTMLDialogElement>('#chon-mau-xe')
+    const modelPicker = document.querySelector<HTMLDialogElement>('dialog#chon-mau-xe')
     const drawers = new Map([['#chon-phien-ban',drawer],['#chon-mau-xe',modelPicker]])
     const heroColors = document.querySelectorAll<HTMLAnchorElement>('[data-hero-color]')
     const pickerLinks = document.querySelectorAll<HTMLAnchorElement>('a[href="#chon-phien-ban"], a[href="#chon-mau-xe"]')
@@ -163,6 +200,19 @@ export default function BrowserInteractions({path}:{path:string}){
 
 }
 {
+
+  const numbers = document.querySelectorAll<HTMLElement>('[data-rolling-number]')
+  if (numbers.length && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries=>{
+      for (const entry of entries) {
+        if (!entry.isIntersecting || entry.intersectionRatio<.5) continue
+        entry.target.setAttribute('data-rolling-visible','')
+        observer.unobserve(entry.target)
+      }
+    },{threshold:.5})
+    numbers.forEach(number=>observer.observe(number))
+    signal.addEventListener('abort',()=>observer.disconnect(),{once:true})
+  }
 
   const track = (event: MouseEvent) => {
     const target = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-event],a[href^="tel:"]') : null

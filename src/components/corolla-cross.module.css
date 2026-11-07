@@ -92,6 +92,23 @@
 .specs dt { color: #4e5055; }
 .specs dd { margin: 0; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.08; letter-spacing: -.045em; }
 .specs small { font-size: .44em; letter-spacing: normal; }
+.rollingNumber { position: relative; display: inline-block; font-variant-numeric: tabular-nums; }
+.rollingDigits { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .rollingNumber[data-rolling-visible] .rollingValue { opacity: 0; }
+  .rollingNumber[data-rolling-visible] .rollingDigits {
+    display: inline-flex;
+    position: absolute;
+    inset: 0 auto auto 0;
+    height: 1.08em;
+    overflow: hidden;
+  }
+  .rollingWindow { display: block; overflow: hidden; }
+  .rollingReel { display: grid; animation: corolla-roll-digit 1200ms cubic-bezier(.22,1,.36,1) both; }
+}
+@keyframes corolla-roll-digit {
+  to { transform: translateY(var(--digit-offset)); }
+}
 .specs img { width: 100%; height: auto; border-radius: 14px; }
 
 .story { width: min(86%, 1230px); margin: 0 auto; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; }
@@ -108,16 +125,41 @@
 
 .featureSection, .gallery, .specTable { margin: clamp(70px, 11vw, 168px) 0; }
 .featureSection h2, .driving h2, .gallery h2, .specTable h2 { text-align: center; margin: 0 0 22px; }
-.detail :global(.corolla-rail) { padding-top: 8px; }
-.detail :global(.corolla-rail-controls) { display: flex; justify-content: flex-end; gap: 8px; padding: 0 var(--gutter) 12px; }
-.detail :global(.corolla-rail-controls button) { background: transparent; color: inherit; border: 1px solid currentColor; border-radius: 8px; width: 44px; height: 44px; cursor: pointer; }
+.detail :global(.corolla-rail) { --card-width: min(46vw, 660px); padding-top: 8px; }
+.detail :global(.corolla-rail-controls) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 0 var(--gutter) 12px;
+}
+.detail :global(.corolla-rail-arrows) { display: flex; gap: 4px; margin-inline-start: auto; }
+.detail :global(.corolla-rail-arrows button) {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 8px;
+  color: inherit;
+  background: transparent;
+}
+.detail :global(.corolla-rail-arrows button[aria-disabled="true"]) { opacity: .35; cursor: default; }
+.detail :global(.corolla-rail-arrows button:not([aria-disabled="true"]):hover) { background: #8882; }
+.detail :global(.corolla-rail-groups) { display: inline-flex; gap: 4px; padding: 4px; border-radius: 8px; background: #ffffff1c; }
+.detail :global(.corolla-rail-groups button) { padding: 8px 14px; border: 0; border-radius: 5px; color: inherit; background: transparent; }
+.detail :global(.corolla-rail-groups button[aria-pressed="true"]) { background: #ffffff36; }
+.detail :global(.corolla-rail-dots) { display: flex; justify-content: center; gap: 2px; margin-top: 4px; color: #101114; }
+.detail :global(.corolla-rail-dots button) { display: grid; place-items: center; width: 29px; height: 32px; padding: 0; border: 0; background: transparent; color: inherit; }
+.detail :global(.corolla-rail-dots button)::after { content: ""; width: 8px; height: 8px; border-radius: 8px; background: currentColor; opacity: .55; }
+.detail :global(.corolla-rail-dots button[aria-current="true"])::after { width: 21px; opacity: 1; }
 .detail :global(.corolla-rail-track) {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: min(46vw, 660px);
+  position: relative;
+  grid-auto-columns: var(--card-width);
   gap: 16px;
   overflow-x: auto;
-  padding: 4px var(--gutter) 16px;
+  padding: 4px max(var(--gutter), calc(100% - var(--gutter) - var(--card-width))) 8px var(--gutter);
+  scrollbar-width: none;
   scroll-padding-inline: var(--gutter);
   scroll-snap-type: x mandatory;
 }
@@ -137,7 +179,8 @@
   cursor: pointer;
   scroll-snap-align: start;
 }
-.detail :global(.corolla-feature-card img) { object-fit: cover; z-index: -2; }
+.detail :global(.corolla-feature-media) { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+.detail :global(.corolla-feature-card img) { object-fit: cover; }
 .detail :global(.corolla-feature-card)::after {
   content: "";
   position: absolute;
@@ -151,7 +194,11 @@
 .detail :global(.corolla-feature-drawer img) { width: 100%; height: auto; border-radius: 12px; margin-top: 16px; }
 .detail :global(.corolla-feature-drawer h2) { font-size: clamp(1.5rem, 3vw, 2.4rem); }
 
-.driving { padding-bottom: 36px; background: #101114; color: white; }
+.driving { padding-bottom: 36px; background: linear-gradient(#101114 0 calc(100% - clamp(125px, 19vw, 280px)), #fff 0); color: white; }
+.driving :global(.corolla-feature-card) { display: flex; flex-direction: column; align-items: stretch; padding: 0; background: #f1f1f4; color: #101114; }
+.driving :global(.corolla-feature-card)::after { display: none; }
+.driving :global(.corolla-feature-media) { position: relative; width: 100%; aspect-ratio: 16/10; }
+.driving :global(.corolla-feature-copy) { padding: clamp(18px, 3vw, 32px); }
 .drivingBanner { height: clamp(260px, 42vw, 650px); position: relative; }
 .drivingBanner img { object-fit: cover; object-position: center 56%; }
 .drivingBanner::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, #101114, transparent 45%); }
@@ -162,6 +209,11 @@
 .specTable dl > div { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; padding: 16px 0; border-bottom: 1px solid #ddd; }
 .specTable dd { margin: 0; font-weight: 600; }
 .specTable :global(.actions) { flex-wrap: wrap; }
+.trimSpecs { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,270px),1fr)); gap: 16px; margin-top: 24px; }
+.trimSpecs section { min-width: 0; padding: 18px; border-radius: 12px; background: #f1f1f4; }
+.trimSpecs dl { margin: 0; }
+.trimSpecs dl > div { grid-template-columns: 1fr; gap: 4px; padding-block: 8px; }
+.trimSpecs dl > div:last-child { border-bottom: 0; }
 
 @media (max-width: 760px) {
   .detail { --gutter: 7.5vw; }
@@ -169,7 +221,7 @@
   .wordmark { top: 13%; }
   .detail .studio :global(.product-cover) { width: 95vw; }
   .introCopy { width: min(85%, calc(100% - 56px)); }
-  :global(.vehicle-detail):has(> .detail) :global(.vehicle-feedback-trigger) { min-width: 28px; padding: 8px 5px; }
+  :global(.vehicle-detail):has(> .detail) :global(.vehicle-support-trigger) { min-width: 28px; padding: 8px 5px; }
   .versionRail { margin-bottom: 14px; }
   .sectionNav { justify-content: start; gap: 22px; font-size: .875rem; }
   .specs { grid-template-columns: 1fr; text-align: center; }
@@ -180,10 +232,44 @@
   .story img.storySide { width: 76%; height: auto; margin: -8% 0 0 auto; }
   .storyCopy { padding: 0; }
   .story img.storyBottom { width: 86%; }
-  .detail :global(.corolla-rail-track) { grid-auto-columns: 82vw; }
+  .detail :global(.corolla-rail) { --card-width: 85vw; }
+  .featureSection :global(.corolla-rail-arrows) { display: none; }
+  .featureSection :global(.corolla-feature-card) { min-height: clamp(360px, 127vw, 540px); }
 }
 @media (prefers-reduced-motion: no-preference) {
   .detail :global(.corolla-rail-track) { scroll-behavior: smooth; }
+  .detail :global(.corolla-rail-dots button)::after { transition: width 180ms ease, opacity 180ms ease; }
+  @supports (animation-timeline: view()) {
+    .story { view-timeline-name: --corolla-design; }
+    .storySide, .storyBottom {
+      animation: corolla-photo-drift linear both;
+      animation-timeline: --corolla-design;
+      animation-range: entry 30% exit 60%;
+    }
+    .storySide { --photo-offset: clamp(12px, 3vw, 50px); }
+    .storyBottom { --photo-offset: clamp(-80px, -5vw, -18px); }
+    .sectionNav { overflow-y: hidden; }
+    .sectionNav::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      inset-inline: 0;
+      height: 2px;
+      background: #101114;
+      transform-origin: left;
+      animation: corolla-reading-progress linear both;
+      animation-timeline: scroll(root block);
+    }
+  }
   .detail :global(.corolla-feature-card img) { transition: transform 360ms ease; }
   .detail :global(.corolla-feature-card:is(:hover,:focus-visible) img) { transform: scale(1.055); }
+}
+
+@keyframes corolla-photo-drift {
+  from { transform: translateY(var(--photo-offset)); }
+  to { transform: translateY(calc(-1 * var(--photo-offset))); }
+}
+@keyframes corolla-reading-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }

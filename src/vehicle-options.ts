@@ -4,6 +4,11 @@ export const corollaDetailPath = '/toyota/corolla-cross/'
 export const corollaConfigPath = '/toyota/corolla-cross/cau-hinh/'
 export const corollaTrims = ['1.8V', 'HEV'] as const
 
+export const corollaTrimSpecs = {
+  '1.8V': {id:'thong-so-18v',powertrain:'Động cơ xăng 1.8 L',transmission:'Tự động vô cấp (CVT)'},
+  HEV: {id:'thong-so-hev',powertrain:'Động cơ xăng 1.8 L kết hợp mô-tơ điện',transmission:'Vô cấp điện tử (e-CVT)'},
+} as const
+
 export function vehicleColors(vehicle:Entry) {
   const colors = new Map<string, {photo:string; price:number}>()
   for (const variant of vehicle.variants ?? []) {

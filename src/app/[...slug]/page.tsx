@@ -7,8 +7,9 @@ import Card from '../../components/Card'
 import TechnicalDetails from '../../components/TechnicalDetails'
 import VehicleGallery from '../../components/VehicleGallery'
 import VehicleOptions from '../../components/VehicleOptions'
-import VehicleFeedback from '../../components/VehicleFeedback'
+import VehicleSupport from '../../components/VehicleSupport'
 import LeadForm from '../../components/LeadForm'
+import TestDriveDrawer from '../../components/TestDriveDrawer'
 import Image from 'next/image'
 import {entries,cars,services,collections,phone,address,directions,hours,redirects,articlesInArchive,articlesPerPage,pagination,pendingTrimVerification,isUsedVehicle,noindexPaths} from '../../catalog'
 import type {Entry} from '../../catalog'
@@ -103,10 +104,31 @@ const article=entry?.kind==='post' ? {'@type':'Article',headline:title,descripti
 const crumbs=product?[['Xe Toyota','/xe-toyota-moi/']]:article?[['Tin tức','/tin-tuc/']]:servicePage?[['Dịch vụ','/dich-vu/']]:[]
 const relatedPosts=article ? entries.filter(item=>item.kind==='post' && item.slug!==path && entry?.links?.includes(item.slug)).slice(0,4) : []
 const archived=basePath==='/uu-dai/' || (article && /khuyen-mai|uu-dai/.test(path))
+if (formIntent === 'test_drive') {
+  return <Layout title={title} path={path} noindex={noindexPaths.has(path)}>
+    <div className="test-drive-page">
+      <h1>Đăng ký lái thử</h1>
+      <LeadForm intent="test_drive" />
+    </div>
+  </Layout>
+}
+const variantDialog = model && <dialog id="chon-phien-ban" className={isFj ? "technical-drawer vehicle-variant-drawer color-drawer" : "technical-drawer vehicle-variant-drawer"} aria-labelledby="vehicle-variant-title">
+    <div className="technical-heading vehicle-variant-heading">
+      <div>
+        <p className="vehicle-variant-wordmark">{title.replace(/^Toyota /i,'')}</p>
+        <h2 id="vehicle-variant-title">{isFj ? 'Màu ngoại thất' : 'Phiên bản và màu xe'}</h2>
+      </div>
+      <form method="dialog"><button className="vehicle-variant-close" type="submit" aria-label="Đóng" autoFocus>×</button></form>
+    </div>
+    {pendingTrims && <p className="vehicle-variant-note muted">Giá và thông số theo phiên bản đang được đối chiếu. Liên hệ đại lý để xác nhận phiên bản, màu và giá.</p>}
+    <VehicleOptions vehicle={model} showColorPrices={isFj && showSource} previewSrc={cover} />
+  </dialog>
 if (model && path === corollaDetailPath) {
   return <Layout title={title} path={path} crumbs={crumbs} noindex={noindexPaths.has(path)}>
     <CorollaCrossDetail model={model} />
-    <VehicleFeedback title={title} />
+    {variantDialog}
+    <TestDriveDrawer model={model.title} />
+    <VehicleSupport address={address} hours={hours} />
   </Layout>
 }
 const vehicleDialogs = model && <>
@@ -128,18 +150,9 @@ const vehicleDialogs = model && <>
       ))}
     </div>
   </dialog>
-  <dialog id="chon-phien-ban" className={isFj ? "technical-drawer vehicle-variant-drawer color-drawer" : "technical-drawer vehicle-variant-drawer"} aria-labelledby="vehicle-variant-title">
-    <div className="technical-heading vehicle-variant-heading">
-      <div>
-        <p className="vehicle-variant-wordmark">{title.replace(/^Toyota /i,'')}</p>
-        <h2 id="vehicle-variant-title">{isFj ? 'Màu ngoại thất' : 'Phiên bản và màu xe'}</h2>
-      </div>
-      <form method="dialog"><button className="vehicle-variant-close" type="submit" aria-label="Đóng" autoFocus>×</button></form>
-    </div>
-    {pendingTrims && <p className="vehicle-variant-note muted">Giá và thông số theo phiên bản đang được đối chiếu. Liên hệ đại lý để xác nhận phiên bản, màu và giá.</p>}
-    <VehicleOptions vehicle={model} showColorPrices={isFj && showSource} previewSrc={cover} />
-  </dialog>
-  <VehicleFeedback title={title} />
+  {variantDialog}
+  <TestDriveDrawer model={model.title} />
+  <VehicleSupport address={address} hours={hours} />
 </>
 return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noindex={noindexPaths.has(path)}>
   {model ? <><section className={isFj ? "product-intro model-stage fj-stage" : "product-intro model-stage"} id="tong-quan">
@@ -159,7 +172,7 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
     <div className="actions model-stage-actions">
       <a className="btn" href="#chon-mau-xe" aria-haspopup="dialog">Chọn mẫu xe</a>
       <a className="btn outline" href="#chon-phien-ban" aria-haspopup="dialog">Chọn cấu hình</a>
-      <button className="btn outline" type="submit" form="vehicle-options" formAction="/dang-ky-lai-thu/" data-event="cta_click">Đăng ký lái thử</button>
+      <button className="btn outline" type="button" data-test-drive="vehicle-options" aria-haspopup="dialog" aria-controls="test-drive-drawer" data-event="cta_click">Đăng ký lái thử</button>
     </div>
     </div>
   </section>
@@ -276,7 +289,7 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
     <p className="eyebrow">TOYOTA THÁI HÒA TỪ LIÊM</p>
     <h2>Trải nghiệm {title.replace(/^Toyota /i,'')}.</h2>
     <p>Chọn lịch lái thử hoặc trao đổi với đại lý về chiếc xe bạn quan tâm.</p>
-    <div className="actions"><button className="btn" type="submit" form="vehicle-options" formAction="/dang-ky-lai-thu/">Đăng ký lái thử</button><a className="btn outline" href="/contact/">Liên hệ đại lý ↗</a></div>
+    <div className="actions"><button className="btn" type="button" data-test-drive="vehicle-options" aria-haspopup="dialog" aria-controls="test-drive-drawer">Đăng ký lái thử</button><a className="btn outline" href="/contact/">Liên hệ đại lý ↗</a></div>
   </section>}
 </Layout>)
 }

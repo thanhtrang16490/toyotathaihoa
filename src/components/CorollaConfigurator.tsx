@@ -5,7 +5,7 @@ import Link from 'next/link'
 import {useEffect,useRef,useState,type CSSProperties} from 'react'
 import logo from '../assets/logo.webp'
 import coastal from '../assets/generated/corolla-cross-coastal-hero-v2.webp'
-import {corollaDetailPath,corollaTrims} from '../vehicle-options'
+import {corollaDetailPath,corollaTrimSpecs,corollaTrims} from '../vehicle-options'
 import styles from './corolla-configurator.module.css'
 
 const scenes = [
@@ -41,7 +41,11 @@ export default function CorollaConfigurator({model,initialTrim,colors}:Props) {
   const alt = showPaint ? model+' · '+paint.name : model+' · '+scene.name
   const selection = new URLSearchParams({model,trim,...(color ? {color} : {})})
   const quote = '/nhan-bao-gia/?'+selection
-  const drive = '/dang-ky-lai-thu/?'+selection
+  const trimSpecs = corollaTrimSpecs[trim]
+  const specsHref = corollaDetailPath+'#'+trimSpecs.id
+  const driveButton = <button className={styles.secondary} type="button" disabled={!ready}
+    data-test-drive="" data-drive-trim={trim} data-drive-color={color}
+    aria-haspopup="dialog" aria-controls="test-drive-drawer">Đăng ký lái thử</button>
 
   function move(direction:number) {
     setView((view+direction+scenes.length)%scenes.length)
@@ -61,10 +65,10 @@ export default function CorollaConfigurator({model,initialTrim,colors}:Props) {
         <Link className={styles.primary} href={quote}>Nhận báo giá</Link>
       </div>
     </div>
-    <main className={styles.layout}>
+    <main id="main" className={styles.layout}>
       <section className={styles.intro}>
         <h1>Corolla Cross <small>{trim}</small></h1>
-        <Link href={corollaDetailPath+'#chi-tiet-xe'}>Thông số kỹ thuật và trang bị</Link>
+        <Link href={specsHref}>Thông số kỹ thuật</Link>
       </section>
       <section className={styles.viewer} aria-label="Xem trước Corolla Cross">
         <figure className={styles.frame} data-studio={showPaint}>
@@ -111,11 +115,11 @@ export default function CorollaConfigurator({model,initialTrim,colors}:Props) {
           </fieldset>
         </details>
         <details>
-          <summary>Trang bị theo phiên bản</summary>
-          <p className={styles.note}>Xem danh sách trang bị của phiên bản {trim} tại Toyota Việt Nam.</p>
-          <a href={trim==='HEV' ? 'https://www.toyota.com.vn/corolla-cross-1-8hev' : 'https://www.toyota.com.vn/corolla-cross-1-8v'}>Xem trang bị ↗</a>
+          <summary>Thông số theo phiên bản</summary>
+          <p className={styles.note}>{trimSpecs.powertrain} · {trimSpecs.transmission}</p>
+          <Link href={specsHref}>Xem thông số {trim}</Link>
         </details>
-        <Link href={drive} className={styles.secondary}>Đăng ký lái thử</Link>
+        {driveButton}
       </div>
     </main>
     <dialog ref={summary} className={styles.dialog} aria-labelledby="config-summary">
@@ -123,7 +127,7 @@ export default function CorollaConfigurator({model,initialTrim,colors}:Props) {
       <h2 id="config-summary">Cấu hình của bạn</h2>
       <dl><div><dt>Mẫu xe</dt><dd>{model}</dd></div><div><dt>Phiên bản</dt><dd>{trim}</dd></div><div><dt>Màu ngoại thất</dt><dd>{color || 'Chưa chọn'}</dd></div></dl>
       <p className={styles.note}>Đại lý sẽ xác nhận giá và tình trạng xe theo cấu hình bạn chọn.</p>
-      <div className={styles.summaryActions}><Link href={quote} className={styles.primary}>Nhận báo giá</Link><Link href={drive} className={styles.secondary}>Đăng ký lái thử</Link></div>
+      <div className={styles.summaryActions}><Link href={quote} className={styles.primary}>Nhận báo giá</Link>{driveButton}</div>
     </dialog>
     <dialog ref={zoom} className={styles.zoom} aria-label="Ảnh xe phóng to" onClose={()=>setZoomed(false)}>
       <form method="dialog"><button type="submit" aria-label="Đóng">×</button></form>

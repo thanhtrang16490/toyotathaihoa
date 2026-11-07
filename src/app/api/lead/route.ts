@@ -1,4 +1,5 @@
 import {randomUUID} from 'node:crypto'
+import {testDriveTimes,todayInVietnam} from '../../../test-drive'
 
 const reply = (status:number, message:string) => new Response(JSON.stringify({message}),{
   status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}
@@ -38,6 +39,31 @@ export async function POST(request: Request) {
   if(trim.length > 100 || color.length > 100 || form.get('website') || name.length<2 || name.length>100 || !/^(?:0|\+84)[235789]\d{8,9}$/.test(phone) || !intents.has(intent) || model.length>100 || form.get('consent')!=='yes'){
     return reply(422,'Kiểm tra họ tên, số điện thoại và xác nhận đồng ý trước khi gửi.')
   }
+  const testDriveDetails:Record<string,string> = {}
+  if (intent==='test_drive') {
+    const date = form.get('preferred_date') ?? ''
+    const time = form.get('preferred_time') ?? ''
+    const note = (form.get('test_drive_note') ?? '').trim()
+    const email = (form.get('email') ?? '').trim()
+    if (date) {
+      const parsed = new Date(date+'T00:00:00Z')
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(parsed.getTime()) ||
+        parsed.toISOString().slice(0,10)!==date || date<todayInVietnam()) {
+        return reply(422,'Vui lòng chọn ngày lái thử từ hôm nay trở đi.')
+      }
+      testDriveDetails.preferred_date = date
+    }
+    if (time) {
+      if (!testDriveTimes.includes(time)) return reply(422,'Vui lòng chọn giờ lái thử trong danh sách.')
+      testDriveDetails.preferred_time = time
+    }
+    if (note.length>200) return reply(422,'Nội dung muốn trải nghiệm tối đa 200 ký tự.')
+    if (note) testDriveDetails.test_drive_note = note
+    if (email) {
+      if (email.length>120 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return reply(422,'Vui lòng kiểm tra địa chỉ email.')
+      testDriveDetails.email = email
+    }
+  }
   const destination=process.env.LEAD_WEBHOOK_URL
   if(!destination?.startsWith('https://')) return reply(503,'Kênh tiếp nhận trực tuyến chưa được kết nối. Vui lòng gọi hotline để được hỗ trợ.')
   try{
@@ -47,7 +73,7 @@ export async function POST(request: Request) {
     const response=await fetch(destination,{
       method:'POST',
       headers:{'Content-Type':'application/json','Idempotency-Key':key,...(token?{Authorization:'Bearer '+token}:{})},
-      body:JSON.stringify({name,phone,intent,model,...(model && intent !== 'service' && trim ? {trim} : {}),...(model && intent !== 'service' && color ? {color} : {}),received_at:new Date().toISOString()}),
+      body:JSON.stringify({name,phone,intent,model,...(model && intent !== 'service' && trim ? {trim} : {}),...(model && intent !== 'service' && color ? {color} : {}),...testDriveDetails,received_at:new Date().toISOString()}),
       redirect:'error',
       signal:AbortSignal.timeout(8000)
     })
