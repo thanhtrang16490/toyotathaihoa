@@ -1,0 +1,238 @@
+/*
+Theme Name: Sofass
+Theme URI: https://mygoalthemes.com/demo/sofass
+Author: GoalTheme
+Author URI: http://mygoalthemes.com/
+Description: Sofass is clean theme, it's used Goalthemes Framework.
+Version: 1.2.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: custom-background, custom-colors, custom-header, custom-menu, editor-style, featured-images, microformats, post-formats, rtl-language-support, sticky-post, threaded-comments, translation-ready
+Text Domain: sofass
+Tested up to: 5.4
+Requires PHP: 7.0
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+*/
+body.single-product #main-container{
+	max-width: 1300px;
+}
+bdi,
+.price{
+	font-family: "Manrope", Sans-serif;
+}
+.woocommerce-variation-price{
+	padding-top: 10px;
+}
+.single-product .summary > .woocommerce-product-details__short-description{
+	padding-top: 10px
+}
+.product-block.grid .name a{
+	font-size: 16px;
+}
+body .widget-products-tabs .widget-content .nav-tabs a{
+	padding: 10px 0;
+}
+.goal-search-form-inner form .btn-search{
+	margin-right: 2px;
+}
+.products.row.list-product-archive.products-grid .title-wrapper .clearfix{
+	margin-top: 40px;
+}
+.goal-search-form-inner div.twitter-typeahead{
+	position: relative;
+}
+.single-product .summary .variations_form{
+	position: relative;
+    padding-top: 24px;
+}
+.single-product .eapps-form-header-title{
+    font-size: 22px!important;
+    line-height: 1.3 !important;
+	color: #f10000;
+    text-align: center;
+    text-transform: uppercase;
+}
+.single-product .elfsight-widget-contact-form{
+	margin-top: 40px;
+}
+.single-product .eapps-form-element-checkbox-options{
+	margin-top: 0;
+}
+.single-product .eapps-form-header{
+	justify-content: center;
+}
+.single-product .summary .variations_form::before{
+	content: 'Mầu xe'!important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	color: #000;
+	font-weight: 500;
+}
+.single-product .eapps-form-fieldset{
+	margin-bottom: 8px;
+}
+.single-product .woocommerce-tabs > .tab-content{
+	margin-top: 0;
+}
+.single-product .eapps-form-element-label{
+	display: none;
+}
+.single-product .eapps-form-element-wrapper {
+    margin-bottom: 11px !important;
+}
+.single-product .eapps-form-element-checkbox-options-item-caption{
+	color: #000;
+}
+.single-product .eapps-form-element{
+	color: #000;
+	border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	-webkit-border-radius: 0px !important;
+}
+.single-product .eapps-form-actions-button.eapps-form-button{
+	text-align: center;
+}
+.woocommerce div.product form.cart .reset_variations{
+	font-size: 13px;
+	line-height: 28px;
+    padding-left: 10px;
+}
+
+.product-block.grid .product-cat{
+	font-size: 12px;
+}
+.product-block.grid .title-wrapper{
+	margin: 15px 0 20px 10px;
+}
+img{
+    max-width: 100%;
+    height:auto;
+ }
+.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+.aligncenter,
+div.aligncenter {
+    clear: both;
+    display: block;
+    margin: 5px auto 5px auto;
+}
+
+.alignright {
+    float:right;
+    margin: 5px 0 32px 2em;
+}
+.wp-block-image .alignright{
+    margin-left: 2em;
+}
+.alignleft {
+    float: left;
+    margin: 5px 2em 32px 0;
+}
+.wp-block-image .alignleft{
+    margin-right: 2em;
+}
+a img.alignright {
+    float: right;
+    margin: 5px 0 20px 20px;
+}
+
+a img.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+a img.alignleft {
+    float: left;
+    margin: 5px 20px 20px 0;
+}
+
+a img.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.wp-caption {
+    background: #fff;
+    max-width: 96%; /* Image does not overflow the content area */
+    padding: 5px 3px 10px;
+    text-align: center;
+}
+
+.wp-caption.alignnone {
+    margin: 5px 20px 20px 0;
+}
+
+.wp-caption.alignleft {
+    margin: 5px 20px 20px 0;
+}
+
+.wp-caption.alignright {
+    margin: 5px 0 20px 20px;
+}
+
+.wp-caption img {
+    border: 0 none;
+    height: auto;
+    margin: 0;
+    max-width: 98.5%;
+    padding: 0;
+    width: auto;
+}
+
+.wp-caption p.wp-caption-text {
+    font-size: 11px;
+    line-height: 17px;
+    margin: 0;
+    padding: 0 4px 5px;
+}
+
+/* Text meant only for screen readers. */
+.screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+
+.screen-reader-text:focus {
+    background-color: #f1f1f1;
+    border-radius: 3px;
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+    clip: auto !important;
+    color: #21759b;
+    display: block;
+    font-size: 14px;
+    font-size: 0.875rem;
+    font-weight: bold;
+    height: auto;
+    left: 5px;
+    line-height: normal;
+    padding: 15px 23px 14px;
+    text-decoration: none;
+    top: 5px;
+    width: auto;
+    z-index: 100000; /* Above WP toolbar. */
+}
+.gallery-caption {
+    box-sizing: border-box;
+}
+.bypostauthor{
+    box-sizing: border-box;
+}
+.wp-block-pullquote{
+    border:none;
+}
+.wp-block-categories-list.aligncenter{
+    text-align: center;
+}
+
+rs-module-wrap{
+    z-index: 0;
+}
+
+

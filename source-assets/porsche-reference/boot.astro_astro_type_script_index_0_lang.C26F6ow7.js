@@ -1,0 +1,1 @@
+import{r as e}from"./timing.BAZFLgsq.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk";var t=async()=>{await e({timeout:2e3}),document.querySelectorAll(`[data-src]:not([data-src=""])`).forEach(e=>{e.dataset.src&&(e.src=e.dataset.src,e.removeAttribute(`data-src`))})},n=()=>{t()};document.readyState===`loading`?document.addEventListener(`DOMContentLoaded`,n):n();

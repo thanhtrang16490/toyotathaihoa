@@ -1,0 +1,194 @@
+{
+  "page": "https://www.porsche.com/pap/_vietnam_/models/718/718-models/718-boxster/",
+  "assets": [
+    {
+      "url": "https://www.porsche.com/all/usercentrics/udg-uc-sdk.min.js",
+      "file": "udg-uc-sdk.min.js",
+      "status": 200,
+      "mime": "text/javascript; charset=utf-8",
+      "bytes": 819
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/boot.astro_astro_type_script_index_0_lang.C26F6ow7.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "boot.astro_astro_type_script_index_0_lang.C26F6ow7.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 354
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/StoryblokComponent.DQ3-QSLw.css?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "StoryblokComponent.DQ3-QSLw.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 152549
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/default.DVn6CYDZ.css?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "default.DVn6CYDZ.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 20317
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/EngineSoundAnimation.DDzsWf2V.css?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "EngineSoundAnimation.DDzsWf2V.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 5833
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/MosaicEditorialVertical.CNk3gK86.css?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "MosaicEditorialVertical.CNk3gK86.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 4556
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/MosaicEditorialHorizontal.An3vekwl.css?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "MosaicEditorialHorizontal.An3vekwl.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 4563
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/CoreVideoPlayer.DY29vCiv.css?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "CoreVideoPlayer.DY29vCiv.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 4942
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/IntraPageNavigation.BZLkiPGG.css?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "IntraPageNavigation.BZLkiPGG.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 9549
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/Header.astro_astro_type_script_index_0_lang.HNnGZOdW.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "Header.astro_astro_type_script_index_0_lang.HNnGZOdW.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 229620
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/ModelIntro.CvcJoTfx.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "ModelIntro.CvcJoTfx.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 9860
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/client.L2zEbBQD.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "client.L2zEbBQD.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 1120
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/ModelSelect.DLgd6s0m.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "ModelSelect.DLgd6s0m.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 10422
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/ModelTechnicalHighlights.BflCKMDj.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "ModelTechnicalHighlights.BflCKMDj.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 6327
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/FeedbackForm.YQo5hhrl.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "FeedbackForm.YQo5hhrl.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 11114
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/TechnicalDataLayer.DxTtxLNw.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "TechnicalDataLayer.DxTtxLNw.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 16843
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/IntraPageNavigation.Bq7tAzZH.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "IntraPageNavigation.Bq7tAzZH.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 14336
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/MosaicEditorial.Dsq8hx-S.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "MosaicEditorial.Dsq8hx-S.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 5687
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/CardSlider.BTR9WDRu.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "CardSlider.BTR9WDRu.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 2315
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/VideoContent.BSEIeA6N.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "VideoContent.BSEIeA6N.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 1786
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/TopicExplorer.B9vbQ0Nw.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "TopicExplorer.B9vbQ0Nw.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 9504
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/EngineSound.PVvozAdc.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "EngineSound.PVvozAdc.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 5681
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/CrossLinkTeaser.BiZ3m3ie.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "CrossLinkTeaser.BiZ3m3ie.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 5230
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/SoftCompare.D6keTjIL.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "SoftCompare.D6keTjIL.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 7333
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/CompareBar.BpjBMTq8.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "CompareBar.BpjBMTq8.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 5403
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/footer.astro_astro_type_script_index_0_lang.DDTTf0Ek.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "footer.astro_astro_type_script_index_0_lang.DDTTf0Ek.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 396
+    },
+    {
+      "url": "https://www.porsche.com/pcom-model-pages-isr/_astro/default.astro_astro_type_script_index_0_lang.D6bg-AUp.js?dpl=dpl_6mwjopPbGhxH8Nzyk51CLheR2fdk",
+      "file": "default.astro_astro_type_script_index_0_lang.D6bg-AUp.js",
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 1637
+    }
+  ]
+}

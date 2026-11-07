@@ -1,0 +1,2913 @@
+[
+  {
+    "url": "https://toyotathaihoatuliem.com.vn/",
+    "interactions": [],
+    "requests": [
+      [
+        "https://toyotathaihoatuliem.com.vn/",
+        {
+          "status": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/ays-popup-box/public/css/animate.css?ver=5.1.5",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/uu-dai-dac-biet-toyota-camry-2025.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/goal-lookbook/assets/style.css?ver=7.1.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/goal-salespopup/assets/style.css?ver=1.0.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/css/woocommerce-layout.css?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/css/woocommerce.css?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/button-contact-vr/legacy/css/style.css?ver=1",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/css/brands.css?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/css/select2.css?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/elementor/css/post-348.css?ver=1793214305",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/widget-divider.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://fonts.googleapis.com/css?family=Akaya+Telivigala:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&display=swap&subset=vietnamese",
+        {
+          "status": 200,
+          "type": "text/css; charset=utf-8"
+        }
+      ],
+      [
+        "https://fonts.googleapis.com/css?family=Manrope:300,300i,400,400i,500,600,700,800&subset=latin%2Clatin-ext",
+        {
+          "status": 200,
+          "type": "text/css; charset=utf-8"
+        }
+      ],
+      [
+        "https://fonts.googleapis.com/css?family=Mulish:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&display=swap&subset=vietnamese",
+        {
+          "status": 200,
+          "type": "text/css; charset=utf-8"
+        }
+      ],
+      [
+        "https://fonts.googleapis.com/css?family=Manrope:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&display=swap&subset=vietnamese",
+        {
+          "status": 200,
+          "type": "text/css; charset=utf-8"
+        }
+      ],
+      [
+        "https://fonts.googleapis.com/css?family=ABeeZee:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&display=swap&subset=vietnamese",
+        {
+          "status": 200,
+          "type": "text/css; charset=utf-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/animations/styles/e-animation-grow.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/glider-elementor/css/glider-elementor.min.css?ver=2.0.5",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/glider-elementor/src/Merkulove/Unity/assets/css/elementor-admin.min.css?ver=2.0.5",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/elementor/css/post-11794.css?ver=1793214392",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/wc-quantity-increment.css?ver=7.1.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/sass/woocommerce.css?ver=1.2.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.16.1",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/happyaddons/css/ha-11794.css?ver=3.16.1.1763997344",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/all-awesome.css?ver=5.11.2",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/font-icomoon.css?ver=1.0.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/themify-icons.css?ver=1.0.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/flaticon.css?ver=1.0.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/eleganticon-style.css?ver=1.0.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/animate.css?ver=3.6.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/sass/bootstrap.css?ver=3.2.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/happy-elementor-addons/assets/vendor/slick/slick.css?ver=3.16.1",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/happy-elementor-addons/assets/vendor/magnific-popup/magnific-popup.css?ver=3.16.1",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/perfect-scrollbar.css?ver=0.6.12",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/sliding-menu.min.css?ver=0.3.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/woocommerce-smallscreen.css?ver=7.1.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/sass/template.css?ver=1.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/style.css?ver=1.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/ays-popup-box/public/js/ays-pb-public.js?ver=5.1.5",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/js/wp-util.min.js?ver=7.1.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2021/02/LOGO-THTL-2025-small-600x196.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2021/02/LOGO-THTL-2025-small.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/revslider/public/assets/assets/dummy.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/font-awesome/js/v4-shims.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/cookie-law-info/lite/frontend/js/script.min.js?ver=3.5.8",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/js/underscore.min.js?ver=1.13.8",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/happy-elementor-addons/assets/vendor/dom-purify/purify.min.js?ver=3.1.6",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/khach-hang-toyota-thai-hoa-tu-liem-5.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/js/jquery/jquery.min.js?ver=3.7.1",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/revslider/public/assets/fonts/revicons/revicons.woff?5510888",
+        {
+          "status": 200,
+          "type": "font/woff"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/client/blocks/wc-blocks.css?ver=wc-9.6.3",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://fonts.googleapis.com/css?family=Roboto:400%7CMulish:800%2C700%2C400%2C500&display=swap",
+        {
+          "status": 200,
+          "type": "text/css; charset=utf-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/elementor/css/post-11341.css?ver=1793214305",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/elementor/css/post-80.css?ver=1793214305",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/happyaddons/css/ha-80.css?ver=3.16.1.1763997344",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/elementor/css/post-5730.css?ver=1793214305",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/conditionals/apple-webkit.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/ays-popup-box/public/css/ays-pb-public-min.css?ver=5.1.5",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/revslider/public/assets/css/rs6.css?ver=6.6.11",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/typeahead.bundle.min.js",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/bootstrap.min.js?ver=20150330",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/slick.min.js?ver=1.8.0",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/countdown.js?ver=20150315",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/khach-hang-toyota-thai-hoa-tu-liem-1.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/06/mua-xe-da-qua-su-dung-toyota-thai-hoa-tu-liem-2025.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/fonts/themify.woff",
+        {
+          "status": 200,
+          "type": "font/woff"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/fonts/fa-solid-900.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/fonts/icomoon.ttf?me5ivc",
+        {
+          "status": 200,
+          "type": "font/ttf"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/fonts/fa-brands-400.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/06/mua-xe-moi-toyota-thai-hoa-tu-liem-2025.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/11/trai-nghiem-toyota-camry-hev-nen-2.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/jquery.magnific-popup.min.js?ver=1.2.0",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/fonts/ElegantIcons.woff",
+        {
+          "status": 200,
+          "type": "font/woff"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/jquery.unveil.js?ver=1.2.0",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/perfect-scrollbar.jquery.min.js?ver=0.6.12",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/sliding-menu.min.js?ver=0.3.0",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/functions.js?ver=20150330",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://fonts.gstatic.com/s/manrope/v23/xn7gYHE41ni1AdIRggexSvfedN4.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/goal-salespopup/assets/script.js?ver=1.0.0",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/wc-quantity-increment.js?ver=20150330",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/woocommerce.js?ver=20150330",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/sourcebuster/sourcebuster.min.js?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/frontend/order-attribution.min.js?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/happy-elementor-addons/assets/js/extension-reading-progress-bar.min.js?ver=3.16.1",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/js/jquery/ui/core.min.js?ver=1.14.2",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://fonts.gstatic.com/s/mulish/v18/1Ptvg83HX_SGhgqk3wotYKNnBQ.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://fonts.gstatic.com/s/manrope/v23/xn7gYHE41ni1AdIRggmxSvfedN62Zw.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/khach-hang-toyota-thai-hoa-tu-liem-4.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/khach-hang-toyota-thai-hoa-tu-liem-3.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/khach-hang-toyota-thai-hoa-tu-liem-2.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/button-contact-vr/legacy/img/showroom4.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/button-contact-vr/legacy/img/zalo.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/button-contact-vr/legacy/img/phone.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2021/08/toyota-thai-hoa-tu-liem-da-thong-bao-bo-cong-thuong.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2021/03/LOGO-THTL-2025-small-white-600x196.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/11/toyota-land-cruiser-prado-2025-trai-nghiem.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/07/gioi-thieu-toyota-thai-hoa-tu-liem-2025.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/xuong-dich-vu-toyota-thai-hoa-tu-liem-web.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/glider-elementor/js/glider-elementor.min.js?ver=2.0.5",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/khach-hang-danh-gia-toyota-thai-hoa-tu-liem.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/06/dv-bao-duong-sua-chua-toyota-thai-hoa-tu-liem-2025.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/06/phu-tung-phu-kien-chinh-hang-toyota-thai-hoa-tu-liem-2025.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/06/xuong-dich-vu-bao-hiem-toyota-thai-hoa-tu-liem-2025.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/happy-elementor-addons/assets/js/happy-addons.min.js?ver=3.16.1",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/swiper.min.js?ver=8.4.5",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elfsight-contact-form-cc/assets/elfsight-contact-form.js?ver=2.3.1",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.7.0-wc.9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4-wc.9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/selectWoo/selectWoo.full.min.js?ver=1.0.9-wc.9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart-variation.min.js?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/revslider/public/assets/js/rbtools.min.js?ver=6.6.11",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/revslider/public/assets/js/rs6.min.js?ver=6.6.11",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://fonts.gstatic.com/s/mulish/v18/1Ptvg83HX_SGhgqk0QotYKNnBcif.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://fonts.gstatic.com/s/manrope/v23/xn7gYHE41ni1AdIRggixSvfedN62Zw.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://fonts.gstatic.com/s/mulish/v18/1Ptvg83HX_SGhgqk0AotYKNnBcif.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=AW-11019636565",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtm.js?id=GTM-TDCZCQPT",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=G-YK03XECBK1",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=G-H6KS4LNL9G",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtm.js?id=GTM-M8VGT73Q",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://connect.facebook.net/en_US/fbevents.js",
+        {
+          "status": 200,
+          "type": "application/x-javascript; charset=utf-8"
+        }
+      ],
+      [
+        "blob:https://toyotathaihoatuliem.com.vn/24757ce5-381c-4caf-9ef8-4fdc5561031d",
+        {
+          "status": 200,
+          "type": "text/javascript"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/cookie-law-info/lite/frontend/images/revisit.svg",
+        {
+          "status": 200,
+          "type": "image/svg+xml"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/cookie-law-info/lite/frontend/images/close.svg",
+        {
+          "status": 200,
+          "type": "image/svg+xml"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/conditionals/dialog.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/conditionals/lightbox.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2026/07/land-cruiser-fj-0-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2026/07/toyota-alphard-2026-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/04/toyota-land-prado-2025-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/08/toyota-avanza-2024-toyota-thai-hoa-tu-liem-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/08/toyota-RAIZE-2024-toyota-thai-hoa-tu-liem-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/08/toyota-fortuner-2024-toyota-thai-hoa-tu-liem-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/08/toyota-innova-cross-2024-toyota-thai-hoa-tu-liem-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/toyota-wigo-2024-toyota-thai-hoa-tu-liem-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/yaris1-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/hilux-2026-thumbnail-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/toyota-veloz-cross-2024-toyota-thai-hoa-tu-liem-viet-nam-thumbnail-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2021/09/toyota-corolla-cross-2024-toyota-thai-hoa-tu-liem-thumbnail-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/dialog/dialog.min.js?ver=4.9.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/chunks/lightbox-lightbox.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/share-link/share-link.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/chunks/section-stretched-section.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/chunks/background-slideshow.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/chunks/background-video.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api.js?onload=EappsContactFormRecaptchaReady&render=explicit",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=utf-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/toyota-vios-2024-toyota-thai-hoa-tu-liem-viet-nam-thumb-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/toyota-camry-2025-sideview-toyota-thai-hoa-tu-liem-300x300.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2026/06/banner-uu-dai-thang-6-2026.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/chunks/text-editor.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/chunks/image-carousel.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/08/dich-vu-sua-chua-bao-duong-toyota-thai-hoa-tu-liem-1111.webp",
+        {
+          "status": 200,
+          "type": "image/webp"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/banner-toyota-hilux-2024-toyota-website-thai-hoa-tu-liem-1.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/08/dich-vu-sua-chua-bao-duong-toyota-thai-hoa-tu-liem.webp",
+        {
+          "status": 200,
+          "type": "image/webp"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/js/wp-emoji-release.min.js?ver=7.1.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/08/dai-ly-toyota-thai-hoa-tu-liem-11.webp",
+        {
+          "status": 200,
+          "type": "image/webp"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/08/cafe-cong-tu-phuc-vu.webp",
+        {
+          "status": 200,
+          "type": "image/webp"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2026/03/website-banner-toyota-dong-hanh-cung-ky-nguyen-moi-cua-viet-nam-min.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/08/cafe-cong-tu-phuc-vu-1.webp",
+        {
+          "status": 200,
+          "type": "image/webp"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/08/phuc-vu-khach-hang-toyota.webp",
+        {
+          "status": 200,
+          "type": "image/webp"
+        }
+      ],
+      [
+        "https://www.google.com/ccm/collect?rcb=14&frm=0&apvc=1&auid=106959908.1793698997&dt=Toyota%20Th%C3%A1i%20H%C3%B2a%20T%E1%BB%AB%20Li%C3%AAm%20-%20%C4%90%E1%BA%A1i%20l%C3%BD%20Ch%C3%ADnh%20H%C3%A3ng%20Toyota%20Vi%E1%BB%87t%20Nam&tid=AW-11019636565&en=page_view&dl=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2F&scrsrc=www.googletagmanager.com&rnd=1964637506.1793698997&navt=n&npa=0&gtm=45be6au1v9196704142za208zd9196704142xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938469~117628655~117776795~118897920~118897930~120213116~120385422~120469145~120469153~121191155~121246026~121246034~123691370~123814185&tft=1793698997478&tfd=1497&_gsid=dhr_g2dS1_1jRz3A_Y1PxVhk_EO-7sNDWg&tids=AW-11019636565&fmt=8",
+        {
+          "status": 200
+        }
+      ],
+      [
+        "https://www.google.com/rmkt/collect/11019636565/?random=1793698997464&cv=11&fst=1793698997464&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be6au1v9196704142za208zd9196704142xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938469~117628655~117776795~118897920~118897930~120213116~120385422~120469145~120469153~121191155~121246026~121246034~123691370~123814185&u_w=390&u_h=844&url=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2F&rcb=14&frm=0&tiba=Toyota%20Th%C3%A1i%20H%C3%B2a%20T%E1%BB%AB%20Li%C3%AAm%20-%20%C4%90%E1%BA%A1i%20l%C3%BD%20Ch%C3%ADnh%20H%C3%A3ng%20Toyota%20Vi%E1%BB%87t%20Nam&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=106959908.1793698997&uaa=arm&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.80%7CGoogle%2520Chrome%3B156.0.8078.80&uamb=0&uam=&uap=macOS&uapv=27.2.0&uaw=0&data=event%3Dgtag.config&ept=68&gcp=5",
+        {
+          "status": 200
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=AW-17201500451&cx=c&gtm=4e6au1",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=G-H6KS4LNL9G&cx=c&gtm=4e6au1",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/a?id=GTM-TDCZCQPT&v=3&t=t&pid=1363474924&gtm=45He6au1v9208918979za200zd9208918979xf1&cv=3&rv=6au1&tc=8&tag_exp=115616985~115938465~115938468~117628655~117776795~118897920~118897930~120385422~120469145~120469153~121191155~121246026~121246034~123691370~123814183&es=1&e=gtag.config&eid=10&ut=Ag&h=Ag&z=0",
+        {
+          "status": 200,
+          "type": "text/html"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/a?id=GTM-TDCZCQPT&v=3&t=t&pid=1363474924&gtm=45He6au1v9208918979za200zd9208918979xf1&cv=3&rv=6au1&tc=8&tag_exp=115616985~115938465~115938468~117628655~117776795~118897920~118897930~120385422~120469145~120469153~121191155~121246026~121246034~123691370~123814183&es=1&e=gtag.config&eid=8&ut=Ag&h=Ag&z=0",
+        {
+          "status": 200,
+          "type": "text/html"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/a?id=GTM-TDCZCQPT&v=3&t=t&pid=1363474924&gtm=45He6au1v9208918979za200zd9208918979xf1&cv=3&rv=6au1&tc=8&tag_exp=115616985~115938465~115938468~117628655~117776795~118897920~118897930~120385422~120469145~120469153~121191155~121246026~121246034~123691370~123814183&es=1&e=gtm.js&eid=3&ut=Ag&h=Ag&tr=1gclidw.1cl.1cl.1evl&ti=1gclidw.2cl.2cl.2evl&z=0",
+        {
+          "status": 200,
+          "type": "text/html"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/a?id=GTM-TDCZCQPT&v=3&t=t&pid=1363474924&gtm=45He6au1v9208918979za200zd9208918979xf1&cv=3&rv=6au1&tc=8&tag_exp=115616985~115938465~115938468~118897920~118897930~120385422~120469145~120469153~121246026~121246034~123691370~123814183&es=1&e=gtag.config&eid=2&h=Ag&tr=1googtag&ti=2googtag&z=0",
+        {
+          "status": 200,
+          "type": "text/html"
+        }
+      ],
+      [
+        "https://www.google.com/ccm/collect?rcb=18&frm=0&apvc=0&ae=g&auid=106959908.1793698997&dt=Toyota%20Th%C3%A1i%20H%C3%B2a%20T%E1%BB%AB%20Li%C3%AAm%20-%20%C4%90%E1%BA%A1i%20l%C3%BD%20Ch%C3%ADnh%20H%C3%A3ng%20Toyota%20Vi%E1%BB%87t%20Nam&en=page_view&dl=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2F&scrsrc=www.googletagmanager.com&rnd=1964637506.1793698997&navt=n&npa=0&ep.ads_data_redaction=0&gtm=45He6au1v9208918979za200zd9208918979xeaxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616985~115938465~115938468~117628655~117776795~118897920~118897930~120385422~120469145~120469153~121191155~121246026~121246034~123691370~123814183&tft=1793698997542&tfd=1561&_gsid=dhr_g2dS1_1jRz3A_Y1PxVhk_EO-7sNDWg&gap.plf=4.5.3&fmt=8",
+        {
+          "status": 200
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=G-YK03XECBK1&cx=c&gtm=4e6au1",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/a?id=GTM-TDCZCQPT&v=3&t=t&pid=1363474924&gtm=45He6au1v9208918979za200zd9208918979xf1&cv=3&rv=6au1&tc=8&tag_exp=115616985~115938465~115938468~117628655~117776795~118897920~118897930~120385422~120469145~120469153~121191155~121246026~121246034~123691370~123814183&es=1&e=gtag.config&eid=14&ut=Ag&h=Ag&z=0",
+        {
+          "status": 200,
+          "type": "text/html"
+        }
+      ],
+      [
+        "https://www.google.com/ccm/collect?rcb=6&frm=0&apvc=0&ae=g&auid=106959908.1793698997&dt=Toyota%20Th%C3%A1i%20H%C3%B2a%20T%E1%BB%AB%20Li%C3%AAm%20-%20%C4%90%E1%BA%A1i%20l%C3%BD%20Ch%C3%ADnh%20H%C3%A3ng%20Toyota%20Vi%E1%BB%87t%20Nam&en=page_view&dl=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2F&scrsrc=www.googletagmanager.com&rnd=1964637506.1793698997&navt=n&npa=0&ep.ads_data_redaction=0&gtm=45He6au1v9238712114za200zd9238712114xeaxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~117628655~117776795~118897920~118897930~120385422~120412527~120420416~120469145~120469153~121049589~121191155~121246026~121246034~123691370~123692836~123814945&tft=1793698997678&tfd=1698&_gsid=dhr_g2dS1_1jRz3A_Y1PxVhk_EO-7sNDWg&fmt=8",
+        {
+          "status": 200
+        }
+      ],
+      [
+        "https://www.gstatic.com/recaptcha/releases/bSuJ2xBC8cHT21-c68JXN31m/recaptcha__en.js",
+        {
+          "status": 200,
+          "type": "text/javascript"
+        }
+      ],
+      [
+        "https://www.google.com/g/collect?v=2&tid=G-YK03XECBK1&gtm=45je6au1v9192341698za208zb9196704142zd9196704142xf1&_p=1793698996710&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAACAC&cid=986836428.1793698998&frm=0&ibt=1&ngs=1&pscdl=noapi&rcb=12&sr=390x844&uaa=arm&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.80%7CGoogle%2520Chrome%3B156.0.8078.80&uam=&uamb=0&uap=macOS&uapv=27.2.0&uaw=0&ul=en-us&_s=1&tag_exp=115938465~115938468~118897920~118897930~120213116~120385423~120412527~120469145~120469153~121246026~121246034~123691370~123814944&sid=1793698997&sct=1&seg=0&dl=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2F&dt=Toyota%20Th%C3%A1i%20H%C3%B2a%20T%E1%BB%AB%20Li%C3%AAm%20-%20%C4%90%E1%BA%A1i%20l%C3%BD%20Ch%C3%ADnh%20H%C3%A3ng%20Toyota%20Vi%E1%BB%87t%20Nam&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=1618&gaf=1",
+        {
+          "status": 204,
+          "type": "text/plain"
+        }
+      ],
+      [
+        "https://www.google.com/g/collect?v=2&tid=G-H6KS4LNL9G&gtm=45je6au1v9206275265za208zb9196704142zd9196704142xf1&_p=1793698996710&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=986836428.1793698998&frm=0&ngs=1&pscdl=noapi&rcb=7&sr=390x844&uaa=arm&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.80%7CGoogle%2520Chrome%3B156.0.8078.80&uam=&uamb=0&uap=macOS&uapv=27.2.0&uaw=0&ul=en-us&_s=1&tag_exp=115616986~115938465~115938469~118897920~118897930~120213116~120385423~120469145~120469153~121246026~121246034~123691370&sid=1793698997&sct=1&seg=0&dl=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2F&dt=Toyota%20Th%C3%A1i%20H%C3%B2a%20T%E1%BB%AB%20Li%C3%AAm%20-%20%C4%90%E1%BA%A1i%20l%C3%BD%20Ch%C3%ADnh%20H%C3%A3ng%20Toyota%20Vi%E1%BB%87t%20Nam&en=page_view&_fv=1&_ss=1&_ee=1&tfd=1661&gaf=1",
+        {
+          "status": 204,
+          "type": "text/plain"
+        }
+      ],
+      [
+        "https://connect.facebook.net/signals/config/290121942092059?v=2.9.433&r=stable&domain=toyotathaihoatuliem.com.vn&hme=4453c87d489b6902031c012cadd2731893cd69feb64fe8a61b339727247a7703&ex_m=118%2C242%2C171%2C27%2C82%2C83%2C162%2C78%2C77%2C11%2C181%2C102%2C20%2C153%2C141%2C46%2C85%2C90%2C149%2C176%2C183%2C8%2C4%2C5%2C7%2C6%2C3%2C103%2C115%2C32%2C17%2C31%2C18%2C33%2C34%2C35%2C37%2C55%2C163%2C87%2C126%2C22%2C24%2C51%2C47%2C49%2C48%2C95%2C104%2C108%2C124%2C160%2C164%2C53%2C125%2C29%2C26%2C133%2C79%2C43%2C166%2C165%2C167%2C157%2C155%2C30%2C42%2C66%2C123%2C178%2C80%2C21%2C128%2C93%2C76%2C23%2C97%2C98%2C130%2C96%2C151%2C150%2C154%2C109%2C177%2C180%2C41%2C56%2C127%2C54%2C161%2C72%2C185%2C110%2C184%2C211%2C263%2C84%2C283%2C282%2C281%2C14%2C25%2C28%2C40%2C62%2C117%2C68%2C10%2C73%2C111%2C112%2C113%2C119%2C144%2C38%2C36%2C146%2C147%2C148%2C143%2C142%2C172%2C86%2C175%2C173%2C174%2C57%2C69%2C67%2C137%2C19%2C179%2C52%2C333%2C334%2C335%2C332%2C349%2C371%2C256%2C238%2C70%2C239%2C237%2C374%2C365%2C59%2C257%2C121%2C145%2C92%2C135%2C61%2C134%2C140%2C139%2C65%2C74%2C168%2C88%2C89%2C129%2C44%2C39%2C60%2C63%2C114%2C182%2C1%2C138%2C16%2C136%2C12%2C2%2C64%2C105%2C15%2C75%2C71%2C132%2C101%2C100%2C187%2C188%2C106%2C107%2C9%2C116%2C186%2C58%2C158%2C99%2C91%2C81%2C131%2C120%2C169%2C50%2C159%2C0%2C94%2C152%2C156%2C170%2C45%2C122%2C13%2C189",
+        {
+          "status": 200,
+          "type": "application/x-javascript; charset=utf-8"
+        }
+      ],
+      [
+        "https://www.google.com/ccm/collect?rcb=6&frm=0&apvc=0&auid=106959908.1793698997&dt=Toyota%20Th%C3%A1i%20H%C3%B2a%20T%E1%BB%AB%20Li%C3%AAm%20-%20%C4%90%E1%BA%A1i%20l%C3%BD%20Ch%C3%ADnh%20H%C3%A3ng%20Toyota%20Vi%E1%BB%87t%20Nam&tid=AW-17201500451&en=page_view&dl=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2F&scrsrc=www.googletagmanager.com&rnd=1964637506.1793698997&navt=n&npa=0&gtm=45be6au1v9222584737za208zb9196704142zd9196704142xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~117628655~117776795~118897920~118897930~120213116~120385423~120420415~120469145~120469153~121191155~121246026~121246034~123691370~123692836~123814946&tft=1793698997747&tfd=1767&_gsid=dhr_g2dS1_1jRz3A_Y1PxVhk_EO-7sNDWg&tids=AW-17201500451&fmt=8",
+        {
+          "status": 200
+        }
+      ],
+      [
+        "https://www.google.com/rmkt/collect/17201500451/?random=1793698997732&cv=11&fst=1793698997732&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be6au1v9222584737za208zb9196704142zd9196704142xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~117628655~117776795~118897920~118897930~120213116~120385423~120420415~120469145~120469153~121191155~121246026~121246034~123691370~123692836~123814946&u_w=390&u_h=844&url=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2F&rcb=6&frm=0&tiba=Toyota%20Th%C3%A1i%20H%C3%B2a%20T%E1%BB%AB%20Li%C3%AAm%20-%20%C4%90%E1%BA%A1i%20l%C3%BD%20Ch%C3%ADnh%20H%C3%A3ng%20Toyota%20Vi%E1%BB%87t%20Nam&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=106959908.1793698997&uaa=arm&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.80%7CGoogle%2520Chrome%3B156.0.8078.80&uamb=0&uam=&uap=macOS&uapv=27.2.0&uaw=0&data=event%3Dgtag.config&ept=68&gcp=5",
+        {
+          "status": 200
+        }
+      ],
+      [
+        "https://www.google.com.vn/ads/ga-audiences?v=1&t=sr&slf_rd=1&_r=4&ngs=1&ibt=1&tid=G-YK03XECBK1&cid=986836428.1793698998&gtm=45je6au1v9192341698za208zb9196704142zd9196704142xf1&rcb=12&aip=1&dma=0&gcd=13l3l3l3l1l1&npa=0&frm=0&tag_exp=115938465~115938468~118897920~118897930~120213116~120385423~120412527~120469145~120469153~121246026~121246034~123691370~123814944&z=455828771",
+        {
+          "status": 200,
+          "type": "image/gif"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX&co=aHR0cHM6Ly90b3lvdGF0aGFpaG9hdHVsaWVtLmNvbS52bjo0NDM.&hl=en&v=bSuJ2xBC8cHT21-c68JXN31m&size=invisible&anchor-ms=20000&execute-ms=30000&ovv=CADq00gF&cb=64ks16y9qq0o",
+        {
+          "status": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX&co=aHR0cHM6Ly90b3lvdGF0aGFpaG9hdHVsaWVtLmNvbS52bjo0NDM.&hl=en&v=bSuJ2xBC8cHT21-c68JXN31m&size=invisible&anchor-ms=20000&execute-ms=30000&ovv=CADq00gF&cb=xid8edo1y8gq",
+        {
+          "status": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX&co=aHR0cHM6Ly90b3lvdGF0aGFpaG9hdHVsaWVtLmNvbS52bjo0NDM.&hl=en&v=bSuJ2xBC8cHT21-c68JXN31m&size=invisible&anchor-ms=20000&execute-ms=30000&ovv=CADq00gF&cb=anm24fjwctd8",
+        {
+          "status": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/07/anh-thumbnail-toyota-thai-hoa-tu-liem-t-sure-toyota-vios-2023-cu-ngoai-that.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/11/camry-2022.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/11/rush-2022.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ]
+    ],
+    "status": 200,
+    "forms": 7,
+    "tables": 4
+  },
+  {
+    "url": "https://toyotathaihoatuliem.com.vn/toyota/corolla-cross/",
+    "interactions": [
+      {
+        "selector": ".woocommerce-product-gallery__image a",
+        "visible": true,
+        "interacted": true
+      },
+      {
+        "selector": ".additional_information_tab a",
+        "visible": false,
+        "interacted": false
+      },
+      {
+        "selector": ".description_tab a",
+        "visible": false,
+        "interacted": false
+      },
+      {
+        "selector": ".variations_form select",
+        "visible": false,
+        "interacted": false
+      }
+    ],
+    "requests": [
+      [
+        "https://toyotathaihoatuliem.com.vn/toyota/corolla-cross/",
+        {
+          "status": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/toyota-thai-hoa-tu-liem-car-detail-breadcum-all.webp",
+        {
+          "status": 200,
+          "type": "image/webp"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/ays-popup-box/public/css/animate.css?ver=5.1.5",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/goal-lookbook/assets/style.css?ver=7.1.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/goal-salespopup/assets/style.css?ver=1.0.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/css/photoswipe/photoswipe.min.css?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/css/photoswipe/default-skin/default-skin.min.css?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/css/woocommerce-layout.css?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/css/woocommerce.css?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/button-contact-vr/legacy/css/style.css?ver=1",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/css/dashicons.min.css?ver=7.1.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/variation-swatches-woo/assets/css/swatches.css?ver=1.0.13",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/css/brands.css?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/css/select2.css?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/elementor/css/post-348.css?ver=1793214305",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/widget-menu-anchor.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/widget-divider.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/animations/styles/fadeInLeft.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/animations/styles/fadeInRight.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/animations/styles/fadeIn.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/animations/styles/fadeInDown.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/elementor/css/post-12297.css?ver=1793230349",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/wc-quantity-increment.css?ver=7.1.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/sass/woocommerce.css?ver=1.2.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.16.1",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/happyaddons/css/ha-12297.css?ver=3.16.1.1778088019",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/all-awesome.css?ver=5.11.2",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/font-icomoon.css?ver=1.0.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/themify-icons.css?ver=1.0.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/flaticon.css?ver=1.0.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/eleganticon-style.css?ver=1.0.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/animate.css?ver=3.6.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/sass/bootstrap.css?ver=3.2.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/happy-elementor-addons/assets/vendor/slick/slick.css?ver=3.16.1",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/happy-elementor-addons/assets/vendor/magnific-popup/magnific-popup.css?ver=3.16.1",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/perfect-scrollbar.css?ver=0.6.12",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/sliding-menu.min.css?ver=0.3.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/css/woocommerce-smallscreen.css?ver=7.1.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/sass/template.css?ver=1.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/style.css?ver=1.0",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/jquery-blockui/jquery.blockUI.min.js?ver=2.7.0-wc.9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/ays-popup-box/public/js/ays-pb-public.js?ver=5.1.5",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/js/wp-util.min.js?ver=7.1.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2021/02/LOGO-THTL-2025-small-600x196.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2021/02/LOGO-THTL-2025-small.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/font-awesome/js/v4-shims.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2021/09/toyota-corolla-cross-2024-toyota-thai-hoa-tu-liem-thumbnail-410x410.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/Toyota-Corolla-Cross-2024-4.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/js/underscore.min.js?ver=1.13.8",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/cookie-law-info/lite/frontend/js/script.min.js?ver=3.5.8",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/happy-elementor-addons/assets/vendor/dom-purify/purify.min.js?ver=3.1.6",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/js/jquery/jquery.min.js?ver=3.7.1",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/client/blocks/wc-blocks.css?ver=wc-9.6.3",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://fonts.googleapis.com/css?family=Manrope:300,300i,400,400i,500,600,700,800&subset=latin%2Clatin-ext",
+        {
+          "status": 200,
+          "type": "text/css; charset=utf-8"
+        }
+      ],
+      [
+        "https://fonts.googleapis.com/css?family=Mulish:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&display=swap&subset=vietnamese",
+        {
+          "status": 200,
+          "type": "text/css; charset=utf-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/elementor/css/post-11341.css?ver=1793214305",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://fonts.googleapis.com/css?family=Manrope:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic&display=swap&subset=vietnamese",
+        {
+          "status": 200,
+          "type": "text/css; charset=utf-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/elementor/css/post-80.css?ver=1793214305",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/happyaddons/css/ha-80.css?ver=3.16.1.1778088019",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/elementor/css/post-5730.css?ver=1793214305",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/conditionals/apple-webkit.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/ays-popup-box/public/css/ays-pb-public-min.css?ver=5.1.5",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/revslider/public/assets/css/rs6.css?ver=6.6.11",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/typeahead.bundle.min.js",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/bootstrap.min.js?ver=20150330",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/countdown.js?ver=20150315",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/slick.min.js?ver=1.8.0",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/jquery.unveil.js?ver=1.2.0",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/jquery.magnific-popup.min.js?ver=1.2.0",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/perfect-scrollbar.jquery.min.js?ver=0.6.12",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/sliding-menu.min.js?ver=0.3.0",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/goal-salespopup/assets/script.js?ver=1.0.0",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/functions.js?ver=20150330",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart-variation.min.js?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/variation-swatches-woo/assets/js/swatches.js?ver=1.0.13",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/wc-quantity-increment.js?ver=20150330",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/js/woocommerce.js?ver=20150330",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/sourcebuster/sourcebuster.min.js?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/frontend/order-attribution.min.js?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/happy-elementor-addons/assets/js/extension-reading-progress-bar.min.js?ver=3.16.1",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/js/jquery/ui/core.min.js?ver=1.14.2",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/happy-elementor-addons/assets/js/happy-addons.min.js?ver=3.16.1",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woo-ajax-add-to-cart/assets/frontend/woo-ajax-add-to-cart.js?ver=2.4.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/frontend/add-to-cart.min.js?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/zoom/jquery.zoom.min.js?ver=1.7.21-wc.9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/swiper.min.js?ver=8.4.5",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/flexslider/jquery.flexslider.min.js?ver=2.7.2-wc.9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/photoswipe/photoswipe.min.js?ver=4.1.1-wc.9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/photoswipe/photoswipe-ui-default.min.js?ver=4.1.1-wc.9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/frontend/single-product.min.js?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elfsight-contact-form-cc/assets/elfsight-contact-form.js?ver=2.3.1",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/js-cookie/js.cookie.min.js?ver=2.1.4-wc.9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/frontend/woocommerce.min.js?ver=9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/Toyota-Corolla-Cross-2024-3.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/Toyota-Corolla-Cross-2024-5.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/Toyota-Corolla-Cross-2024-20.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/Toyota-Corolla-Cross-2024-6.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/Toyota-Corolla-Cross-2024-10.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/Toyota-Corolla-Cross-2024-2.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/02/ho-tro-do-lan-duong.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/02/kiem-soat-hanh-trinh.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/02/phanh-khan-cap.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2025/02/pha-tu-dong.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2021/08/toyota-thai-hoa-tu-liem-da-thong-bao-bo-cong-thuong.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2021/03/LOGO-THTL-2025-small-white-600x196.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/button-contact-vr/legacy/img/showroom4.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/button-contact-vr/legacy/img/zalo.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/button-contact-vr/legacy/img/phone.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/woocommerce/assets/js/selectWoo/selectWoo.full.min.js?ver=1.0.9-wc.9.6.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/cookie-law-info/lite/frontend/images/revisit.svg",
+        {
+          "status": 200,
+          "type": "image/svg+xml"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/cookie-law-info/lite/frontend/images/close.svg",
+        {
+          "status": 200,
+          "type": "image/svg+xml"
+        }
+      ],
+      [
+        "blob:https://toyotathaihoatuliem.com.vn/a3dc78f2-79a6-4b03-b503-54c8c82b1983",
+        {
+          "status": 200,
+          "type": "text/javascript"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api.js?onload=EappsContactFormRecaptchaReady&render=explicit",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=utf-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/conditionals/dialog.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/chunks/lightbox-lightbox.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/css/conditionals/lightbox.min.css?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/css; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/dialog/dialog.min.js?ver=4.9.3",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/share-link/share-link.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/chunks/section-stretched-section.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/revslider/public/assets/js/rbtools.min.js?ver=6.6.11",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/chunks/background-slideshow.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://fonts.gstatic.com/s/mulish/v18/1Ptvg83HX_SGhgqk3wotYKNnBQ.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://fonts.gstatic.com/s/mulish/v18/1Ptvg83HX_SGhgqk0AotYKNnBcif.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/chunks/background-video.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/chunks/image-carousel.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/js/chunks/text-editor.min.js?ver=4.3.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://fonts.gstatic.com/s/manrope/v23/xn7gYHE41ni1AdIRggexSvfedN4.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://fonts.gstatic.com/s/manrope/v23/xn7gYHE41ni1AdIRggmxSvfedN62Zw.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://fonts.gstatic.com/s/manrope/v23/xn7gYHE41ni1AdIRggixSvfedN62Zw.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/revslider/public/assets/js/rs6.min.js?ver=6.6.11",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/uu-dai-dac-biet-toyota-camry-2025.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-includes/js/wp-emoji-release.min.js?ver=7.1.4",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/anh-xe-toyota-cross-2024.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/fonts/themify.woff",
+        {
+          "status": 200,
+          "type": "font/woff"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/fonts/Flaticon.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/fonts/icomoon.ttf?me5ivc",
+        {
+          "status": 200,
+          "type": "font/ttf"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/fonts/fa-solid-900.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/themes/sofass/fonts/fa-brands-400.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/plugins/elementor/assets/lib/font-awesome/webfonts/fa-brands-400.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://www.gstatic.com/recaptcha/releases/bSuJ2xBC8cFy7pM4Z3Hu9boH/recaptcha__en.js",
+        {
+          "status": 200,
+          "type": "text/javascript"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtm.js?id=GTM-M8VGT73Q",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtm.js?id=GTM-TDCZCQPT",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=G-H6KS4LNL9G",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=G-YK03XECBK1",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=AW-11019636565",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://s.w.org/images/core/emoji/17.0.2/svg/1f4de.svg",
+        {
+          "status": 200,
+          "type": "image/svg+xml"
+        }
+      ],
+      [
+        "https://www.google.com/ccm/collect?rcb=17&frm=0&apvc=1&ae=g&auid=1230329162.1793698999&dt=Gi%C3%A1%20l%C4%83n%20b%C3%A1nh%20Toyota%20Corolla%20Cross%202026%20%26%20%C6%AFu%20%C4%91%C3%A3i%20m%E1%BB%9Bi%20nh%E1%BA%A5t&en=page_view&dl=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2Ftoyota%2Fcorolla-cross%2F&scrsrc=www.googletagmanager.com&rnd=150332243.1793698999&navt=n&npa=0&ep.ads_data_redaction=0&gtm=45He6au1v9238712114za200zd9238712114xeaxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616985~115938465~115938468~118897920~118897930~120385422~120412528~120469145~120469153~121049589~121246026~121246034~123691370~123814183&tft=1793698999196&tfd=952&gap.plf=4.5.3&fmt=8",
+        {
+          "status": 200
+        }
+      ],
+      [
+        "https://www.google.com/ccm/collect?rcb=3&frm=0&apvc=0&ae=g&auid=1230329162.1793698999&dt=Gi%C3%A1%20l%C4%83n%20b%C3%A1nh%20Toyota%20Corolla%20Cross%202026%20%26%20%C6%AFu%20%C4%91%C3%A3i%20m%E1%BB%9Bi%20nh%E1%BA%A5t&en=page_view&dl=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2Ftoyota%2Fcorolla-cross%2F&scrsrc=www.googletagmanager.com&rnd=150332243.1793698999&navt=n&npa=0&ep.ads_data_redaction=0&gtm=45He6au1v9208918979za200zd9208918979xeaxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115616986~115938465~115938469~118897920~118897930~120385422~120469145~120469153~121246026~121246034~123691370~123814184&tft=1793698999228&tfd=984&fmt=8",
+        {
+          "status": 200
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=AW-11019636565&cx=c&gtm=4e6au1",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=G-YK03XECBK1&cx=c&gtm=4e6au1",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX&co=aHR0cHM6Ly90b3lvdGF0aGFpaG9hdHVsaWVtLmNvbS52bjo0NDM.&hl=en&v=bSuJ2xBC8cFy7pM4Z3Hu9boH&size=invisible&anchor-ms=20000&execute-ms=30000&cb=popectxonsr4",
+        {
+          "status": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=G-H6KS4LNL9G&cx=c&gtm=4e6au1",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.googletagmanager.com/gtag/js?id=AW-17201500451&cx=c&gtm=4e6au1",
+        {
+          "status": 200,
+          "type": "application/javascript; charset=UTF-8"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX&co=aHR0cHM6Ly90b3lvdGF0aGFpaG9hdHVsaWVtLmNvbS52bjo0NDM.&hl=en&v=bSuJ2xBC8cFy7pM4Z3Hu9boH&size=invisible&anchor-ms=20000&execute-ms=30000&cb=pfm9oj5d3i2",
+        {
+          "status": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX&co=aHR0cHM6Ly90b3lvdGF0aGFpaG9hdHVsaWVtLmNvbS52bjo0NDM.&hl=en&v=bSuJ2xBC8cFy7pM4Z3Hu9boH&size=invisible&anchor-ms=20000&execute-ms=30000&cb=wkrgxhf5p5bk",
+        {
+          "status": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      ],
+      [
+        "https://www.google.com/g/collect?v=2&tid=G-H6KS4LNL9G&gtm=45je6au1v9206275265za208zb9238712114zd9238712114xf1&_p=1793698998555&gcd=13l3l3l3l1l1&npa=0&dma=0&cid=529715913.1793698999&frm=0&ngs=1&pscdl=noapi&rcb=2&sr=390x844&uaa=arm&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.80%7CGoogle%2520Chrome%3B156.0.8078.80&uam=&uamb=0&uap=macOS&uapv=27.2.0&uaw=0&ul=en-us&_s=1&tag_exp=115616985~115938465~115938468~118897920~118897930~120213116~120385422~120469145~120469153~121246026~121246034~123691370~123692836&sid=1793698999&sct=1&seg=0&dl=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2Ftoyota%2Fcorolla-cross%2F&dt=Gi%C3%A1%20l%C4%83n%20b%C3%A1nh%20Toyota%20Corolla%20Cross%202026%20%26%20%C6%AFu%20%C4%91%C3%A3i%20m%E1%BB%9Bi%20nh%E1%BA%A5t&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&gap.plf=4.5.3&tfd=1032&gaf=1",
+        {
+          "status": 204,
+          "type": "text/plain"
+        }
+      ],
+      [
+        "https://www.google.com/g/collect?v=2&tid=G-YK03XECBK1&gtm=45je6au1h1v9192341698za208zb9238712114zd9238712114xf1&_p=1793698998555&_gaz=1&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAACAC&cid=529715913.1793698999&frm=0&ibt=1&ngs=1&pscdl=noapi&rcb=0&sr=390x844&uaa=arm&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.80%7CGoogle%2520Chrome%3B156.0.8078.80&uam=&uamb=0&uap=macOS&uapv=27.2.0&uaw=0&ul=en-us&_s=1&tag_exp=115616986~115938465~115938468~118897920~118897930~120213116~120385423~120412527~120469145~120469153~121246026~121246034~123691370~123814183&sid=1793698999&sct=1&seg=0&dl=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2Ftoyota%2Fcorolla-cross%2F&dt=Gi%C3%A1%20l%C4%83n%20b%C3%A1nh%20Toyota%20Corolla%20Cross%202026%20%26%20%C6%AFu%20%C4%91%C3%A3i%20m%E1%BB%9Bi%20nh%E1%BA%A5t&en=page_view&_fv=1&_ss=1&_ee=1&tfd=1084&gaf=1",
+        {
+          "status": 204,
+          "type": "text/plain"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/anchor?ar=1&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX&co=aHR0cHM6Ly90b3lvdGF0aGFpaG9hdHVsaWVtLmNvbS52bjo0NDM.&hl=en&v=bSuJ2xBC8cFy7pM4Z3Hu9boH&size=invisible&anchor-ms=20000&execute-ms=30000&cb=6ifxgeovtgrd",
+        {
+          "status": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      ],
+      [
+        "https://www.google.com/ccm/collect?rcb=17&frm=0&apvc=0&auid=1230329162.1793698999&dt=Gi%C3%A1%20l%C4%83n%20b%C3%A1nh%20Toyota%20Corolla%20Cross%202026%20%26%20%C6%AFu%20%C4%91%C3%A3i%20m%E1%BB%9Bi%20nh%E1%BA%A5t&tid=AW-11019636565&en=page_view&dl=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2Ftoyota%2Fcorolla-cross%2F&scrsrc=www.googletagmanager.com&rnd=150332243.1793698999&navt=n&npa=0&gtm=45be6au1h1v9196704142za208zb9238712114zd9238712114xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118897920~118897930~120213116~120385422~120469145~120469153~121246026~121246034~123691370~123692834&tft=1793698999374&tfd=1130&tids=AW-11019636565&fmt=8",
+        {
+          "status": 200
+        }
+      ],
+      [
+        "https://www.google.com/rmkt/collect/11019636565/?random=1793698999360&cv=11&fst=1793698999360&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be6au1h1v9196704142za208zb9238712114zd9238712114xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118897920~118897930~120213116~120385422~120469145~120469153~121246026~121246034~123691370~123692834&u_w=390&u_h=844&url=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2Ftoyota%2Fcorolla-cross%2F&rcb=17&frm=0&tiba=Gi%C3%A1%20l%C4%83n%20b%C3%A1nh%20Toyota%20Corolla%20Cross%202026%20%26%20%C6%AFu%20%C4%91%C3%A3i%20m%E1%BB%9Bi%20nh%E1%BA%A5t&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1230329162.1793698999&uaa=arm&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.80%7CGoogle%2520Chrome%3B156.0.8078.80&uamb=0&uam=&uap=macOS&uapv=27.2.0&uaw=0&data=event%3Dgtag.config&ept=68&gcp=5",
+        {
+          "status": 200
+        }
+      ],
+      [
+        "https://www.gstatic.com/recaptcha/releases/bSuJ2xBC8cFy7pM4Z3Hu9boH/styles__ltr.css",
+        {
+          "status": 200,
+          "type": "text/css"
+        }
+      ],
+      [
+        "https://www.google.com.vn/ads/ga-audiences?v=1&t=sr&slf_rd=1&_r=4&ngs=1&ibt=1&tid=G-YK03XECBK1&cid=529715913.1793698999&gtm=45je6au1h1v9192341698za208zb9238712114zd9238712114xf1&rcb=0&aip=1&dma=0&gcd=13l3l3l3l1l1&npa=0&frm=0&tag_exp=115616986~115938465~115938468~118897920~118897930~120213116~120385423~120412527~120469145~120469153~121246026~121246034~123691370~123814183&z=514271789",
+        {
+          "status": 200,
+          "type": "image/gif"
+        }
+      ],
+      [
+        "https://www.google.com/rmkt/collect/17201500451/?random=1793698999467&cv=11&fst=1793698999467&fmt=8&bg=ffffff&guid=ON&async=1&en=gtag.config&gtm=45be6au1v9222584737za20ozb9238712114zd9238712114xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121246026~121246034~123691370~123814185~123814946&u_w=390&u_h=844&url=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2Ftoyota%2Fcorolla-cross%2F&rcb=0&frm=0&tiba=Gi%C3%A1%20l%C4%83n%20b%C3%A1nh%20Toyota%20Corolla%20Cross%202026%20%26%20%C6%AFu%20%C4%91%C3%A3i%20m%E1%BB%9Bi%20nh%E1%BA%A5t&hn=www.googleadservices.com&npa=0&pscdl=noapi&auid=1230329162.1793698999&uaa=arm&uab=64&uafvl=Not%253AA-Brand%3B8.0.0.0%7CChromium%3B156.0.8078.80%7CGoogle%2520Chrome%3B156.0.8078.80&uamb=0&uam=&uap=macOS&uapv=27.2.0&uaw=0&data=event%3Dgtag.config&ept=68&gcp=5",
+        {
+          "status": 200
+        }
+      ],
+      [
+        "https://www.google.com/ccm/collect?rcb=0&frm=0&apvc=0&auid=1230329162.1793698999&dt=Gi%C3%A1%20l%C4%83n%20b%C3%A1nh%20Toyota%20Corolla%20Cross%202026%20%26%20%C6%AFu%20%C4%91%C3%A3i%20m%E1%BB%9Bi%20nh%E1%BA%A5t&tid=AW-17201500451&en=page_view&dl=https%3A%2F%2Ftoyotathaihoatuliem.com.vn%2Ftoyota%2Fcorolla-cross%2F&scrsrc=www.googletagmanager.com&rnd=150332243.1793698999&navt=n&npa=0&gtm=45be6au1v9222584737za20ozb9238712114zd9238712114xecxf1&gcd=13l3l3l3l1l1&dma=0&tag_exp=115938465~115938468~118897920~118897930~120213116~120385423~120469145~120469153~121246026~121246034~123691370~123814185~123814946&tft=1793698999485&tfd=1241&tids=AW-17201500451&fmt=8",
+        {
+          "status": 200
+        }
+      ],
+      [
+        "https://connect.facebook.net/en_US/fbevents.js",
+        {
+          "status": 200,
+          "type": "application/x-javascript; charset=utf-8"
+        }
+      ],
+      [
+        "https://www.gstatic.com/recaptcha/api2/logo_48.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/webworker.js?hl=en&v=bSuJ2xBC8cFy7pM4Z3Hu9boH",
+        {
+          "status": 200,
+          "type": "text/javascript; charset=utf-8"
+        }
+      ],
+      [
+        "https://connect.facebook.net/signals/config/290121942092059?v=2.9.433&r=stable&domain=toyotathaihoatuliem.com.vn&hme=4453c87d489b6902031c012cadd2731893cd69feb64fe8a61b339727247a7703&ex_m=118%2C242%2C171%2C27%2C82%2C83%2C162%2C78%2C77%2C11%2C181%2C102%2C20%2C153%2C141%2C46%2C85%2C90%2C149%2C176%2C183%2C8%2C4%2C5%2C7%2C6%2C3%2C103%2C115%2C32%2C17%2C31%2C18%2C33%2C34%2C35%2C37%2C55%2C163%2C87%2C126%2C22%2C24%2C51%2C47%2C49%2C48%2C95%2C104%2C108%2C124%2C160%2C164%2C53%2C125%2C29%2C26%2C133%2C79%2C43%2C166%2C165%2C167%2C157%2C155%2C30%2C42%2C66%2C123%2C178%2C80%2C21%2C128%2C93%2C76%2C23%2C97%2C98%2C130%2C96%2C151%2C150%2C154%2C109%2C177%2C180%2C41%2C56%2C127%2C54%2C161%2C72%2C185%2C110%2C184%2C211%2C263%2C84%2C283%2C282%2C281%2C14%2C25%2C28%2C40%2C62%2C117%2C68%2C10%2C73%2C111%2C112%2C113%2C119%2C144%2C38%2C36%2C146%2C147%2C148%2C143%2C142%2C172%2C86%2C175%2C173%2C174%2C57%2C69%2C67%2C137%2C19%2C179%2C52%2C333%2C334%2C335%2C332%2C349%2C371%2C256%2C238%2C70%2C239%2C237%2C374%2C365%2C59%2C257%2C121%2C145%2C92%2C135%2C61%2C134%2C140%2C139%2C65%2C74%2C168%2C88%2C89%2C129%2C44%2C39%2C60%2C63%2C114%2C182%2C1%2C138%2C16%2C136%2C12%2C2%2C64%2C105%2C15%2C75%2C71%2C132%2C101%2C100%2C187%2C188%2C106%2C107%2C9%2C116%2C186%2C58%2C158%2C99%2C91%2C81%2C131%2C120%2C169%2C50%2C159%2C0%2C94%2C152%2C156%2C170%2C45%2C122%2C13%2C189",
+        {
+          "status": 200,
+          "type": "application/x-javascript; charset=utf-8"
+        }
+      ],
+      [
+        "https://fonts.gstatic.com/s/roboto/v48/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2",
+        {
+          "status": 200,
+          "type": "font/woff2"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/toyota-cross-2024-thtl-600x243.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/dau-xe-corolla-cross-2024-600x288.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/kinh-tran-toan-canh-corolla-cross-2024-600x288.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/toyota/corolla-cross/%23a",
+        {
+          "status": 301,
+          "type": "text/html; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/Toyota-Corolla-Cross-2024-1-600x322.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/den-duoi-xe-corolla-cross-2024-600x288.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/bframe?hl=en&v=bSuJ2xBC8cFy7pM4Z3Hu9boH&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX&bft=0dAFcWeA491C8NNP5MCye2Na6056GFPQjY6-ygZzC7T9fNTtv5X9Vvb_U-VuSehYZwk3V6E0r93raKMltybBIVbvph4xVBSE1TXQ",
+        {
+          "status": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/man-hinh-giai-tri-600x288.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/",
+        {
+          "status": 200,
+          "type": "text/html; charset=UTF-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/khoang-chua-do-cross-2024-600x288.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/corolla-cross-2024-mau-den-300x225.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/corolla-cross-2024-mau-do-300x225.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/ghe-boc-da-corolla-cross-2024-600x288.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/bframe?hl=en&v=bSuJ2xBC8cFy7pM4Z3Hu9boH&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX&bft=0dAFcWeA5p6sKngf_imOdadu9uY8G2ttjUFswgpzECUUdXJ4xIPv-TZFZhWphEBG-q8hVi1K-cwmgcJwbXus3XjZBI3ttFPPgpxw",
+        {
+          "status": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/bframe?hl=en&v=bSuJ2xBC8cFy7pM4Z3Hu9boH&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX&bft=0dAFcWeA4yFcBTheOnYrAfMs2GuDIw91qIIzNRG1MDmkMlC7OwPwSRbDToQyzQvoYCQOMpqQfJpXsSM0j_1xAzXU-Vef3eYp9AtA",
+        {
+          "status": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/bframe?hl=en&v=bSuJ2xBC8cFy7pM4Z3Hu9boH&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX&bft=0dAFcWeA5YF55snppWvvIGFt87Au7HIGWTA49ssng559SgANQdsa6JwagUeu4iJKhoNmweH9UUiBXsFw8poGGwfP3TRJMP2KW6Zw",
+        {
+          "status": 200,
+          "type": "text/html; charset=utf-8"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2024/07/cropped-toyota-thai-hoa-tu-liemfavicon-32x32.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/reload?k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX",
+        {
+          "status": 200,
+          "type": "application/json; charset=utf-8"
+        }
+      ],
+      [
+        "https://www.gstatic.com/recaptcha/api2/refresh_2x.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://www.gstatic.com/recaptcha/api2/info_2x.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://www.gstatic.com/recaptcha/api2/audio_2x.png",
+        {
+          "status": 200,
+          "type": "image/png"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/payload?p=06AFcWeA6xZow52Hy6sZij6izIiZt2cK_ArtugtzLB08t-voo-1ASP5OrwxjaxpcThb-WsjQcYlZu3iVS5FXm8Kv6GODocp8rAT2o_Xc7naeHCmYzoFMMcXF98M-k54YoJSml6fJxFxvR4reokKIcc3Y6c6sPIspOazzzfR3BJmr1-4t80dVRlkBXcuL1OdMpXMW7DU_L7gP0z&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/payload?p=06AFcWeA4WjIsEQIN-RYqrESmFXJR097RpqBKcDTRqIKR-vE6sfKzHvAhYl84iYcm2qu_OqR_6P1bfuYyuTjob3OkusrYqLNUwBvRq0c6LXAR9_YjpPyjlA2RwKkJL1ygL3k2RIkNgeqxWLUAYjaDi4RNCAUNOtQcyPXhsss3lmIJCL5WVPGo2Tpy4LTCpPepcoksab1hFxd31&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/payload?p=06AFcWeA4BFdlmnAjgjvz7n1zystlNirY-v1DIr4-mMd_0RuHohks8hEcbgMwAcV9Vnxr6DLwM-DovcTtUCL_Yio21EznRhpJD7vL84RgiWeQ8PHljaK3uQYJLoyDec4BI9YovlZlJpOgbM2mHwoU8NhKCRXVcBqVtSAfPhIdSzsxx-TtuOQKbf98Gb5C7M6euOrOej0uAffnG&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://www.google.com/recaptcha/api2/payload?p=06AFcWeA7yo0JrKHll1EYUowG9yjBu2EbpbCpS5hwkujNZWjC9U2RU_qEtSnSB_JPlH3Zmz8vWcP0UTk9JQTKFbAZXmPHWRbuJ5ND2LJJectYxSuqD4OFS_3uWtfoEBecVr4Tv28W21NNCre025UitTDSlTUmCW3bxS94F3RXjktU5Tto97AadVUyzYUVQeMvL1isR4NvJYCpe&k=6Ld1CXgUAAAAAFTHmixC1Eo-NP7_3ddB1YOj9AfX",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ],
+      [
+        "https://toyotathaihoatuliem.com.vn/wp-content/uploads/2021/09/toyota-corolla-cross-2024-toyota-thai-hoa-tu-liem-thumbnail.jpg",
+        {
+          "status": 200,
+          "type": "image/jpeg"
+        }
+      ]
+    ],
+    "status": 200,
+    "forms": 9,
+    "tables": 2
+  }
+]

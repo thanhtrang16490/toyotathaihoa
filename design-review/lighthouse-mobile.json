@@ -1,0 +1,70 @@
+[
+  {
+    "path": "/",
+    "status": "measured",
+    "performance": 99,
+    "accessibility": 100,
+    "lcpMs": 1954,
+    "tbtMs": 0,
+    "cls": 0,
+    "lighthouse": "12.8.2",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "throttlingMethod": "simulate",
+    "formFactor": "mobile",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    }
+  },
+  {
+    "path": "/xe-toyota-moi/",
+    "status": "measured",
+    "performance": 100,
+    "accessibility": 100,
+    "lcpMs": 1579,
+    "tbtMs": 0,
+    "cls": 0,
+    "lighthouse": "12.8.2",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "throttlingMethod": "simulate",
+    "formFactor": "mobile",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    }
+  },
+  {
+    "path": "/toyota/corolla-cross/",
+    "status": "measured",
+    "performance": 89,
+    "accessibility": 100,
+    "lcpMs": 3833,
+    "tbtMs": 0,
+    "cls": 0,
+    "lighthouse": "12.8.2",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "throttlingMethod": "simulate",
+    "formFactor": "mobile",
+    "throttling": {
+      "rttMs": 150,
+      "throughputKbps": 1638.4,
+      "requestLatencyMs": 562.5,
+      "downloadThroughputKbps": 1474.5600000000002,
+      "uploadThroughputKbps": 675,
+      "cpuSlowdownMultiplier": 4
+    },
+    "repeat": {
+      "performance": 100,
+      "lcpMs": 1504,
+      "cls": 0
+    }
+  }
+]

@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.env
+test-results/
+.DS_Store
+
+.next/
+*.tsbuildinfo
+next-env.d.ts

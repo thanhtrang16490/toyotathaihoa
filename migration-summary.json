@@ -1,0 +1,18 @@
+{
+  "urlActions": {
+    "preserve": 235,
+    "verify": 128,
+    "redirect-301": 4
+  },
+  "downloaded": 1221,
+  "failed": 37,
+  "uniqueChecksums": 1214,
+  "originalURLsInBuild": 1137,
+  "localMediaFiles": 1130,
+  "optimizedImages": 826,
+  "aiImages": 0,
+  "sourcePages": 228,
+  "productPages": 42,
+  "articles": 147,
+  "pdf": 0
+}
