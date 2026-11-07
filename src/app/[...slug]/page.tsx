@@ -1,17 +1,18 @@
-
 import {corollaDetailPath} from '../../vehicle-options'
-import CorollaCrossDetail from '../../components/CorollaCrossDetail'
+import VehicleDetail from '../../components/VehicleDetail'
 import Layout from '../../components/SiteFrame'
-import {vehicleImagery} from '../../vehicle-imagery'
+import {vehicleMenuImagery} from '../../vehicle-imagery'
 import Card from '../../components/Card'
-import TechnicalDetails from '../../components/TechnicalDetails'
 import VehicleGallery from '../../components/VehicleGallery'
 import VehicleOptions from '../../components/VehicleOptions'
 import VehicleSupport from '../../components/VehicleSupport'
+import ShowroomCatalog from '../../components/ShowroomCatalog'
+import {AboutHero,ContactPage,DealerContact,DealerHero,ServicePage} from '../../components/DealerPages'
+import styles from '../../components/showroom-pages.module.css'
 import LeadForm from '../../components/LeadForm'
 import TestDriveDrawer from '../../components/TestDriveDrawer'
 import Image from 'next/image'
-import {entries,cars,services,collections,phone,address,directions,hours,redirects,articlesInArchive,articlesPerPage,pagination,pendingTrimVerification,isUsedVehicle,noindexPaths} from '../../catalog'
+import {entries,cars,services,collections,address,hours,redirects,articlesInArchive,articlesPerPage,pagination,pendingTrimVerification,isUsedVehicle,noindexPaths} from '../../catalog'
 import type {Entry} from '../../catalog'
 
 import {notFound} from 'next/navigation'
@@ -46,7 +47,7 @@ export async function generateMetadata({params}:Props){
  const base=path.replace(/\/page\/\d+\/$/,'/')
  const title=collections[base as keyof typeof collections] || entries.find(item=>item.slug===base)?.title || 'Toyota'
  const suffix=path.match(/\/page\/(\d+)\/$/)?.[1]
- return pageMetadata({title:suffix?title+' · Trang '+suffix:title,path,description:descriptions[path] ?? (entry?.kind==='product'?'Xem hình ảnh, phiên bản và thông tin '+title+' tại Toyota Thái Hòa Từ Liêm.':descriptions[base] ? descriptions[base]+(suffix?' Trang '+suffix+'.':'') : entry?.description),image:entry?.image,noindex:noindexPaths.has(path),article:entry?.kind==='post'})
+ return pageMetadata({title:suffix?title+' · Trang '+suffix:title,path,description:descriptions[path] ?? (entry?.kind==='product'?'Xem hình ảnh, phiên bản và thông tin '+title+' tại Toyota Thái Hòa Từ Liêm.':descriptions[base] ? descriptions[base]+(suffix?' Trang '+suffix+'.':'') : entry?.description),image:(path!==corollaDetailPath && vehicleMenuImagery[path]) || entry?.image,noindex:noindexPaths.has(path),article:entry?.kind==='post'})
 }
 export default async function Page({params}:Props){
  const path=resolvePath((await params).slug)
@@ -66,7 +67,7 @@ const showSource = !pendingTrims && !usedVehicle
 
 const formIntent=({'/nhan-bao-gia/':'quote','/dang-ky-lai-thu/':'test_drive','/dat-lich-dich-vu/':'service'} as Record<string,string>)[path]
 const servicePage=services.some(item=>item.slug===path)
-const indexes:Record<string,Entry[]>={'/xe-toyota-moi/':cars,'/xe-da-qua-su-dung/':[],'/dich-vu/':services,'/shop-2/':entries.filter(item=>item.kind==='product' && !isUsedVehicle(item))}
+const indexes:Record<string,Entry[]>={'/shop-2/':entries.filter(item=>item.kind==='product' && !isUsedVehicle(item))}
 const segmentLabels:Record<string,string>={'ban-tai':'Bán tải','da-dung':'Đa dụng','hatchback':'Hatchback','sedan':'Sedan','suv':'SUV'}
 const archiveKey=path.split('/').filter(Boolean).at(-1)||''
 const archive=entry?.kind==='product_cat' ? segmentLabels[archiveKey]
@@ -77,40 +78,28 @@ const articleList = articlesInArchive(basePath)
 const pageCount = Math.ceil((articleList?.length||0)/articlesPerPage)
 const list=articleList?.slice((pageNumber-1)*articlesPerPage,pageNumber*articlesPerPage) || indexes[path] || archive
 const pageLink=(index:number)=>index===1?basePath:basePath+'page/'+index+'/' 
-const filter=path==='/xe-toyota-moi/'
-const fjSpecs = [
-  ['Động cơ', '2TR-FE (2,7 L)'],
-  ['Dung tích xi-lanh', '2.694 cc'],
-  ['Công suất cực đại', '164 hp tại 5.200 vòng/phút'],
-  ['Mô-men xoắn cực đại', '245 Nm tại 4.000 vòng/phút'],
-  ['Hộp số', 'Tự động 6 cấp'],
-  ['Kích thước tổng thể', '4.610 × 1.855 × 1.950 mm'],
-  ['Chiều dài cơ sở', '2.580 mm'],
-  ['Số chỗ', '5'],
-] as const
 const isFj = path === '/toyota/toyota-land-cruiser-fj/'
-const gallery = [...new Set([
-  ...(entry?.gallery ?? []),
-  ...(isFj ? [
-    '/media/36c91af4c0c9e3ee.webp',
-    '/media/62f522f143914703.webp',
-    '/media/8a2b4107700ed040.webp',
-    '/media/d8bec76498456aed.webp',
-    '/media/7e8373cf75856cd6.webp',
-  ] : []),
-])]
-const cover = isFj ? "/media/land-cruiser-fj-studio.webp" : entry?.image
+const gallery = entry?.gallery ?? []
 const article=entry?.kind==='post' ? {'@type':'Article',headline:title,description:entry.description,datePublished:entry.published||undefined,image:entry.image ? new URL(entry.image,site).href : undefined,mainEntityOfPage:new URL(path,site).href} : undefined
 const crumbs=product?[['Xe Toyota','/xe-toyota-moi/']]:article?[['Tin tức','/tin-tuc/']]:servicePage?[['Dịch vụ','/dich-vu/']]:[]
 const relatedPosts=article ? entries.filter(item=>item.kind==='post' && item.slug!==path && entry?.links?.includes(item.slug)).slice(0,4) : []
 const archived=basePath==='/uu-dai/' || (article && /khuyen-mai|uu-dai/.test(path))
-if (formIntent === 'test_drive') {
+if (formIntent) {
   return <Layout title={title} path={path} noindex={noindexPaths.has(path)}>
-    <div className="test-drive-page">
-      <h1>Đăng ký lái thử</h1>
-      <LeadForm intent="test_drive" />
+    <div className={styles.requestPage}>
+      <header>
+        <h1>{title}</h1>
+        <p>Để lại thông tin để Toyota Thái Hòa Từ Liêm liên hệ xác nhận yêu cầu.</p>
+      </header>
+      <div className={formIntent==='test_drive' ? 'test-drive-page' : 'form-panel'}><LeadForm intent={formIntent} /></div>
     </div>
   </Layout>
+}
+if (path==='/xe-toyota-moi/' || path==='/xe-da-qua-su-dung/') {
+  return <Layout title={title} path={path}><ShowroomCatalog title={title} used={path==='/xe-da-qua-su-dung/'} /></Layout>
+}
+if (path==='/contact/' || path==='/dich-vu/') {
+  return <Layout title={title} path={path}>{path==='/contact/' ? <ContactPage title={title} /> : <ServicePage title={title} />}</Layout>
 }
 const variantDialog = model && <dialog id="chon-phien-ban" className={isFj ? "technical-drawer vehicle-variant-drawer color-drawer" : "technical-drawer vehicle-variant-drawer"} aria-labelledby="vehicle-variant-title">
     <div className="technical-heading vehicle-variant-heading">
@@ -121,154 +110,48 @@ const variantDialog = model && <dialog id="chon-phien-ban" className={isFj ? "te
       <form method="dialog"><button className="vehicle-variant-close" type="submit" aria-label="Đóng" autoFocus>×</button></form>
     </div>
     {pendingTrims && <p className="vehicle-variant-note muted">Giá và thông số theo phiên bản đang được đối chiếu. Liên hệ đại lý để xác nhận phiên bản, màu và giá.</p>}
-    <VehicleOptions vehicle={model} showColorPrices={isFj && showSource} previewSrc={cover} />
+    <VehicleOptions vehicle={model} showColorPrices={isFj && showSource} previewSrc={path===corollaDetailPath ? model.image : vehicleMenuImagery[path] || model.image} />
   </dialog>
-if (model && path === corollaDetailPath) {
+if (model) {
   return <Layout title={title} path={path} crumbs={crumbs} noindex={noindexPaths.has(path)}>
-    <CorollaCrossDetail model={model} />
+    <VehicleDetail model={model} showPrice={showSource} />
     {variantDialog}
     <TestDriveDrawer model={model.title} />
     <VehicleSupport address={address} hours={hours} />
   </Layout>
 }
-const vehicleDialogs = model && <>
-  <dialog id="chon-mau-xe" className="technical-drawer vehicle-variant-drawer" aria-labelledby="vehicle-model-title">
-    <div className="technical-heading vehicle-variant-heading">
-      <div>
-        <p className="vehicle-variant-wordmark">Toyota</p>
-        <h2 id="vehicle-model-title">Chọn mẫu xe</h2>
-      </div>
-      <form method="dialog"><button className="vehicle-variant-close" type="submit" aria-label="Đóng" autoFocus>×</button></form>
-    </div>
-    <div className="vehicle-model-picker">
-      {cars.map(vehicle => (
-        <a className="showroom-menu-model" key={vehicle.slug} href={vehicle.slug} aria-current={vehicle.slug === path ? 'page' : undefined}>
-          <span className="showroom-model-name">{vehicle.title.replace(/^Toyota /i, '')}</span>
-          {vehicle.image && <img src={vehicle.slug === '/toyota/vios/' ? vehicle.variants?.[0]?.image || vehicle.image : vehicle.image} width="400" height="200" alt="" loading="lazy" />}
-          <span className="showroom-model-tag">{vehicle.slug === path ? 'Đang xem' : vehicle.category}</span>
-        </a>
-      ))}
-    </div>
-  </dialog>
-  {variantDialog}
-  <TestDriveDrawer model={model.title} />
-  <VehicleSupport address={address} hours={hours} />
-</>
+const editorialIndex = basePath==='/tin-tuc/' || basePath==='/uu-dai/' || entry?.kind==='category'
+const leadStory = editorialIndex && !archived && pageNumber===1 && list?.[0]?.image ? list[0] : undefined
+const listing = leadStory ? list?.slice(1) : list
+const about = path==='/gioi-thieu/'
+const imageInArticle = entry?.image && entry.html.includes(entry.image)
 return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noindex={noindexPaths.has(path)}>
-  {model ? <><section className={isFj ? "product-intro model-stage fj-stage" : "product-intro model-stage"} id="tong-quan">
-    <div className="model-display">
-    <header className="model-stage-heading">
-      <p className="eyebrow">{model.category || 'Dòng xe Toyota'}</p>
-      <h1>{title.replace(/^Toyota /i,'')}</h1>
-      <p className="price">{showSource && entry?.price || 'Liên hệ để nhận báo giá'}</p>
-    </header>
-    {product && entry?.image && (cover ? <Image src={cover} width={isFj ? 1536 : 800} height={isFj ? 1024 : 800} sizes="(max-width: 760px) 100vw, 900px" className="product-cover" alt={title} loading="eager" fetchPriority="high" /> : <img src={entry.image} className="product-cover" alt={title} width="640" height="480" fetchPriority="high" />)}
-    {isFj && <nav className="fj-hero-colors" aria-label="Xem màu ngoại thất">
-      {entry?.variants?.map(variant=>{
-        const color = variant.options['attribute_mau-sac']?.trim()
-        return color && <a key={color} href="#chon-phien-ban" aria-haspopup="dialog" data-hero-color={color}>{color}</a>
-      })}
-    </nav>}
-    <div className="actions model-stage-actions">
-      <a className="btn" href="#chon-mau-xe" aria-haspopup="dialog">Chọn mẫu xe</a>
-      <a className="btn outline" href="#chon-phien-ban" aria-haspopup="dialog">Chọn cấu hình</a>
-      <button className="btn outline" type="button" data-test-drive="vehicle-options" aria-haspopup="dialog" aria-controls="test-drive-drawer" data-event="cta_click">Đăng ký lái thử</button>
-    </div>
-    </div>
-  </section>
-  {!isFj && <nav className="vehicle-section-nav" aria-label="Khám phá dòng xe">
-    <div className="wrap">
-      <a href="#tong-quan">Tổng quan</a>
-      <a href="#thiet-ke-xe">Thiết kế</a>
-      <a href="#chon-phien-ban" aria-haspopup="dialog">Phiên bản &amp; màu xe</a>
-      {gallery.length>0 && <a href="#hinh-anh-xe">Hình ảnh</a>}
-      {showSource && entry?.html && <a href="#chi-tiet-xe">Thông số</a>}
-    </div>
-  </nav>}
-  {!isFj && <section className="vehicle-story" id="thiet-ke-xe">
-    <div className="vehicle-story-heading">
-      <p className="eyebrow">KHÁM PHÁ {model.category.toLocaleUpperCase('vi-VN')}</p>
-      <h2>{title.replace(/^Toyota /i,'')}.<br/>Từng góc nhìn, một cảm nhận.</h2>
-      <p>Khám phá thiết kế của {title}, chọn phiên bản và màu xe bạn quan tâm. Trải nghiệm thực tế tại Toyota Thái Hòa Từ Liêm.</p>
-    </div>
-    <div className="vehicle-story-photo">
-      <Image src={vehicleImagery[path] || gallery[0] || model.image} alt={'Thiết kế '+title} fill sizes="(max-width:760px) 90vw, 75vw" />
-    </div>
-    <div className="vehicle-story-caption"><span>{title}{vehicleImagery[path] && ' · Ảnh minh họa bằng AI'}</span><a href="#hinh-anh-xe">Xem thư viện ảnh ↗</a></div>
-  </section>}
-  {isFj && <nav className="fj-section-nav" aria-label="Khám phá Land Cruiser FJ">
-    <div className="wrap">
-      <a href="#thiet-ke-fj">Thiết kế</a>
-      <a href="#van-hanh-fj">Vận hành</a>
-      <a href="#chon-phien-ban" aria-haspopup="dialog">Màu ngoại thất</a>
-      <a href="#hinh-anh-xe">Hình ảnh</a>
-      <a href="#chi-tiet-xe">Thông số</a>
-    </div>
-  </nav>}
-    {isFj && showSource && <section id="van-hanh-fj" className="wrap fj-performance" aria-label="Thông số nổi bật Land Cruiser FJ">
-      <div className="fj-performance-copy">
-      <p className="eyebrow">VẬN HÀNH</p>
-      <h2>Động cơ 2.7 L và khả năng vận hành</h2>
-      <dl>
-        <div><dt>Động cơ</dt><dd>2.7 <small>L</small></dd></div>
-        <div><dt>Công suất cực đại</dt><dd>164 <small>hp</small></dd></div>
-        <div><dt>Mô-men xoắn cực đại</dt><dd>245 <small>Nm</small></dd></div>
-      </dl>
-      <TechnicalDetails rows={fjSpecs} />
-      </div>
-      <div className="fj-performance-photo">
-        <Image src="/media/62f522f143914703.webp" alt="Land Cruiser FJ màu trắng trên đường đất" fill sizes="(max-width: 760px) 100vw, 55vw" />
-      </div>
-    </section>}
-  {isFj && <section className="wrap fj-introduction" aria-labelledby="fj-introduction-title">
-    <h2 id="fj-introduction-title">Tinh thần Land Cruiser trong một dáng xe gọn gàng.</h2>
-    <p>Land Cruiser FJ kết hợp thiết kế vuông vức với động cơ xăng 2.7 L. Khám phá từng góc nhìn của xe, xem thông số và chọn màu ngoại thất bạn thích.</p>
-  </section>}
-  {isFj && <section id="thiet-ke-fj" className="fj-editorial fj-editorial-wide" aria-labelledby="fj-design-title">
-    <div className="fj-editorial-photo">
-      <Image src="/media/36c91af4c0c9e3ee.webp" alt="Toyota Land Cruiser FJ" fill sizes="(max-width: 760px) 100vw, 65vw" />
-    </div>
-    <div className="fj-editorial-copy">
-      <p className="eyebrow">THIẾT KẾ LAND CRUISER FJ</p>
-      <h2 id="fj-design-title">Dáng vuông. Chất Land Cruiser.</h2>
-      <p>Thân xe vuông vức và vòm bánh rõ nét gợi nhớ những thế hệ Land Cruiser trước. Cụm đèn trước tròn tạo điểm nhấn trên mặt ca-lăng ngang.</p>
-      <a href="#hinh-anh-xe" className="btn outline">Khám phá thư viện ảnh ↗</a>
-    </div>
-  </section>}
-  {vehicleDialogs}
-  </> :   <section className={product ? 'wrap section page-intro product-intro' : 'wrap section page-intro'}>
-    {product && entry?.image && (cover ? <Image src={cover} width={800} height={800} sizes="(max-width: 760px) 100vw, 50vw" className="product-cover" alt={title} loading="eager" fetchPriority="high" /> : <img src={entry.image} className="product-cover" alt={title} width="640" height="480" fetchPriority="high" />)}
-    <div><p className="eyebrow">{product?'DANH MỤC TOYOTA':article?'TIN TỨC TOYOTA':'TOYOTA THÁI HÒA TỪ LIÊM'}</p>
+  {about ? <AboutHero title={title} /> : servicePage ?
+    <DealerHero title={title} image={entry?.image} service={servicePage} action={servicePage && <a className="btn" href="/dat-lich-dich-vu/" data-event="cta_click">Đặt lịch bảo dưỡng ↗</a>} /> :
+  <section className={product ? 'wrap section page-intro product-intro' : article || editorialIndex ? styles.editorialPage : 'wrap section page-intro'}>
+    {product && entry?.image && <Image src={entry.image} width={800} height={800} sizes="(max-width: 760px) 100vw, 50vw" className="product-cover" alt={title} loading="eager" fetchPriority="high" />}
+    <div className={article || editorialIndex ? styles.editorialHeader : undefined}><p className="eyebrow">{product?'DANH MỤC TOYOTA':article?'TIN TỨC TOYOTA':'TOYOTA THÁI HÒA TỪ LIÊM'}</p>
     <h1>{title}</h1>
     {product && <><p className="price">{showSource && entry?.price || 'Liên hệ để nhận báo giá'}</p><p className="muted">{pendingTrims ? "Giá và thông số theo phiên bản đang được đối chiếu. Liên hệ đại lý để xác nhận phiên bản, màu và giá." : usedVehicle ? "Thông tin xe lưu trữ. Liên hệ đại lý để xác nhận tình trạng xe." : "Giá tham khảo theo trang đại lý. Vui lòng xác nhận giá và tình trạng xe với đại lý."}</p><div className="actions"><a className="btn" href="/nhan-bao-gia/" data-event="cta_click">Nhận báo giá ↗</a></div></>}
-    {servicePage && <a className="btn" href="/dat-lich-dich-vu/" data-event="cta_click">Đặt lịch bảo dưỡng ↗</a>}
     {article && entry?.published && <time className="muted" dateTime={entry.published}>{new Intl.DateTimeFormat('vi-VN',{timeZone:'Asia/Ho_Chi_Minh',dateStyle:'long'}).format(new Date(entry.published))}</time>}
     {archived && <p className="notice">Chương trình theo thời điểm công bố. Gọi đại lý để xác nhận ưu đãi đang áp dụng.</p>}
     </div>
 
-  </section> }
-  {formIntent && <section className="wrap form-panel"><p>Để lại số điện thoại để đại lý liên hệ và xác nhận yêu cầu.</p><LeadForm intent={formIntent} /></section>}
-  {path==='/contact/' && <section className="wrap section contact-grid"><div><h2>Địa chỉ showroom</h2><p>{address}</p><div className="actions"><a className="btn" href={'tel:'+phone} data-event="hotline_click">Gọi 0985 3333 88</a><a className="btn outline" href={directions} data-event="directions_click">Xem chỉ đường ↗</a><a className="btn outline" href="https://zalo.me/0985333388" data-event="zalo_click">Nhắn qua Zalo ↗</a></div></div><div><h2>Giờ làm việc</h2>{hours.map(hour=><p key={hour}>{hour}</p>)}<p className="muted">Giờ theo trang đại lý. Vui lòng gọi trước khi đến.</p></div></section>}
+    {article && entry?.image && !imageInArticle && <Image className={styles.articleCover} src={entry.image} alt="" width={1200} height={675} sizes="88vw" />}
+  </section>}
   {path==='/thong-tin-xu-ly-du-lieu/' && <section className="wrap prose"><p>Thông tin bạn nhập được chuyển đến đầu nhận của Toyota Thái Hòa Từ Liêm để tư vấn, xác nhận lái thử hoặc liên hệ về lịch bảo dưỡng. Các sự kiện đo lường trên trang không chứa họ tên hoặc số điện thoại bạn nhập.</p><p>Liên hệ bộ phận chăm sóc khách hàng qua <a href="mailto:cskh@toyotathaihoatuliem.com.vn">cskh@toyotathaihoatuliem.com.vn</a> để hỏi về việc xử lý thông tin.</p></section>}
-  {product && !model && <nav className="wrap product-jump" aria-label="Chi tiết xe">
+  {product && <nav className="wrap product-jump" aria-label="Chi tiết xe">
     {showSource && entry?.html && <a href="#chi-tiet-xe">Thông tin và thông số</a>}
-    {showSource && !!entry?.variants?.length && model && <a href="#mau-xe">Màu xe và giá</a>}
     {gallery.length > 0 && <a href="#hinh-anh-xe">Hình ảnh xe</a>}
   </nav>}
-  {!isFj && showSource && model && !!entry?.variants?.length && <section id="mau-xe" className="wrap prose">
-    <h2>Giá theo tùy chọn màu</h2>
-    <p className="muted">Mã màu và giá tham khảo theo dữ liệu cấu hình trên trang đại lý ngày {entry.date}.</p>
-    <div className="table-scroll" role="region" aria-label="Bảng giá theo tùy chọn màu" tabIndex={0}><table><thead><tr><th scope="col">Tùy chọn theo mã nguồn</th><th scope="col">Giá tham khảo</th><th scope="col">Hình ảnh</th></tr></thead><tbody>{entry.variants.map(variant=><tr key={JSON.stringify(variant.options)}><th scope="row">{Object.values(variant.options).filter(Boolean).join(' · ')||'Mặc định'}</th><td>{new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND'}).format(variant.price)}</td><td>{variant.image && <a href={variant.image}>Xem ảnh</a>}</td></tr>)}</tbody></table></div>
-  </section>}
-  {list && <section className="wrap section collection">
-    {filter && <div className="catalog-controls" hidden>
-      <label>Tìm theo tên xe<input id="model-search" type="search" /></label>
-      <label>Kiểu xe<select id="segment"><option value="">Tất cả</option>{[...new Set(cars.map(car=>car.category).filter(Boolean))].map(category=><option key={category}>{category}</option>)}</select></label>
-      <button className="btn outline" id="clear-filters" type="button">Xóa bộ lọc</button>
-      <p id="model-count" role="status"></p>
-    </div>}
-    {list.length===0 && <p>{path === "/xe-da-qua-su-dung/" ? "Tồn kho đang được xác nhận. Gọi 093 631 3338 để hỏi xe đang có." : "Liên hệ đại lý để biết thêm thông tin."}</p>}
-    <div className={filter ? 'grid model-grid' : 'grid'}>{list.map(item=><div key={item.slug} data-category={item.category} data-model={item.title}><Card entry={item} heading="h2" wide={filter} vehicle={item.kind==='product'} /></div>)}</div>
+  {listing && <section className={editorialIndex ? styles.editorialPage : 'wrap section collection'}>
+    {editorialIndex && <nav className={styles.editorialNav} aria-label="Khám phá bài viết">
+      <a href="/tin-tuc/" aria-current={basePath==='/tin-tuc/' ? 'page' : undefined}>Tin tức Toyota</a>
+      <a href="/uu-dai/" aria-current={basePath==='/uu-dai/' ? 'page' : undefined}>Chương trình ưu đãi</a>
+    </nav>}
+    {leadStory && <Card entry={leadStory} heading="h2" editorial="lead" />}
+    {listing.length===0 && !leadStory && <p>Liên hệ đại lý để biết thêm thông tin.</p>}
+    <div className={editorialIndex ? styles.articleGrid : 'grid'}>{listing.map(item=><Card key={item.slug} entry={item} heading="h2" editorial={editorialIndex ? 'article' : undefined} vehicle={item.kind==='product'} />)}</div>
     {pageCount>1 && <nav className="pagination" aria-label="Phân trang">
       {pageNumber>1 && <a href={pageLink(pageNumber-1)} rel="prev">← Trang trước</a>}
       <span>{`Trang ${pageNumber} / ${pageCount}`}</span>
@@ -276,20 +159,11 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
     </nav>}
   </section>}
   {gallery.length > 0 && product ? <section id="hinh-anh-xe" className="wrap section">
-    <h2>{isFj ? "Điểm nổi bật của Land Cruiser FJ" : `Hình ảnh ${title}`}</h2>
-    <VehicleGallery images={gallery} title={title} editorial={isFj} />
+    <h2>Hình ảnh {title}</h2>
+    <VehicleGallery images={gallery} title={title} />
   </section> : null}
-  {isFj && showSource && <section id="chi-tiet-xe" className="wrap section fj-spec-summary">
-    <h2>Thông số kỹ thuật</h2>
-    <dl>{fjSpecs.map(([label,value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
-  </section>}
-  {!isFj && !list && !formIntent && path!=='/contact/' && showSource && entry?.html && <section id="chi-tiet-xe" className="wrap prose source-content" aria-label={product?'Thông tin và thông số xe':'Nội dung'}><div dangerouslySetInnerHTML={{__html:entry.html}} /></section>}
-  {relatedPosts.length>0 && <section className="wrap section"><h2>Bài viết liên quan</h2><div className="grid">{relatedPosts.map(item=><Card key={item.slug} entry={item} />)}</div></section>}
-  {model && <section className="vehicle-next">
-    <p className="eyebrow">TOYOTA THÁI HÒA TỪ LIÊM</p>
-    <h2>Trải nghiệm {title.replace(/^Toyota /i,'')}.</h2>
-    <p>Chọn lịch lái thử hoặc trao đổi với đại lý về chiếc xe bạn quan tâm.</p>
-    <div className="actions"><button className="btn" type="button" data-test-drive="vehicle-options" aria-haspopup="dialog" aria-controls="test-drive-drawer">Đăng ký lái thử</button><a className="btn outline" href="/contact/">Liên hệ đại lý ↗</a></div>
-  </section>}
+  {!list && showSource && entry?.html && <section id="chi-tiet-xe" className={'wrap prose source-content '+(article || servicePage || about ? styles.editorialBody : '')} aria-label={product?'Thông tin và thông số xe':'Nội dung'}><div dangerouslySetInnerHTML={{__html:entry.html}} /></section>}
+  {relatedPosts.length>0 && <section className={styles.editorialPage}><h2>Bài viết liên quan</h2><div className={styles.articleGrid}>{relatedPosts.map(item=><Card key={item.slug} entry={item} editorial="article" />)}</div></section>}
+  {(servicePage || about) && <DealerContact />}
 </Layout>)
 }

@@ -1,0 +1,105 @@
+.catalog, .editorialPage, .requestPage { color: #101114; }
+.catalog { background: #f0f0f2; padding: clamp(24px, 5vw, 66px) max(4vw, calc((100vw - 1350px) / 2)) clamp(55px, 8vw, 112px); }
+.catalogHeading { margin-bottom: clamp(28px, 5vw, 60px); }
+.catalogHeading h1, .editorialHeader h1, .requestPage h1 { margin: 0 0 12px; font-size: clamp(2.05rem, 4vw, 3.8rem); font-weight: 500; line-height: 1.1; letter-spacing: -.045em; }
+.catalogHeading p { margin: 0; font-size: clamp(1rem, 2vw, 1.45rem); }
+.catalogLayout { display: grid; grid-template-columns: minmax(195px, 245px) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: start; }
+.filters { min-width: 0; position: sticky; top: 20px; }
+.inventoryTabs { display: grid; gap: 4px; margin-bottom: 20px; }
+.inventoryTabs a { padding: 9px 12px; border-radius: 8px; text-decoration: none; }
+.inventoryTabs a:is(:hover,[aria-current="page"]) { background: #dedee2; }
+.filters :global(.catalog-controls) { display: block; }
+.filters summary { cursor: pointer; font-weight: 650; margin-bottom: 10px; }
+.filterFields { display: grid; gap: 14px; }
+.filterFields input, .filterFields select { width: 100%; }
+.resultCount { margin: 0 0 14px; color: #51535a; }
+.catalogGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(15px, 2.4vw, 32px); }
+.modelCard { display: flex; flex-direction: column; border-radius: clamp(17px, 2.5vw, 32px); background: linear-gradient(transparent 50px, white 50px); }
+.modelImage { display: block; overflow: hidden; }
+.modelImage img { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
+.modelBody { display: flex; flex: 1; flex-direction: column; align-items: start; padding: 0 clamp(15px, 2.2vw, 28px) clamp(16px, 2.2vw, 28px); }
+.modelBody h2 { margin: 0 0 7px; font-size: clamp(1.32rem, 2.7vw, 2.05rem); font-weight: 500; line-height: 1.12; letter-spacing: -.035em; }
+.modelBody p { margin: 0; color: #51535a; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin: 12px 0 20px; padding: 0; list-style: none; }
+.tags li { padding: 2px 8px; font-size: .82rem; border-radius: 18px; background: #e7e7ea; }
+.modelActions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; width: 100%; }
+.modelActions a { flex: 1 1 120px; }
+.modelActions :global(.card-link) { display: inline-flex; height: auto; }
+.emptyInventory { padding: clamp(24px, 5vw, 64px); border-radius: 24px; background: white; }
+.emptyInventory h2 { margin-top: 0; font-weight: 500; }
+
+.dealerHero { display: grid; align-items: end; position: relative; isolation: isolate; background: #ededf0; }
+.dealerHero[data-photo="true"] { min-height: clamp(360px, 42vw, 625px); color: white; background: #232426; }
+.dealerHero img { z-index: -2; object-fit: cover; object-position: center; }
+.dealerHero[data-photo="true"]::after { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(0deg,#08090bea,transparent 72%); }
+.heroCopy { width: min(88%, 1240px); margin-inline: auto; padding-block: clamp(32px, 5vw, 68px); }
+.heroCopy h1 { max-width: 22ch; margin: 0; font-size: clamp(2rem, 4.2vw, 3.75rem); font-weight: 500; line-height: 1.08; letter-spacing: -.04em; }
+.heroCopy a { margin-top: 18px; }
+.dealerBar { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px clamp(25px, 7vw, 96px); padding: 10px 16px; background: #17181b; color: white; }
+.dealerBar a { display: inline-flex; min-height: 44px; gap: 10px; align-items: center; text-decoration: none; }
+.dealerBar a:hover { text-decoration: underline; }
+.dealerSection { width: min(88%, 1240px); margin: clamp(48px, 8vw, 105px) auto; }
+.dealerSection h2 { margin: 0 0 22px; font-size: clamp(1.7rem, 3.2vw, 2.8rem); font-weight: 500; letter-spacing: -.04em; }
+.serviceIntro { max-width: 640px; margin: 0 auto clamp(30px, 5vw, 60px); text-align: center; }
+.serviceIntro p { margin: 0 0 18px; }
+.serviceGrid, .articleGrid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(16px, 2.5vw, 30px); }
+.serviceGrid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.dealerInfo { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+.dealerInfo > div { padding: clamp(18px, 2.6vw, 32px); background: #f1f1f3; border-radius: 16px; min-width: 0; }
+.dealerInfo h3 { margin: 0 0 14px; }
+.dealerInfo address { margin-bottom: 10px; font-style: normal; }
+.dealerInfo a { overflow-wrap: anywhere; }
+.dealerRows, .dealerHours { margin: 0; padding: 0; list-style: none; }
+.dealerRows div, .dealerHours li { border-top: 1px solid #d8d8dd; padding: 9px 0; }
+.dealerRows dd { margin: 3px 0 0; }
+
+.editorialPage { width: min(88%, 1240px); margin: clamp(30px, 5vw, 60px) auto clamp(50px, 8vw, 110px); }
+.editorialHeader { max-width: 790px; margin-bottom: clamp(26px, 4vw, 44px); }
+.editorialHeader time { color: #51535a; }
+.editorialCard { background: #f1f1f3; border: 0; border-radius: 15px; overflow: hidden; }
+.editorialCard :global(.card-link) { display: flex; flex-direction: column; }
+.editorialCard :global(.card-img) { display: block; }
+.editorialCard :global(.card-body) { flex: 1; padding: clamp(16px, 2.2vw, 29px); }
+.editorialCard :global(.card-title) { font-size: clamp(1.15rem, 2vw, 1.65rem); font-weight: 540; line-height: 1.2; margin: 5px 0 10px; }
+.editorialCard :global(.card-link:hover .card-title) { color: inherit; text-decoration: underline; }
+.editorialCard :global(.card-arrow) { display: none; }
+.editorialCard :global(.card-body p) { font-size: .96rem; }
+.editorialCard time { display: block; font-size: .8rem; color: #51535a; }
+.editorialCard[data-editorial="lead"] { height: auto; margin-bottom: clamp(24px, 4vw, 50px); }
+.editorialCard[data-editorial="lead"] :global(.card-link) { display: grid; grid-template-columns: 1.55fr 1fr; align-items: center; }
+.editorialCard[data-editorial="lead"] :global(.card-title) { font-size: clamp(1.45rem, 3vw, 2.6rem); }
+.editorialCard[data-editorial="service"] :global(.card-img) { aspect-ratio: 16 / 9; }
+.editorialCard[data-editorial="service"] :global(.card-title) { margin-top: 0; }
+.cardCta { display: inline-block; margin-top: 12px; font-weight: 620; }
+.editorialBody { width: min(100%, 780px); margin: 0 auto; }
+.editorialBody img { border-radius: 10px; }
+.articleCover { display: block; width: 100%; height: auto; max-height: 590px; object-fit: cover; margin: 0 auto 30px; border-radius: 16px; }
+.requestPage { width: min(88%, 1060px); margin: clamp(36px, 7vw, 94px) auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: clamp(24px, 5vw, 68px); align-items: start; }
+.requestPage :global(.form-panel) { width: 100%; border-radius: 18px; }
+.requestPage :global(.test-drive-page) { width: 100%; margin: 0; }
+
+:is(.catalog,.dealerSection,.heroCopy,.requestPage) :global(.btn) { border-radius: 8px; font-weight: 550; }
+:is(.catalog,.dealerSection,.heroCopy,.requestPage) :global(.btn:not(.outline)) { background: #111215; border-color: #111215; }
+:is(.catalog,.dealerSection,.heroCopy,.requestPage) :global(.btn:not(.outline):hover) { background: #37383d; border-color: #37383d; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (prefers-reduced-motion: no-preference) {
+  .modelImage img { transition: transform 280ms ease; }
+  .modelCard:is(:hover,:focus-within) .modelImage img { transform: scale(1.045); }
+}
+@media (max-width: 760px) {
+  .catalogLayout, .requestPage { grid-template-columns: minmax(0, 1fr); }
+  .filters { position: static; }
+  .inventoryTabs { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .dealerInfo { grid-template-columns: minmax(0, 1fr); }
+  .editorialCard[data-editorial="lead"] :global(.card-link) { display: flex; align-items: stretch; }
+  .articleGrid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 560px) {
+  .catalogGrid, .serviceGrid, .articleGrid { grid-template-columns: minmax(0,1fr); }
+  .heroCopy { padding-bottom: 32px; }
+}
+
+.editorialNav { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; }
+.editorialNav a { padding: 8px 15px; border-radius: 8px; background: #f0f0f2; text-decoration: none; }
+.editorialNav a[aria-current="page"] { background: #111215; color: white; }
+.editorialNav a:hover { text-decoration: underline; }

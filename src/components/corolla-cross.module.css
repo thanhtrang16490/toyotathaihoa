@@ -273,3 +273,41 @@
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
 }
+
+.detail[data-shared-vehicle="true"] .studio :global(.product-cover) {
+  object-fit: contain;
+}
+.detail[data-shared-vehicle="true"] .wordmark { font-size: clamp(1.6rem, 7vw, 7rem); }
+.detail[data-shared-vehicle="true"] .storyWordmark { font-size: clamp(1.35rem, 5.5vw, 5.5rem); }
+.detail[data-shared-vehicle="true"] .versionRail { justify-content: center; flex-wrap: wrap; }
+.detail[data-shared-vehicle="true"] .introCopy p {
+  max-width: 32ch;
+  margin-inline: auto;
+  text-wrap: balance;
+}
+
+.gradeSection {
+  width: min(86%, 1230px);
+  margin: clamp(72px, 10vw, 156px) auto;
+}
+.gradeSection h2 { text-align: center; margin: 0 0 32px; }
+.gradeGrid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,255px),1fr)); gap: 16px; }
+.gradeCard {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  scroll-margin-top: 76px;
+  padding: clamp(16px, 2vw, 26px);
+  border-radius: 16px;
+  background: #f1f1f4;
+}
+.gradeCard:target { outline: 2px solid currentColor; outline-offset: 3px; }
+.gradeCard img { width: 100%; height: auto; mix-blend-mode: multiply; }
+.gradeCard h3 { margin: 12px 0; font-size: clamp(1.15rem, 2vw, 1.5rem); }
+.gradeCard dl { margin: 0 0 22px; }
+.gradeCard dl div + div { margin-top: 10px; }
+.gradeCard dt { font-size: .84rem; color: #51535a; }
+.gradeCard dd { margin: 0; font-weight: 600; }
+.gradeCard :global(.btn) { margin-top: auto; width: 100%; text-align: center; }
+.gradeNote { max-width: 55ch; margin: -16px auto 28px; text-align: center; color: #51535a; }
+.detail[data-shared-vehicle="true"] .specs img { aspect-ratio: 16 / 10; object-fit: cover; }

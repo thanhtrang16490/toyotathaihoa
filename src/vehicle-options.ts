@@ -1,7 +1,7 @@
 import type {Entry} from './catalog'
+import {vehicleGrades} from './vehicle-grades'
 
 export const corollaDetailPath = '/toyota/corolla-cross/'
-export const corollaConfigPath = '/toyota/corolla-cross/cau-hinh/'
 export const corollaTrims = ['1.8V', 'HEV'] as const
 
 export const corollaTrimSpecs = {
@@ -16,4 +16,8 @@ export function vehicleColors(vehicle:Entry) {
     if (value) colors.set(/^\d+$/.test(value) ? 'Mã màu '+value : value, {photo:variant.image,price:variant.price})
   }
   return colors
+}
+
+export function vehicleTrims(path:string) {
+  return vehicleGrades(path).map(grade=>grade.name)
 }

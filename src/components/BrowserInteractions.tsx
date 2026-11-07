@@ -10,30 +10,37 @@ export default function BrowserInteractions({path}:{path:string}){
 
 {
 
-  const controls = document.querySelector<HTMLElement>('.catalog-controls')
+  const controls = document.querySelector<HTMLDetailsElement>('details.catalog-controls')
   const segment = document.querySelector<HTMLSelectElement>('#segment')
   const search = document.querySelector<HTMLInputElement>('#model-search')
   const count = document.querySelector('#model-count')
-  if (controls && segment && search && count) {
+  const fuel = document.querySelector<HTMLSelectElement>('#model-fuel')
+  if (controls && segment && search && fuel && count) {
     const cards = document.querySelectorAll<HTMLElement>('.collection [data-model]')
     const normalize = (value: string) => value.toLocaleLowerCase('vi').normalize('NFD').replace(/\p{Diacritic}/gu, '').replaceAll('đ', 'd').trim()
     const update = () => {
       const query = normalize(search.value)
       let visible = 0
       for (const card of cards) {
-        card.hidden = (!!segment.value && card.dataset.category !== segment.value) || !normalize(card.dataset.model ?? '').includes(query)
+        card.hidden = (!!segment.value && card.dataset.category !== segment.value) || (!!fuel.value && !card.dataset.fuel?.split(' ').includes(fuel.value)) || !normalize(card.dataset.model ?? '').includes(query)
         if (!card.hidden) visible++
       }
       count.textContent = visible ? `${visible} mẫu xe phù hợp` : 'Không tìm thấy mẫu xe phù hợp.'
     }
     search.addEventListener('input', update, {signal})
     segment.addEventListener('change', update, {signal})
+    fuel.addEventListener('change', update, {signal})
     document.querySelector('#clear-filters')?.addEventListener('click', () => {
       search.value = ''
       segment.value = ''
+      fuel.value = ''
       update()
       search.focus()
     },{signal})
+    const mobile = matchMedia('(max-width: 760px)')
+    const syncFilterPanel = () => { controls.open = !mobile.matches }
+    mobile.addEventListener('change', syncFilterPanel, {signal})
+    syncFilterPanel()
     controls.hidden = false
     update()
   }

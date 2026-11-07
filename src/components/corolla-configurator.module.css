@@ -153,3 +153,25 @@
   .swatches label > span { width: clamp(52px, 18vw, 76px); }
   .options details { padding-inline: 14px; }
 }
+
+.swatches[data-photo-options="true"] {
+  grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
+}
+.swatches[data-photo-options="true"] input { z-index: 1; }
+.swatches[data-photo-options="true"] label > span {
+  display: grid;
+  align-content: start;
+  width: 100%;
+  min-height: 100%;
+  padding: 6px;
+  aspect-ratio: auto;
+  background: #f0f0f2;
+  text-align: center;
+}
+.swatches[data-photo-options="true"] img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}

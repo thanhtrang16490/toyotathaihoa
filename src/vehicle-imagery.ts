@@ -7,6 +7,18 @@ export const vehicleImagery:Record<string,string> = {
   '/toyota/innova-cross/':'/media/generated/innova-cross-editorial-v2.webp',
 }
 
+export const vehicleDetailImagery:Record<string,string> = {
+  ...vehicleImagery,
+  '/toyota/toyota-land-cruiser-fj/':'/media/generated/toyota-land-cruiser-fj-detail-editorial.webp',
+  '/toyota/toyota-land-prado/':'/media/generated/toyota-land-prado-detail-editorial.webp',
+  '/toyota/yaris-cross/':'/media/generated/yaris-cross-detail-editorial.webp',
+  '/toyota/raize/':'/media/generated/raize-detail-editorial.webp',
+  '/toyota/wigo/':'/media/generated/wigo-detail-editorial.webp',
+  '/toyota/veloz-cross/':'/media/generated/veloz-cross-detail-editorial.webp',
+  '/toyota/avanza-premio/':'/media/generated/avanza-premio-detail-editorial.webp',
+  '/toyota/alphard/':'/media/generated/alphard-detail-editorial.webp',
+}
+
 export const vehicleMenuImagery:Record<string,string> = {
   '/toyota/toyota-land-cruiser-fj/':'/media/menu-vehicles/toyota-land-cruiser-fj.avif',
   '/toyota/yaris-cross/':'/media/menu-vehicles/yaris-cross.avif',

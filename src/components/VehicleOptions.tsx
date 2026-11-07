@@ -1,20 +1,8 @@
 
 import type {Entry} from '../catalog'
-import {corollaTrims,vehicleColors} from '../vehicle-options'
+import {vehicleTrims,vehicleColors} from '../vehicle-options'
 export default function VehicleOptions({vehicle,showColorPrices=false,previewSrc}:{vehicle:Entry;showColorPrices?:boolean;previewSrc?:string}){
-const trims: Record<string, readonly string[]> = {
-  'avanza-premio': ['1.5L MT', '1.5L CVT'],
-  camry: ['2.0Q', 'HEV Premium', 'HEV Luxury'],
-  'corolla-cross': corollaTrims,
-  fortuner: ['2.7 AT 4×2', 'Legender 2.4 AT 4×2', 'Legender 2.7 AT 4×4', 'Legender 2.8 AT 4×4'],
-  hilux: ['Standard 4×2 MT', 'Pro 4×2 AT', 'Trailhunter 4×4'],
-  'innova-cross': ['Xăng', 'HEV'],
-  'veloz-cross': ['CVT', 'CVT TOP'],
-  vios: ['1.5E MT', '1.5E CVT', '1.5G CVT'],
-  wigo: ['G'],
-  'yaris-cross': ['Xăng', 'Hybrid'],
-}
-const versions = trims[vehicle.slug.split('/')[2]] ?? []
+const versions = vehicleTrims(vehicle.slug)
 const colors = vehicleColors(vehicle)
 return (<form id="vehicle-options" className="vehicle-options" action="/nhan-bao-gia/" method="get" data-vehicle-options="">
   <input type="hidden" name="model" value={vehicle.title} />
