@@ -188,7 +188,7 @@ header:has(>.header-row){border-bottom:0}
   padding:clamp(12px,3vw,28px);
 }
 .vehicle-lightbox::backdrop{background:#000c}
-.vehicle-lightbox img{display:block;width:100%;max-height:65dvh;object-fit:contain;margin:12px 0}
+.vehicle-lightbox img{display:block;width:100%;height:auto;max-height:65dvh;object-fit:contain;margin:12px 0}
 .lightbox-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
 
 .showroom-header .header-row{padding-block:10px;min-height:76px}

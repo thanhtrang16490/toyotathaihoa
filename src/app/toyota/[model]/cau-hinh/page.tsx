@@ -4,6 +4,7 @@ import VehicleConfigurator from '../../../../components/VehicleConfigurator'
 import BrowserInteractions from '../../../../components/BrowserInteractions'
 import TestDriveDrawer from '../../../../components/TestDriveDrawer'
 import {pageMetadata} from '../../../../site-metadata'
+import {vehicleDetailImagery} from '../../../../vehicle-imagery'
 import {vehicleDetailData} from '../../../../vehicle-detail-data'
 import {corollaDetailPath,vehicleColors,vehicleTrims} from '../../../../vehicle-options'
 
@@ -21,6 +22,8 @@ export async function generateMetadata({params}:RouteProps) {
   return pageMetadata({
     title:'Cấu hình '+model.title,
     path:model.slug+'cau-hinh/',
+    image:vehicleDetailImagery[model.slug],
+    imageAlt:model.title,
     description:`Xem trước ${model.title}, chọn cấu hình và gửi yêu cầu đến đại lý.`,
   })
 }

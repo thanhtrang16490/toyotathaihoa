@@ -92,7 +92,7 @@ export default function VehicleDetail({model,showPrice}:{model:Entry;showPrice:b
     <section id="tong-quan" className="product-intro corolla-intro">
       <div className={styles.studio}>
         <span className={styles.wordmark} aria-hidden="true">{wordmark}</span>
-        <Image src={isCorolla ? model.image : profile.studio} width={isCorolla ? 800 : 720} height={isCorolla ? 800 : 320} sizes="(max-width: 700px) 100vw, 1040px" className="product-cover" alt={model.title} loading="eager" fetchPriority="high" />
+        <Image src={isCorolla ? model.image : profile.studio} width={isCorolla ? 800 : 720} height={isCorolla ? 800 : 320} sizes="(max-width: 760px) 95vw, (max-width: 1210px) 86vw, 1040px" className="product-cover" alt={model.title} loading="eager" fetchPriority="high" />
       </div>
       <div className={styles.introCopy}>
         <div className={styles.versionRail} aria-label={'Phiên bản '+name}>

@@ -1,3 +1,5 @@
+export const homeShareImage = '/media/generated/toyota-corolla-cross-social.jpg'
+
 export const vehicleImagery:Record<string,string> = {
   '/toyota/corolla-cross/':'/media/generated/corolla-cross-editorial-v2.webp',
   '/toyota/camry/':'/media/generated/camry-editorial-v2.webp',

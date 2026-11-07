@@ -1,7 +1,7 @@
 import {corollaDetailPath} from '../../vehicle-options'
 import VehicleDetail from '../../components/VehicleDetail'
 import Layout from '../../components/SiteFrame'
-import {vehicleMenuImagery} from '../../vehicle-imagery'
+import {vehicleDetailImagery,vehicleMenuImagery} from '../../vehicle-imagery'
 import Card from '../../components/Card'
 import VehicleGallery from '../../components/VehicleGallery'
 import VehicleOptions from '../../components/VehicleOptions'
@@ -47,7 +47,7 @@ export async function generateMetadata({params}:Props){
  const base=path.replace(/\/page\/\d+\/$/,'/')
  const title=collections[base as keyof typeof collections] || entries.find(item=>item.slug===base)?.title || 'Toyota'
  const suffix=path.match(/\/page\/(\d+)\/$/)?.[1]
- return pageMetadata({title:suffix?title+' · Trang '+suffix:title,path,description:descriptions[path] ?? (entry?.kind==='product'?'Xem hình ảnh, phiên bản và thông tin '+title+' tại Toyota Thái Hòa Từ Liêm.':descriptions[base] ? descriptions[base]+(suffix?' Trang '+suffix+'.':'') : entry?.description),image:(path!==corollaDetailPath && vehicleMenuImagery[path]) || entry?.image,noindex:noindexPaths.has(path),article:entry?.kind==='post'})
+ return pageMetadata({title:suffix?title+' · Trang '+suffix:title,path,description:descriptions[path] ?? (entry?.kind==='product'?'Xem hình ảnh, phiên bản và thông tin '+title+' tại Toyota Thái Hòa Từ Liêm.':descriptions[base] ? descriptions[base]+(suffix?' Trang '+suffix+'.':'') : entry?.description),image:vehicleDetailImagery[path] || entry?.image,noindex:noindexPaths.has(path),article:entry?.kind==='post'})
 }
 export default async function Page({params}:Props){
  const path=resolvePath((await params).slug)

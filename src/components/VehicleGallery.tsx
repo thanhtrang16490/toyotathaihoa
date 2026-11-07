@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import {useEffect,useRef,useState} from 'react'
 
 const fjCaptions: Record<string, [string, string]> = {
@@ -16,6 +17,9 @@ export default function VehicleGallery({images,title,editorial=false}:{images:st
     const card = list?.firstElementChild
     if (list && card) list.scrollBy({left: direction * (card.clientWidth + 16)})
   }
+  const thumbnailSizes = editorial
+    ? '(max-width: 760px) 75vw, (max-width: 1447px) 62vw, 886px'
+    : `(max-width: 760px) 95vw, ${images.length===1 ? '1100px' : '560px'}`
   const dialog = useRef<HTMLDialogElement>(null)
   const [index,setIndex] = useState(0)
   const [opened,setOpened] = useState(false)
@@ -35,7 +39,7 @@ export default function VehicleGallery({images,title,editorial=false}:{images:st
         setIndex(i)
         setOpened(true)
         dialog.current.showModal()
-      }}><img src={src} alt={title+' · ảnh '+(i+1)} loading="lazy" width={400} height={300} />
+      }}><Image src={src} alt={title+' · '+(caption?.[0] ?? 'ảnh '+(i+1))} width={640} height={400} sizes={thumbnailSizes} />
         {caption && <div className="fj-gallery-caption"><h3>{caption[0]}</h3><p>{caption[1]}</p></div>}
       </a>
       })}
@@ -48,7 +52,7 @@ export default function VehicleGallery({images,title,editorial=false}:{images:st
         <span>{title}</span>
         <button className="btn outline" type="button" onClick={()=>dialog.current?.close()}>Đóng</button>
       </div>
-      {opened && <img src={images[index]} alt={title+' · ảnh '+(index+1)} />}
+      {opened && <Image src={images[index]} alt={title+' · ảnh '+(index+1)} width={960} height={600} sizes="(max-width: 980px) 90vw, 900px" loading="eager" />}
       {images.length>1 && <div className="lightbox-top">
         <button className="btn outline" type="button" onClick={()=>move(-1)}>Ảnh trước</button>
         <span role="status">{index+1} / {images.length}</span>

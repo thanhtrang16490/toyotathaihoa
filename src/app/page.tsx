@@ -1,19 +1,28 @@
-import Image from 'next/image'
+import Image, {getImageProps} from 'next/image'
 import ConsultationPopup from '../components/ConsultationPopup'
 import Layout from '../components/SiteFrame'
 import HomeModelRail from '../components/HomeModelRail'
 import HomeHeroMotion from '../components/HomeHeroMotion'
 import {cars, dealer, phone} from '../catalog'
 import hero from '../assets/generated/corolla-cross-coastal-hero-v2.webp'
-import {vehicleImagery} from '../vehicle-imagery'
+import {homeShareImage,vehicleImagery} from '../vehicle-imagery'
 import workshop from '../assets/generated/toyota-service-workshop.webp'
 import {pageMetadata} from '../site-metadata'
 export const metadata = pageMetadata({
   title:dealer,
   path:'/',
   description:'Khám phá các dòng xe Toyota tại đại lý Toyota Thái Hòa Từ Liêm, Hà Nội. Xem phiên bản, nhận báo giá, đăng ký lái thử hoặc đặt lịch bảo dưỡng.',
-  image:hero.src,
+  image:homeShareImage,
+  imageAlt:'Toyota Corolla Cross màu trắng bên bờ biển',
 })
+const {props:mobileHero} = getImageProps({
+  src:'/media/generated/corolla-cross-hero-mobile-v2.webp',
+  alt:'',width:941,height:1672,sizes:'100vw',
+})
+const desktopHeroAvif = [960,1280,1672].map(width=>
+  `/media/generated/corolla-cross-hero-desktop-${width}.avif ${width}w`
+).join(', ')
+
 const homeDescriptions:Record<string,string> = {
   '/toyota/corolla-cross/':'SUV 5 chỗ với hai lựa chọn xăng và hybrid.',
   '/toyota/camry/':'Sedan 5 chỗ, có phiên bản hybrid.',
@@ -33,12 +42,13 @@ return (<Layout title={dealer} path="/">
         <source
           media="(max-width: 600px)"
           type="image/avif"
-          srcSet="/media/generated/corolla-cross-hero-mobile-420.avif 420w, /media/generated/corolla-cross-hero-mobile-768.avif 768w, /media/generated/corolla-cross-hero-mobile-941.avif 941w"
+          srcSet="/media/generated/corolla-cross-hero-mobile-420.avif 420w, /media/generated/corolla-cross-hero-mobile-768.avif 768w, /media/generated/corolla-cross-hero-mobile-828.avif 828w, /media/generated/corolla-cross-hero-mobile-941.avif 941w"
           sizes="100vw"
           width={941}
           height={1672}
         />
-        <source media="(max-width: 600px)" srcSet="/media/generated/corolla-cross-hero-mobile-v2.webp" width={941} height={1672} />
+        <source media="(max-width: 600px)" srcSet={mobileHero.srcSet} sizes={mobileHero.sizes} width={941} height={1672} />
+        <source media="(min-width: 601px)" type="image/avif" srcSet={desktopHeroAvif} sizes="100vw" width={1672} height={941} />
         <Image className="hero-img" src={hero} sizes="100vw" alt="Ảnh minh họa Toyota Corolla Cross màu trắng trước kiến trúc bê tông bên bờ biển" loading="eager" fetchPriority="high" />
       </picture>
     </HomeHeroMotion>
