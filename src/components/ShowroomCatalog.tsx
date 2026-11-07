@@ -2,6 +2,7 @@ import Image from 'next/image'
 import {cars,pendingTrimVerification} from '../catalog'
 import {vehicleGrades} from '../vehicle-grades'
 import {vehicleMenuImagery} from '../vehicle-imagery'
+import VehicleComparison from './VehicleComparison'
 import styles from './showroom-pages.module.css'
 
 const categories = [...new Set(cars.map(car=>car.category).filter(Boolean))]
@@ -20,7 +21,7 @@ export default function ShowroomCatalog({title,used=false}:{title:string;used?:b
           <a href="/xe-da-qua-su-dung/" aria-current={used ? 'page' : undefined}>Xe đã qua sử dụng</a>
         </nav>
         {!used && <details className="catalog-controls" open hidden>
-          <summary>Bộ lọc xe</summary>
+          <summary>Bộ lọc xe<span id="active-filter-count" /></summary>
           <div className={styles.filterFields}>
             <label>Tìm theo tên xe<input id="model-search" type="search" placeholder="Ví dụ: Corolla Cross" /></label>
             <label>Kiểu xe<select id="segment"><option value="">Tất cả</option>{categories.map(category=><option key={category}>{category}</option>)}</select></label>
@@ -38,7 +39,15 @@ export default function ShowroomCatalog({title,used=false}:{title:string;used?:b
             <a className="btn outline" href="/xe-toyota-moi/">Xem xe Toyota mới</a>
           </div>
         </div> : <>
-          <p className={styles.resultCount} id="model-count" role="status">{cars.length} mẫu xe</p>
+          <div className={styles.catalogTools}>
+            <p className={styles.resultCount} id="model-count" role="status">{cars.length} mẫu xe</p>
+            <VehicleComparison models={cars.map(car=>({
+              title:car.title.replace(/^Toyota /i,''),
+              path:car.slug,
+              price:pendingTrimVerification.has(car.slug) ? '' : car.price,
+              grades:vehicleGrades(car.slug),
+            }))} />
+          </div>
           <div className={styles.catalogGrid}>
             {cars.map(car=>{
               const grades = vehicleGrades(car.slug)

@@ -60,12 +60,11 @@ export function AboutHero({title}:{title:string}) {
 
 export function ServicePage({title}:{title:string}) {
   return <>
-    <DealerHero title={title} image={workshop} service />
+    <DealerHero title={title} image={workshop} service action={<a className="btn" href="/dat-lich-dich-vu/" data-event="cta_click">Đặt lịch bảo dưỡng ↗</a>} />
     <section className={styles.dealerSection} aria-labelledby="service-list">
       <div className={styles.serviceIntro}>
         <h2 id="service-list">Chăm sóc chiếc Toyota của bạn</h2>
         <p>Tìm dịch vụ bảo dưỡng, sửa chữa và chăm sóc xe tại Toyota Thái Hòa Từ Liêm.</p>
-        <a className="btn" href="/dat-lich-dich-vu/" data-event="cta_click">Đặt lịch bảo dưỡng ↗</a>
       </div>
       <div className={styles.serviceGrid}>{services.map(entry=><Card key={entry.slug} entry={entry} heading="h3" editorial="service" />)}</div>
     </section>

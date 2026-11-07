@@ -97,14 +97,14 @@ export default function VehicleDetail({model,showPrice}:{model:Entry;showPrice:b
       <div className={styles.introCopy}>
         <div className={styles.versionRail} aria-label={'Phiên bản '+name}>
           <span>{isCorolla ? 'SUV' : model.category}</span>
-          {trims.map(trim=><a key={trim} href={configPath+'?'+new URLSearchParams({trim})}>{trim}</a>)}
+          {trims.map(trim=><a key={trim} href={configPath+'?'+new URLSearchParams({trim})} data-vehicle-configure="">{trim}</a>)}
         </div>
         <h1>{name}</h1>
         {fuel && <span className={styles.fuel}>{fuel}</span>}
         <p>{!isCorolla && showPrice && model.price || 'Liên hệ để xác nhận giá theo phiên bản'}</p>
         <div className="actions model-stage-actions">
           <a id="chon-mau-xe" className="btn" href="#chon-phien-ban" aria-haspopup="dialog">Chọn mẫu xe</a>
-          <a className="btn outline" href={configPath}>Chọn cấu hình</a>
+          <a className="btn outline" href={configPath} data-vehicle-configure="">Chọn cấu hình</a>
           <button className="btn outline" type="button" data-test-drive="vehicle-options" aria-haspopup="dialog" aria-controls="test-drive-drawer" data-event="cta_click">Đăng ký lái thử</button>
         </div>
       </div>
@@ -190,7 +190,7 @@ export default function VehicleDetail({model,showPrice}:{model:Entry;showPrice:b
             <div><dt>Số chỗ ngồi</dt><dd>{grade.seats}</dd></div>
             {grade.drive && <div><dt>Dẫn động</dt><dd>{grade.drive}</dd></div>}
           </dl>
-          <a className="btn outline" href={configPath+'?'+new URLSearchParams({trim:grade.name})}>Cấu hình {grade.name}</a>
+          <a className="btn outline" href={configPath+'?'+new URLSearchParams({trim:grade.name})} data-vehicle-configure="">Cấu hình {grade.name}</a>
         </article>)}
       </div>
     </section>}

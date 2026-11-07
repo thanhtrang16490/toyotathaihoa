@@ -14,12 +14,17 @@ export default function BrowserInteractions({path}:{path:string}){
   const segment = document.querySelector<HTMLSelectElement>('#segment')
   const search = document.querySelector<HTMLInputElement>('#model-search')
   const count = document.querySelector('#model-count')
+  const filterCount = document.querySelector('#active-filter-count')
   const fuel = document.querySelector<HTMLSelectElement>('#model-fuel')
   if (controls && segment && search && fuel && count) {
     const cards = document.querySelectorAll<HTMLElement>('.collection [data-model]')
     const normalize = (value: string) => value.toLocaleLowerCase('vi').normalize('NFD').replace(/\p{Diacritic}/gu, '').replaceAll('đ', 'd').trim()
     const update = () => {
       const query = normalize(search.value)
+      if (filterCount) {
+        const active = [query,segment.value,fuel.value].filter(Boolean).length
+        filterCount.textContent = active ? ` (${active})` : ''
+      }
       let visible = 0
       for (const card of cards) {
         card.hidden = (!!segment.value && card.dataset.category !== segment.value) || (!!fuel.value && !card.dataset.fuel?.split(' ').includes(fuel.value)) || !normalize(card.dataset.model ?? '').includes(query)
@@ -183,7 +188,23 @@ export default function BrowserInteractions({path}:{path:string}){
             event.clientY < bounds.top || event.clientY > bounds.bottom) target.close()
       }, {signal})
     }
+    const configurationLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('a[data-vehicle-configure]'),link=>({
+      link,base:link.href,
+    }))
+    const params = new URLSearchParams(location.search)
+    for (const input of form.querySelectorAll<HTMLInputElement>('input[type=radio]')) {
+      if (input.value && input.value===params.get(input.name)) input.checked=true
+    }
     const update = () => {
+      const selection = new FormData(form)
+      for (const {link,base} of configurationLinks) {
+        const url = new URL(base)
+        for (const name of ['trim','color']) {
+          const value = selection.get(name)
+          if (!url.searchParams.has(name) && typeof value==='string' && value) url.searchParams.set(name,value)
+        }
+        link.setAttribute('href',url.pathname+url.search)
+      }
       const color = form.querySelector<HTMLInputElement>('input[name=color]:checked')
       for (const link of heroColors) {
         if (link.dataset.heroColor === color?.value) link.setAttribute('aria-current','true')
@@ -203,6 +224,7 @@ export default function BrowserInteractions({path}:{path:string}){
     }
     form.addEventListener('change', update, {signal})
     window.addEventListener('pageshow', update, {signal})
+    update()
   }
 
 }

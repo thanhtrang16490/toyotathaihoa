@@ -6,7 +6,6 @@ const storageKey = 'toyota-consultation-dismissed-until'
 
 export default function ConsultationPopup({phone}:{phone:string}) {
   const [visible,setVisible] = useState(false)
-  const [showHotline,setShowHotline] = useState(false)
 
   useEffect(()=>{
     try {
@@ -43,24 +42,15 @@ export default function ConsultationPopup({phone}:{phone:string}) {
         </svg>
       </span>
       <div>
-        <h2 id="consultation-title">Tư vấn chọn xe<span className="consultation-desktop-copy"> Toyota</span></h2>
-        <p>
-          <span className="consultation-desktop-copy">Toyota Thái Hòa Từ Liêm sẽ gọi tư vấn mẫu xe phù hợp với nhu cầu của bạn.</span>
-          <span className="consultation-mobile-copy">Toyota sẽ gọi lại để tư vấn cho bạn.</span>
-        </p>
+        <h2 id="consultation-title">Tư vấn chọn xe</h2>
+        <p>Trao đổi với Toyota Thái Hòa Từ Liêm qua điện thoại hoặc Zalo.</p>
       </div>
       <button className="consultation-close" type="button" aria-label="Đóng khung tư vấn" onClick={dismiss}>×</button>
     </header>
-    <form className="consultation-form" onSubmit={event=>{
-      event.preventDefault()
-      setShowHotline(true)
-    }}>
-      <input type="tel" inputMode="tel" autoComplete="tel" aria-label="Số điện thoại" placeholder="VD: 0985 3333 88" maxLength={24} required />
-      <div className="consultation-actions">
-        <button className="consultation-submit" type="submit">Nhận tư vấn</button>
-        <button className="consultation-later" type="button" onClick={dismiss}>Để sau</button>
-      </div>
-      {showHotline && <p className="consultation-status" role="status">Vui lòng gọi <a href={'tel:'+phone} data-event="hotline_click">0985 3333 88</a> để được tư vấn.</p>}
-    </form>
+    <div className="consultation-actions">
+      <a className="consultation-submit" href={'tel:'+phone} data-event="hotline_click">Gọi tư vấn</a>
+      <a className="consultation-zalo" href={'https://zalo.me/'+phone} target="_blank" rel="noopener noreferrer" data-event="zalo_click">Nhắn Zalo</a>
+      <button className="consultation-later" type="button" onClick={dismiss}>Để sau</button>
+    </div>
   </section>
 }

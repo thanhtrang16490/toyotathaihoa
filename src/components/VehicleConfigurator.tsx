@@ -25,20 +25,21 @@ type Props = {
   model:string
   detailPath:string
   initialTrim:string
+  initialColor:string
   trims:readonly string[]
   scenes?:Scene[]
   colors:{name:string;photo:string}[]
 }
 
-export default function VehicleConfigurator({model,detailPath,initialTrim,trims,colors,scenes=corollaScenes}:Props) {
+export default function VehicleConfigurator({model,detailPath,initialTrim,initialColor,trims,colors,scenes=corollaScenes}:Props) {
   const name = model.replace(/^Toyota /i,'')
   const isCorolla = detailPath===corollaDetailPath
   const [ready,setReady] = useState(false)
   useEffect(()=>setReady(true),[])
   const [trim,setTrim] = useState(initialTrim)
-  const [color,setColor] = useState('')
+  const [color,setColor] = useState(initialColor)
   const [view,setView] = useState(0)
-  const [studio,setStudio] = useState(false)
+  const [studio,setStudio] = useState(Boolean(initialColor))
   const [zoomed,setZoomed] = useState(false)
   const summary = useRef<HTMLDialogElement>(null)
   const zoom = useRef<HTMLDialogElement>(null)
@@ -47,13 +48,16 @@ export default function VehicleConfigurator({model,detailPath,initialTrim,trims,
   const scene = scenes[view]
   const src = showPaint ? paint.photo : scene.src
   const alt = showPaint ? model+' · '+paint.name : model+' · '+scene.name
-  const selection = new URLSearchParams({model,...(trim ? {trim} : {}),...(color ? {color} : {})})
-  const quote = '/nhan-bao-gia/?'+selection
+  const selection = new URLSearchParams()
+  if (trim) selection.set('trim',trim)
+  if (color) selection.set('color',color)
+  const detailHref = detailPath+(selection.size ? '?'+selection : '')
+  const quote = '/nhan-bao-gia/?'+new URLSearchParams({model,...Object.fromEntries(selection)})
   const trimSpecs = isCorolla ? corollaTrimSpecs[trim as keyof typeof corollaTrimSpecs] : undefined
   const grades = vehicleGrades(detailPath)
   const gradeIndex = grades.findIndex(grade=>grade.name===trim)
   const grade = grades[gradeIndex]
-  const specsHref = detailPath+'#'+(trimSpecs?.id ?? (grade ? gradeAnchor(gradeIndex) : 'chi-tiet-xe'))
+  const specsHref = detailHref+'#'+(trimSpecs?.id ?? (grade ? gradeAnchor(gradeIndex) : 'chi-tiet-xe'))
   const driveButton = <button className={styles.secondary} type="button" disabled={!ready}
     data-test-drive="" data-drive-trim={trim} data-drive-color={color}
     aria-haspopup="dialog" aria-controls="test-drive-drawer">Đăng ký lái thử</button>
@@ -70,7 +74,7 @@ export default function VehicleConfigurator({model,detailPath,initialTrim,trims,
       <span className={styles.region} aria-label="Việt Nam">★</span>
     </header>
     <div className={styles.toolbar}>
-      <Link href={detailPath} className={styles.back}>← <span>Quay về {name}</span></Link>
+      <Link href={detailHref} className={styles.back}>← <span>Quay về {name}</span></Link>
       <div className={styles.actions}>
         <button className={styles.secondary} type="button" disabled={!ready} aria-haspopup="dialog" onClick={()=>summary.current?.showModal()}>Tổng kết</button>
         <Link className={styles.primary} href={quote}>Nhận báo giá</Link>

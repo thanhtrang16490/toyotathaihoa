@@ -14,6 +14,14 @@ export const metadata = pageMetadata({
   description:'Khám phá các dòng xe Toyota tại đại lý Toyota Thái Hòa Từ Liêm, Hà Nội. Xem phiên bản, nhận báo giá, đăng ký lái thử hoặc đặt lịch bảo dưỡng.',
   image:hero.src,
 })
+const homeDescriptions:Record<string,string> = {
+  '/toyota/corolla-cross/':'SUV 5 chỗ với hai lựa chọn xăng và hybrid.',
+  '/toyota/camry/':'Sedan 5 chỗ, có phiên bản hybrid.',
+  '/toyota/vios/':'Sedan 5 chỗ với tùy chọn số sàn hoặc số tự động.',
+  '/toyota/hilux/':'Bán tải diesel 2.8L với tùy chọn dẫn động 4×2 hoặc 4×4.',
+  '/toyota/fortuner/':'SUV 7 chỗ với các phiên bản xăng và diesel.',
+  '/toyota/innova-cross/':'Xe đa dụng 7 hoặc 8 chỗ tùy phiên bản.',
+}
 const modelPhotos = Object.entries(vehicleImagery).map(([slug,photo])=>({slug,photo}))
 export default function Home(){
 return (<Layout title={dealer} path="/">
@@ -60,7 +68,7 @@ return (<Layout title={dealer} path="/">
           <h3>{model.title.replace(/^Toyota /,'')}</h3>
           <div className="home-model-copy">
             <p className="home-model-tag">{model.category}</p>
-            <p className="home-model-description">{model.title} · Khám phá thiết kế và các phiên bản.</p>
+            <p className="home-model-description">{homeDescriptions[slug]}</p>
             <span className="home-model-cta">Khám phá xe <span aria-hidden="true">→</span></span>
           </div>
         </a>

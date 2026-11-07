@@ -103,3 +103,17 @@
 .editorialNav a { padding: 8px 15px; border-radius: 8px; background: #f0f0f2; text-decoration: none; }
 .editorialNav a[aria-current="page"] { background: #111215; color: white; }
 .editorialNav a:hover { text-decoration: underline; }
+
+.catalogTools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 14px; }
+.catalogTools .resultCount { margin: 0; }
+.comparisonDialog { width: min(92vw, 840px); max-height: 88dvh; padding: clamp(14px, 3vw, 28px); border: 0; border-radius: 16px; }
+.comparisonDialog::backdrop { background: #11121599; }
+.comparisonHeader { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.comparisonHeader h2 { margin: 0; }
+.comparisonFields { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%, 190px),1fr)); gap: 10px; margin-bottom: 20px; }
+.comparisonFields label { display: grid; gap: 4px; min-width: 0; }
+.comparisonFields select { width: 100%; }
+.comparisonScroll { overflow-x: auto; }
+.comparisonScroll table { width: 100%; border-collapse: collapse; }
+.comparisonScroll :is(th,td) { min-width: 130px; padding: 10px; border-bottom: 1px solid #dedee2; text-align: left; }
+.comparisonScroll th { background: #f0f0f2; }
