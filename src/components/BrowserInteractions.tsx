@@ -105,8 +105,9 @@ export default function BrowserInteractions({path}:{path:string}){
   const form = document.querySelector<HTMLFormElement>('[data-vehicle-options]')
   const cover = document.querySelector<HTMLImageElement>('.product-cover')
   const preview = form?.querySelector<HTMLImageElement>('.option-preview')
-  if (form && cover && preview) {
-    const original = {src: cover.getAttribute('src')!, srcset: cover.getAttribute('srcset'), alt: cover.alt}
+  if (form) {
+    const original = cover && {src: cover.src, srcset: cover.getAttribute('srcset'), alt: cover.alt}
+    const initialPreview = preview?.src
     const drawer = form.closest('dialog')
     const heroColors = document.querySelectorAll<HTMLAnchorElement>('[data-hero-color]')
     const colorLinks = document.querySelectorAll<HTMLAnchorElement>('a[href="#chon-phien-ban"]')
@@ -121,6 +122,17 @@ export default function BrowserInteractions({path}:{path:string}){
         option?.click()
       }, {signal})
     }
+    const openFromHash = () => {
+      if (location.hash === '#chon-phien-ban' && drawer && !drawer.open) drawer.showModal()
+    }
+    window.addEventListener('hashchange', openFromHash, {signal})
+    openFromHash()
+    drawer?.addEventListener('click', event => {
+      if (event.target !== drawer) return
+      const bounds = drawer.getBoundingClientRect()
+      if (event.clientX < bounds.left || event.clientX > bounds.right ||
+          event.clientY < bounds.top || event.clientY > bounds.bottom) drawer.close()
+    }, {signal})
     const update = () => {
       const color = form.querySelector<HTMLInputElement>('input[name=color]:checked')
       for (const link of heroColors) {
@@ -128,13 +140,16 @@ export default function BrowserInteractions({path}:{path:string}){
         else link.removeAttribute('aria-current')
       }
       const photo = color?.dataset.photo
-      if (photo || !original.srcset) cover.removeAttribute('srcset')
-      else cover.setAttribute('srcset', original.srcset)
-      cover.src = photo || original.src
-      cover.alt = photo ? original.alt + ' · ' + color?.value : original.alt
-      preview.hidden = !photo
-      if (photo) preview.src = photo
-      preview.alt = photo ? cover.alt : ''
+      if (cover && original) {
+        if (photo || !original.srcset) cover.removeAttribute('srcset')
+        else cover.setAttribute('srcset', original.srcset)
+        cover.src = photo || original.src
+        cover.alt = photo ? original.alt + ' · ' + color?.value : original.alt
+      }
+      if (preview && initialPreview) {
+        preview.src = photo || initialPreview
+        preview.alt = cover?.alt || ''
+      }
     }
     form.addEventListener('change', update, {signal})
     window.addEventListener('pageshow', update, {signal})

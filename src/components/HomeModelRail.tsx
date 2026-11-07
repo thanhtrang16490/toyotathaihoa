@@ -1,10 +1,19 @@
 'use client'
 
-import {useRef,useState,type ReactNode} from 'react'
+import {useEffect,useRef,useState,type ReactNode} from 'react'
 
 export default function HomeModelRail({children,labels}:{children:ReactNode,labels:string[]}) {
   const rail=useRef<HTMLDivElement>(null)
   const [active,setActive]=useState(0)
+  useEffect(()=>{
+    const band=rail.current?.closest('.home-model-band')
+    if (!band) return
+    const observer=new IntersectionObserver(([entry])=>{
+      band.toggleAttribute('data-dark',entry.isIntersecting)
+    },{rootMargin:'-64px 0px -160px'})
+    observer.observe(band)
+    return ()=>observer.disconnect()
+  },[])
   return <>
     <div className="home-model-grid" ref={rail} onScroll={()=>{
       const element=rail.current

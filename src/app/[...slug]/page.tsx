@@ -111,11 +111,11 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
     {isFj && <nav className="fj-hero-colors" aria-label="Xem màu ngoại thất">
       {entry?.variants?.map(variant=>{
         const color = variant.options['attribute_mau-sac']?.trim()
-        return color && <a key={color} href="#chon-phien-ban" data-hero-color={color}>{color}</a>
+        return color && <a key={color} href="#chon-phien-ban" aria-haspopup="dialog" data-hero-color={color}>{color}</a>
       })}
     </nav>}
     <div className="actions model-stage-actions">
-      <a className="btn outline" href="#chon-phien-ban">{isFj ? "Chọn màu ngoại thất" : "Chọn phiên bản và màu xe"}</a>
+      <a className="btn outline" href="#chon-phien-ban" aria-haspopup="dialog">{isFj ? "Chọn màu ngoại thất" : "Chọn phiên bản và màu xe"}</a>
       <button className="btn" type="submit" form="vehicle-options" data-event="cta_click">Nhận báo giá ↗</button>
       <button className="btn outline" type="submit" form="vehicle-options" formAction="/dang-ky-lai-thu/" data-event="cta_click">Đăng ký lái thử</button>
     </div>
@@ -125,7 +125,7 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
     <div className="wrap">
       <a href="#tong-quan">Tổng quan</a>
       <a href="#thiet-ke-xe">Thiết kế</a>
-      <a href="#chon-phien-ban">Phiên bản &amp; màu xe</a>
+      <a href="#chon-phien-ban" aria-haspopup="dialog">Phiên bản &amp; màu xe</a>
       {gallery.length>0 && <a href="#hinh-anh-xe">Hình ảnh</a>}
       {showSource && entry?.html && <a href="#chi-tiet-xe">Thông số</a>}
     </div>
@@ -145,7 +145,7 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
     <div className="wrap">
       <a href="#thiet-ke-fj">Thiết kế</a>
       <a href="#van-hanh-fj">Vận hành</a>
-      <a href="#chon-phien-ban">Màu ngoại thất</a>
+      <a href="#chon-phien-ban" aria-haspopup="dialog">Màu ngoại thất</a>
       <a href="#hinh-anh-xe">Hình ảnh</a>
       <a href="#chi-tiet-xe">Thông số</a>
     </div>
@@ -180,20 +180,17 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
       <a href="#hinh-anh-xe" className="btn outline">Khám phá thư viện ảnh ↗</a>
     </div>
   </section>}
-    {isFj ? <dialog id="chon-phien-ban" className="technical-drawer color-drawer" aria-labelledby="fj-color-title">
-      <div className="technical-heading">
-        <div><p className="eyebrow">LAND CRUISER FJ</p><h2 id="fj-color-title">Màu ngoại thất</h2></div>
-        <form method="dialog"><button className="btn outline" type="submit" autoFocus>Đóng</button></form>
-      </div>
-      <VehicleOptions vehicle={model} showColorPrices={showSource} />
-    </dialog> : <div id="chon-phien-ban" className="wrap model-config">
+  <dialog id="chon-phien-ban" className={isFj ? "technical-drawer vehicle-variant-drawer color-drawer" : "technical-drawer vehicle-variant-drawer"} aria-labelledby="vehicle-variant-title">
+    <div className="technical-heading vehicle-variant-heading">
       <div>
-        <p className="eyebrow">{isFj ? "MÀU NGOẠI THẤT" : "PHIÊN BẢN VÀ NGOẠI THẤT"}</p>
-        <h2>Chọn chiếc {title.replace(/^Toyota /i,'')} của bạn</h2>
-        <p className="muted">{pendingTrims ? 'Giá và thông số theo phiên bản đang được đối chiếu. Liên hệ đại lý để xác nhận phiên bản, màu và giá.' : 'Vui lòng xác nhận giá và tình trạng xe với đại lý.'}</p>
+        <p className="vehicle-variant-wordmark">{title.replace(/^Toyota /i,'')}</p>
+        <h2 id="vehicle-variant-title">{isFj ? 'Màu ngoại thất' : 'Phiên bản và màu xe'}</h2>
       </div>
-      <VehicleOptions vehicle={model} />
-    </div>}
+      <form method="dialog"><button className="vehicle-variant-close" type="submit" aria-label="Đóng" autoFocus>×</button></form>
+    </div>
+    {pendingTrims && <p className="vehicle-variant-note muted">Giá và thông số theo phiên bản đang được đối chiếu. Liên hệ đại lý để xác nhận phiên bản, màu và giá.</p>}
+    <VehicleOptions vehicle={model} showColorPrices={isFj && showSource} previewSrc={cover} />
+  </dialog>
   </> :   <section className={product ? 'wrap section page-intro product-intro' : 'wrap section page-intro'}>
     {product && entry?.image && (cover ? <Image src={cover} width={800} height={800} sizes="(max-width: 760px) 100vw, 50vw" className="product-cover" alt={title} loading="eager" fetchPriority="high" /> : <img src={entry.image} className="product-cover" alt={title} width="640" height="480" fetchPriority="high" />)}
     <div><p className="eyebrow">{product?'DANH MỤC TOYOTA':article?'TIN TỨC TOYOTA':'TOYOTA THÁI HÒA TỪ LIÊM'}</p>

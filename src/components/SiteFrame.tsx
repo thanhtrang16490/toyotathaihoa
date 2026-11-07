@@ -11,15 +11,21 @@ export default function SiteFrame({title,path,crumbs=[],noindex=false,schema,chi
  const craftFooter=path==='/' || isModel
  const isFj = path === '/toyota/toyota-land-cruiser-fj/'
  const showBreadcrumb=path!=='/' && !noindex
- const dealerSchema={'@type':'AutoDealer',name:dealer,url:site,telephone:'+842433549999',address:{'@type':'PostalAddress',streetAddress:address,addressLocality:'Hà Nội',addressCountry:'VN'}}
+ const dealerId = new URL('/#dealer',site).href
+ const dealerSchema={'@type':'AutoDealer','@id':dealerId,name:dealer,url:site,telephone:'+842433549999',address:{'@type':'PostalAddress',streetAddress:address,addressLocality:'Hà Nội',addressCountry:'VN'}}
+ const websiteSchema=path==='/' ? {'@type':'WebSite','@id':new URL('/#website',site).href,name:dealer,url:new URL('/',site).href,inLanguage:'vi-VN',publisher:{'@id':dealerId}} : null
  const breadcrumb=showBreadcrumb ? {'@type':'BreadcrumbList',itemListElement:[['Trang chủ','/'],...crumbs,[title,path]].map(([name,url],i)=>({'@type':'ListItem',position:i+1,name,item:new URL(url,site).href}))} : null
- const structured=JSON.stringify({'@context':'https://schema.org','@graph':[dealerSchema,...[schema,breadcrumb].filter(Boolean)]}).replaceAll('<','\\u003c')
+ const structured=JSON.stringify({'@context':'https://schema.org','@graph':[dealerSchema,...[websiteSchema,schema,breadcrumb].filter(Boolean)]}).replaceAll('<','\\u003c')
  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{__html:structured}} />
 
 <a className="skip" href="#main">Đến nội dung</a>
 <header className={path==='/' ? 'showroom-header home-header' : isFj ? 'showroom-header fj-header' : 'showroom-header'}>
   <div className="wrap header-row">
-    <ShowroomMenu links={nav} path={path} models={cars.map(({slug,title,image,category})=>({slug,title,image,category}))} />
+    <ShowroomMenu links={nav} path={path} models={cars.map(({slug,title,image,category,variants})=>({
+      slug,title,category,
+      image:slug==='/toyota/vios/' ? variants?.[0]?.image || image : image,
+      containImage:slug==='/toyota/vios/' || slug==='/toyota/toyota-land-cruiser-fj/',
+    }))} />
     <a href="/" className="brand"><Image src={logo} width={194} height={63} alt={dealer} /></a>
   </div>
 </header>

@@ -2,22 +2,50 @@
 
 import {useEffect,useRef,useState} from 'react'
 
-type MenuModel={slug:string,title:string,image:string,category:string}
+type MenuModel={slug:string,title:string,image:string,category:string,containImage:boolean}
 
 export default function ShowroomMenu({links,path,models}:{links:string[][],path:string,models:MenuModel[]}) {
   const drawer=useRef<HTMLDialogElement>(null)
   const panel=useRef<HTMLDivElement>(null)
   const trigger=useRef<HTMLButtonElement>(null)
-  const back=useRef<HTMLButtonElement>(null)
-  const modelTrigger=useRef<HTMLButtonElement>(null)
+  const focusTarget=useRef<string|null>(null)
   const closing=useRef(false)
   const [open,setOpen]=useState(false)
   const [active,setActive]=useState(links[0][1])
   const [detail,setDetail]=useState(false)
-  useEffect(()=>{
-    if(detail) back.current?.focus()
-  },[detail])
+  const [model,setModel]=useState<MenuModel|null>(null)
   const selected=links.find(([,url])=>url===active) || links[0]
+  const showModels=active===links[0][1]
+
+  useEffect(()=>{
+    const target=focusTarget.current
+    if(target) {
+      drawer.current?.querySelector<HTMLElement>(target)?.focus()
+      focusTarget.current=null
+    }
+  },[active,detail,model])
+
+  function selectCategory(url:string) {
+    if(matchMedia('(max-width: 760px)').matches) focusTarget.current='#showroom-mobile-back'
+    setActive(url)
+    setDetail(true)
+  }
+
+  function selectModel(vehicle:MenuModel) {
+    focusTarget.current='#showroom-model-title'
+    setModel(vehicle)
+  }
+
+  function goBack() {
+    if(model) {
+      focusTarget.current='#showroom-model-'+models.indexOf(model)
+      setModel(null)
+    } else {
+      focusTarget.current='#showroom-category-'+links.findIndex(([,url])=>url===active)
+      setDetail(false)
+    }
+  }
+
   const destinations:Record<string,string[][]>={
     '/uu-dai/':[['Chương trình ưu đãi','/uu-dai/'],['Nhận báo giá','/nhan-bao-gia/'],['Đăng ký lái thử','/dang-ky-lai-thu/']],
     '/dich-vu/':[['Dịch vụ Toyota','/dich-vu/'],['Đặt lịch bảo dưỡng','/dat-lich-dich-vu/'],['Liên hệ xưởng dịch vụ','/contact/']],
@@ -45,6 +73,7 @@ export default function ShowroomMenu({links,path,models}:{links:string[][],path:
     <button ref={trigger} className="showroom-menu-trigger" type="button" aria-expanded={open} aria-controls="showroom-drawer" onClick={()=>{
       setActive(links[0][1])
       setDetail(false)
+      setModel(null)
       drawer.current?.showModal()
       setOpen(true)
     }}><span className="menu-icon" aria-hidden="true" />Menu</button>
@@ -57,37 +86,51 @@ export default function ShowroomMenu({links,path,models}:{links:string[][],path:
       setOpen(false)
       trigger.current?.focus()
     }}>
-      <div ref={panel} className="showroom-menu-panel" data-detail={detail}>
+      <div ref={panel} className="showroom-menu-panel" data-detail={detail} data-model={!!model}>
         <div className="showroom-mobile-heading">
-          {detail && <button ref={back} type="button" aria-label="Quay lại menu" onClick={()=>{
-            setDetail(false)
-            modelTrigger.current?.focus()
-          }}>←</button>}
-          <span>{detail ? selected[0] : 'Menu'}</span>
+          {(detail || model) && <button id="showroom-mobile-back" type="button" aria-label="Quay lại menu" onClick={goBack}>←</button>}
+          <span>{model?.title.replace(/^Toyota /,'') || (detail ? selected[0] : 'Menu')}</span>
         </div>
         <div className="showroom-drawer-body">
-          <nav aria-label="Điều hướng chính">
-            {links.map(([label,url],index)=><div className="showroom-menu-row" key={url} data-active={active===url} onMouseEnter={()=>setActive(url)} onFocus={()=>setActive(url)}>
-              <a href={url} aria-current={path===url?'page':undefined}>{label}</a>
-              <button ref={index===0 ? modelTrigger : undefined} type="button" aria-label={'Khám phá '+label} aria-controls="showroom-menu-detail" aria-expanded={active===url && detail} onClick={()=>{
-                setActive(url)
-                setDetail(true)
-              }}>›</button>
-            </div>)}
+          {model ? <nav className="showroom-model-nav" aria-label="Dòng xe Toyota">
+            <button className="showroom-nav-back" type="button" onClick={goBack}><span aria-hidden="true">←</span><span>Xe Toyota</span></button>
+            {models.map(vehicle=><button className="showroom-menu-row" key={vehicle.slug} type="button" data-active={model.slug===vehicle.slug} onClick={()=>selectModel(vehicle)}>
+              <span>{vehicle.title.replace(/^Toyota /,'')}<small>{vehicle.category}</small></span>
+              <span className="showroom-row-arrow" aria-hidden="true">›</span>
+            </button>)}
+          </nav> : <nav aria-label="Điều hướng chính">
+            {links.map(([label,url],index)=><button id={'showroom-category-'+index} className="showroom-menu-row" key={url} type="button" data-active={active===url} aria-controls="showroom-menu-detail" onClick={()=>selectCategory(url)}>
+              <span>{label}</span><span className="showroom-row-arrow" aria-hidden="true">›</span>
+            </button>)}
             <a className="showroom-used-link" href="/xe-da-qua-su-dung/">Xe đã qua sử dụng <span aria-hidden="true">↗</span></a>
-          </nav>
+          </nav>}
         </div>
-        <section className="showroom-menu-detail" id="showroom-menu-detail" aria-label={selected[0]} key={active}>
-          {active===links[0][1] ? <>
-            {models.map(model=><a className="showroom-menu-model" key={model.slug} href={model.slug}>
-              <span className="showroom-model-name">{model.title.replace(/^Toyota /,'')}</span>
-              <img className={model.slug==='/toyota/toyota-land-cruiser-fj/' ? 'showroom-menu-fj' : undefined} src={model.image} width="400" height="200" alt="" loading="lazy" />
+        <section className="showroom-menu-detail" id="showroom-menu-detail" aria-label={model?.title || selected[0]} key={model?.slug || active}>
+          {model ? <div className="showroom-model-overview">
+            <div className="showroom-model-summary">
+              <h2 id="showroom-model-title" tabIndex={-1}>{model.title.replace(/^Toyota /,'')}</h2>
+              <a href={model.slug}>Tổng quan mẫu xe <span aria-hidden="true">→</span></a>
+            </div>
+            <a className="showroom-menu-model" href={model.slug} aria-current={path===model.slug?'page':undefined}>
+              <span className="showroom-model-name">{model.title}</span>
+              <img data-contain={model.containImage} src={model.image} width="400" height="200" alt="" loading="lazy" />
               <span className="showroom-model-tag">{model.category}</span>
-            </a>)}
+            </a>
+            <div className="showroom-model-actions">
+              {model.slug==='/toyota/toyota-land-cruiser-fj/'
+                ? <a href={'/nhan-bao-gia/?model='+encodeURIComponent(model.title)}>Nhận báo giá</a>
+                : <a href={model.slug+'#chon-phien-ban'}>Chọn phiên bản và màu xe</a>}
+              <a href={'/dang-ky-lai-thu/?model='+encodeURIComponent(model.title)}>Đăng ký lái thử</a>
+            </div>
+          </div> : showModels ? <>
+            {models.map((vehicle,index)=><button id={'showroom-model-'+index} className="showroom-menu-model" key={vehicle.slug} type="button" onClick={()=>selectModel(vehicle)}>
+              <span className="showroom-model-name">{vehicle.title.replace(/^Toyota /,'')}</span>
+              <img data-contain={vehicle.containImage} src={vehicle.image} width="400" height="200" alt="" loading="lazy" />
+              <span className="showroom-model-tag">{vehicle.category}</span>
+            </button>)}
             <a className="showroom-menu-all" href="/xe-toyota-moi/">Xem tất cả dòng xe →</a>
           </> : <div className="showroom-menu-destinations">
-            <p>{selected[0]}</p>
-            {(destinations[active] || [selected]).map(([label,url])=><a key={url} href={url}>{label}<span aria-hidden="true">→</span></a>)}
+            {(destinations[active] || [selected]).map(([label,url])=><a key={url} href={url} aria-current={path===url?'page':undefined}>{label}<span aria-hidden="true">→</span></a>)}
           </div>}
         </section>
       </div>

@@ -11,7 +11,7 @@ export function pageMetadata({title,path,description,image,noindex,article}: {
   return {
     title:fullTitle,description:summary,
     alternates:{canonical:new URL(path,site)},
-    robots:{index:!noindex && process.env.SITE_INDEXABLE==='true',follow:true},
-    openGraph:{type:article?'article':'website',title:fullTitle,description:summary,url:new URL(path,site),locale:'vi_VN',images:[new URL(image || data.hero,site)]},
+    ...(noindex ? {robots:{index:false,follow:true}} : {}),
+    openGraph:{type:article?'article':'website',siteName:dealer,title:fullTitle,description:summary,url:new URL(path,site),locale:'vi_VN',images:[new URL(image || data.hero,site)]},
   }
 }
