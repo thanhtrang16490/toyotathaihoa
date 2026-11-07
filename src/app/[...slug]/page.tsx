@@ -1,10 +1,13 @@
 
+import {corollaDetailPath} from '../../vehicle-options'
+import CorollaCrossDetail from '../../components/CorollaCrossDetail'
 import Layout from '../../components/SiteFrame'
 import {vehicleImagery} from '../../vehicle-imagery'
 import Card from '../../components/Card'
 import TechnicalDetails from '../../components/TechnicalDetails'
 import VehicleGallery from '../../components/VehicleGallery'
 import VehicleOptions from '../../components/VehicleOptions'
+import VehicleFeedback from '../../components/VehicleFeedback'
 import LeadForm from '../../components/LeadForm'
 import Image from 'next/image'
 import {entries,cars,services,collections,phone,address,directions,hours,redirects,articlesInArchive,articlesPerPage,pagination,pendingTrimVerification,isUsedVehicle,noindexPaths} from '../../catalog'
@@ -26,6 +29,7 @@ function resolvePath(slug:string[]){
  return '/'+slug.map(part=>encodeURIComponent(part)).join('/').replace(/%[A-F0-9]{2}/g,value=>value.toLowerCase())+'/'
 }
 const descriptions:Record<string,string> = {
+  '/toyota/corolla-cross/': 'Khám phá Toyota Corolla Cross 1.8V và HEV, thiết kế, thông số và màu xe. Đăng ký lái thử tại Toyota Thái Hòa Từ Liêm.',
   '/xe-toyota-moi/': 'Xem các dòng xe Toyota, giá tham khảo và thông số tại Toyota Thái Hòa Từ Liêm. Chọn xe để nhận báo giá hoặc đăng ký lái thử.',
   '/xe-da-qua-su-dung/': 'Tìm xe Toyota đã qua sử dụng tại Hà Nội và liên hệ đại lý để kiểm tra xe đang có.',
   '/dich-vu/': 'Tìm dịch vụ bảo dưỡng, sửa chữa đồng sơn, bảo hiểm và phụ kiện tại Toyota Thái Hòa Từ Liêm.',
@@ -41,7 +45,7 @@ export async function generateMetadata({params}:Props){
  const base=path.replace(/\/page\/\d+\/$/,'/')
  const title=collections[base as keyof typeof collections] || entries.find(item=>item.slug===base)?.title || 'Toyota'
  const suffix=path.match(/\/page\/(\d+)\/$/)?.[1]
- return pageMetadata({title:suffix?title+' · Trang '+suffix:title,path,description:entry?.kind==='product'?'Xem hình ảnh, phiên bản và thông tin '+title+' tại Toyota Thái Hòa Từ Liêm.':descriptions[base] ? descriptions[base]+(suffix?' Trang '+suffix+'.':'') : entry?.description,image:entry?.image,noindex:noindexPaths.has(path),article:entry?.kind==='post'})
+ return pageMetadata({title:suffix?title+' · Trang '+suffix:title,path,description:descriptions[path] ?? (entry?.kind==='product'?'Xem hình ảnh, phiên bản và thông tin '+title+' tại Toyota Thái Hòa Từ Liêm.':descriptions[base] ? descriptions[base]+(suffix?' Trang '+suffix+'.':'') : entry?.description),image:entry?.image,noindex:noindexPaths.has(path),article:entry?.kind==='post'})
 }
 export default async function Page({params}:Props){
  const path=resolvePath((await params).slug)
@@ -99,6 +103,44 @@ const article=entry?.kind==='post' ? {'@type':'Article',headline:title,descripti
 const crumbs=product?[['Xe Toyota','/xe-toyota-moi/']]:article?[['Tin tức','/tin-tuc/']]:servicePage?[['Dịch vụ','/dich-vu/']]:[]
 const relatedPosts=article ? entries.filter(item=>item.kind==='post' && item.slug!==path && entry?.links?.includes(item.slug)).slice(0,4) : []
 const archived=basePath==='/uu-dai/' || (article && /khuyen-mai|uu-dai/.test(path))
+if (model && path === corollaDetailPath) {
+  return <Layout title={title} path={path} crumbs={crumbs} noindex={noindexPaths.has(path)}>
+    <CorollaCrossDetail model={model} />
+    <VehicleFeedback title={title} />
+  </Layout>
+}
+const vehicleDialogs = model && <>
+  <dialog id="chon-mau-xe" className="technical-drawer vehicle-variant-drawer" aria-labelledby="vehicle-model-title">
+    <div className="technical-heading vehicle-variant-heading">
+      <div>
+        <p className="vehicle-variant-wordmark">Toyota</p>
+        <h2 id="vehicle-model-title">Chọn mẫu xe</h2>
+      </div>
+      <form method="dialog"><button className="vehicle-variant-close" type="submit" aria-label="Đóng" autoFocus>×</button></form>
+    </div>
+    <div className="vehicle-model-picker">
+      {cars.map(vehicle => (
+        <a className="showroom-menu-model" key={vehicle.slug} href={vehicle.slug} aria-current={vehicle.slug === path ? 'page' : undefined}>
+          <span className="showroom-model-name">{vehicle.title.replace(/^Toyota /i, '')}</span>
+          {vehicle.image && <img src={vehicle.slug === '/toyota/vios/' ? vehicle.variants?.[0]?.image || vehicle.image : vehicle.image} width="400" height="200" alt="" loading="lazy" />}
+          <span className="showroom-model-tag">{vehicle.slug === path ? 'Đang xem' : vehicle.category}</span>
+        </a>
+      ))}
+    </div>
+  </dialog>
+  <dialog id="chon-phien-ban" className={isFj ? "technical-drawer vehicle-variant-drawer color-drawer" : "technical-drawer vehicle-variant-drawer"} aria-labelledby="vehicle-variant-title">
+    <div className="technical-heading vehicle-variant-heading">
+      <div>
+        <p className="vehicle-variant-wordmark">{title.replace(/^Toyota /i,'')}</p>
+        <h2 id="vehicle-variant-title">{isFj ? 'Màu ngoại thất' : 'Phiên bản và màu xe'}</h2>
+      </div>
+      <form method="dialog"><button className="vehicle-variant-close" type="submit" aria-label="Đóng" autoFocus>×</button></form>
+    </div>
+    {pendingTrims && <p className="vehicle-variant-note muted">Giá và thông số theo phiên bản đang được đối chiếu. Liên hệ đại lý để xác nhận phiên bản, màu và giá.</p>}
+    <VehicleOptions vehicle={model} showColorPrices={isFj && showSource} previewSrc={cover} />
+  </dialog>
+  <VehicleFeedback title={title} />
+</>
 return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noindex={noindexPaths.has(path)}>
   {model ? <><section className={isFj ? "product-intro model-stage fj-stage" : "product-intro model-stage"} id="tong-quan">
     <div className="model-display">
@@ -115,8 +157,8 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
       })}
     </nav>}
     <div className="actions model-stage-actions">
-      <a className="btn outline" href="#chon-phien-ban" aria-haspopup="dialog">{isFj ? "Chọn màu ngoại thất" : "Chọn phiên bản và màu xe"}</a>
-      <button className="btn" type="submit" form="vehicle-options" data-event="cta_click">Nhận báo giá ↗</button>
+      <a className="btn" href="#chon-mau-xe" aria-haspopup="dialog">Chọn mẫu xe</a>
+      <a className="btn outline" href="#chon-phien-ban" aria-haspopup="dialog">Chọn cấu hình</a>
       <button className="btn outline" type="submit" form="vehicle-options" formAction="/dang-ky-lai-thu/" data-event="cta_click">Đăng ký lái thử</button>
     </div>
     </div>
@@ -180,17 +222,7 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
       <a href="#hinh-anh-xe" className="btn outline">Khám phá thư viện ảnh ↗</a>
     </div>
   </section>}
-  <dialog id="chon-phien-ban" className={isFj ? "technical-drawer vehicle-variant-drawer color-drawer" : "technical-drawer vehicle-variant-drawer"} aria-labelledby="vehicle-variant-title">
-    <div className="technical-heading vehicle-variant-heading">
-      <div>
-        <p className="vehicle-variant-wordmark">{title.replace(/^Toyota /i,'')}</p>
-        <h2 id="vehicle-variant-title">{isFj ? 'Màu ngoại thất' : 'Phiên bản và màu xe'}</h2>
-      </div>
-      <form method="dialog"><button className="vehicle-variant-close" type="submit" aria-label="Đóng" autoFocus>×</button></form>
-    </div>
-    {pendingTrims && <p className="vehicle-variant-note muted">Giá và thông số theo phiên bản đang được đối chiếu. Liên hệ đại lý để xác nhận phiên bản, màu và giá.</p>}
-    <VehicleOptions vehicle={model} showColorPrices={isFj && showSource} previewSrc={cover} />
-  </dialog>
+  {vehicleDialogs}
   </> :   <section className={product ? 'wrap section page-intro product-intro' : 'wrap section page-intro'}>
     {product && entry?.image && (cover ? <Image src={cover} width={800} height={800} sizes="(max-width: 760px) 100vw, 50vw" className="product-cover" alt={title} loading="eager" fetchPriority="high" /> : <img src={entry.image} className="product-cover" alt={title} width="640" height="480" fetchPriority="high" />)}
     <div><p className="eyebrow">{product?'DANH MỤC TOYOTA':article?'TIN TỨC TOYOTA':'TOYOTA THÁI HÒA TỪ LIÊM'}</p>

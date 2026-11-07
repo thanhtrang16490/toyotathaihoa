@@ -109,30 +109,36 @@ export default function BrowserInteractions({path}:{path:string}){
     const original = cover && {src: cover.src, srcset: cover.getAttribute('srcset'), alt: cover.alt}
     const initialPreview = preview?.src
     const drawer = form.closest('dialog')
+    const modelPicker = document.querySelector<HTMLDialogElement>('#chon-mau-xe')
+    const drawers = new Map([['#chon-phien-ban',drawer],['#chon-mau-xe',modelPicker]])
     const heroColors = document.querySelectorAll<HTMLAnchorElement>('[data-hero-color]')
-    const colorLinks = document.querySelectorAll<HTMLAnchorElement>('a[href="#chon-phien-ban"]')
-    for (const link of colorLinks) {
+    const pickerLinks = document.querySelectorAll<HTMLAnchorElement>('a[href="#chon-phien-ban"], a[href="#chon-mau-xe"]')
+    for (const link of pickerLinks) {
       link.addEventListener('click', event => {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
-        if (!drawer?.showModal) return
+        const target = drawers.get(link.hash)
+        if (!target?.showModal) return
         event.preventDefault()
-        drawer.showModal()
+        target.showModal()
         const option = Array.from(form.querySelectorAll<HTMLInputElement>('input[name=color]'))
           .find(input => input.value === link.dataset.heroColor)
         option?.click()
       }, {signal})
     }
     const openFromHash = () => {
-      if (location.hash === '#chon-phien-ban' && drawer && !drawer.open) drawer.showModal()
+      const target = drawers.get(location.hash)
+      if (target && !target.open) target.showModal()
     }
     window.addEventListener('hashchange', openFromHash, {signal})
     openFromHash()
-    drawer?.addEventListener('click', event => {
-      if (event.target !== drawer) return
-      const bounds = drawer.getBoundingClientRect()
-      if (event.clientX < bounds.left || event.clientX > bounds.right ||
-          event.clientY < bounds.top || event.clientY > bounds.bottom) drawer.close()
-    }, {signal})
+    for (const target of drawers.values()) {
+      target?.addEventListener('click', event => {
+        if (event.target !== target) return
+        const bounds = target.getBoundingClientRect()
+        if (event.clientX < bounds.left || event.clientX > bounds.right ||
+            event.clientY < bounds.top || event.clientY > bounds.bottom) target.close()
+      }, {signal})
+    }
     const update = () => {
       const color = form.querySelector<HTMLInputElement>('input[name=color]:checked')
       for (const link of heroColors) {

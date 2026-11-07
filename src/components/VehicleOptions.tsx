@@ -1,10 +1,11 @@
 
 import type {Entry} from '../catalog'
+import {corollaTrims,vehicleColors} from '../vehicle-options'
 export default function VehicleOptions({vehicle,showColorPrices=false,previewSrc}:{vehicle:Entry;showColorPrices?:boolean;previewSrc?:string}){
-const trims: Record<string, string[]> = {
+const trims: Record<string, readonly string[]> = {
   'avanza-premio': ['1.5L MT', '1.5L CVT'],
   camry: ['2.0Q', 'HEV Premium', 'HEV Luxury'],
-  'corolla-cross': ['1.8V', 'HEV'],
+  'corolla-cross': corollaTrims,
   fortuner: ['2.7 AT 4×2', 'Legender 2.4 AT 4×2', 'Legender 2.7 AT 4×4', 'Legender 2.8 AT 4×4'],
   hilux: ['Standard 4×2 MT', 'Pro 4×2 AT', 'Trailhunter 4×4'],
   'innova-cross': ['Xăng', 'HEV'],
@@ -14,11 +15,7 @@ const trims: Record<string, string[]> = {
   'yaris-cross': ['Xăng', 'Hybrid'],
 }
 const versions = trims[vehicle.slug.split('/')[2]] ?? []
-const colors = new Map<string, {photo:string; price:number}>()
-for (const variant of vehicle.variants ?? []) {
-  const value = variant.options['attribute_mau-sac']?.trim()
-  if (value) colors.set(/^\d+$/.test(value) ? 'Mã màu '+value : value, {photo:variant.image, price:variant.price})
-}
+const colors = vehicleColors(vehicle)
 return (<form id="vehicle-options" className="vehicle-options" action="/nhan-bao-gia/" method="get" data-vehicle-options="">
   <input type="hidden" name="model" value={vehicle.title} />
   {versions.length > 0 && <fieldset className="variant-trim-picker">

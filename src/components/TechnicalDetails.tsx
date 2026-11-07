@@ -1,8 +1,9 @@
 'use client'
 
-import {useRef} from 'react'
+import {useId,useRef} from 'react'
 
-export default function TechnicalDetails({rows}:{rows:readonly (readonly [string,string])[]}) {
+export default function TechnicalDetails({rows,modelName="LAND CRUISER FJ"}:{rows:readonly (readonly [string,string])[];modelName?:string}) {
+  const titleId = useId()
   const dialog = useRef<HTMLDialogElement>(null)
 
   return <>
@@ -11,9 +12,9 @@ export default function TechnicalDetails({rows}:{rows:readonly (readonly [string
       event.preventDefault()
       dialog.current.showModal()
     }}>Xem thông số kỹ thuật ↗</a>
-    <dialog ref={dialog} className="technical-drawer" aria-labelledby="fj-technical-title">
+    <dialog ref={dialog} className="technical-drawer" aria-labelledby={titleId}>
       <div className="technical-heading">
-        <div><p className="eyebrow">LAND CRUISER FJ</p><h2 id="fj-technical-title">Thông số kỹ thuật</h2></div>
+        <div><p className="eyebrow">{modelName}</p><h2 id={titleId}>Thông số kỹ thuật</h2></div>
         <button className="btn outline" type="button" onClick={()=>dialog.current?.close()}>Đóng</button>
       </div>
       <dl>{rows.map(([label,value])=><div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
