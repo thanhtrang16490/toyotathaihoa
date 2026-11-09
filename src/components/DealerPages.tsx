@@ -15,10 +15,10 @@ const contactNumbers = [
   ['Chăm sóc khách hàng','02433549999','024 3354 9999'],
 ]
 
-export function DealerHero({title,image,action,service=false}:{title:string;image?:string|StaticImageData;action?:ReactNode;service?:boolean}) {
+export function DealerHero({title,image,imageAlt='',action,service=false}:{title:string;image?:string|StaticImageData;imageAlt?:string;action?:ReactNode;service?:boolean}) {
   return <>
     <section className={styles.dealerHero} data-photo={Boolean(image)}>
-      {image && <Image src={image} alt="" fill sizes="100vw" loading="eager" fetchPriority="high" />}
+      {image && <Image src={image} alt={imageAlt} fill sizes="100vw" loading="eager" fetchPriority="high" />}
       <div className={styles.heroCopy}><h1>{title}</h1>{action}</div>
     </section>
     <nav className={styles.dealerBar} aria-label="Liên hệ nhanh">
@@ -54,8 +54,58 @@ export function ContactPage({title}:{title:string}) {
   return <><DealerHero title={title} image={showroom} /><DealerContact /></>
 }
 
-export function AboutHero({title}:{title:string}) {
-  return <DealerHero title={title} image={showroom} />
+const aboutLinks = [
+  {href:'/xe-toyota-moi/',title:'Xe Toyota mới',description:'Xem các dòng xe, đối chiếu phiên bản và chọn cấu hình phù hợp.',action:'Khám phá dòng xe'},
+  {href:'/xe-da-qua-su-dung/',title:'Xe đã qua sử dụng',description:'Liên hệ bộ phận xe cũ để hỏi về xe đang có, tình trạng và lịch sử bảo dưỡng.',action:'Tìm xe đã qua sử dụng'},
+  {href:'/dich-vu/',title:'Bảo dưỡng và sửa chữa',description:'Tìm hiểu bảo dưỡng định kỳ, sửa chữa máy, gầm, điện và đồng sơn.',action:'Xem dịch vụ'},
+  {href:'/phu-kien-chinh-hang/',title:'Phụ tùng và phụ kiện',description:'Tìm phụ tùng, phụ kiện chính hãng phù hợp với dòng xe của bạn.',action:'Khám phá phụ kiện'},
+]
+
+export function AboutPage() {
+  return <>
+    <DealerHero title={dealer} image={showroom} imageAlt="Mặt tiền showroom Toyota Thái Hòa Từ Liêm tại Đại Mỗ, Hà Nội" action={
+      <div className={styles.aboutHeroActions}>
+        <p>Đại lý chính hãng Toyota Việt Nam tại Đại Mỗ, Hà Nội.</p>
+        <a className="btn" href="/dang-ky-lai-thu/" data-event="cta_click">Đăng ký lái thử</a>
+      </div>
+    } />
+    <section className={styles.dealerSection} aria-labelledby="about-showroom">
+      <div className={styles.aboutOverview}>
+        <div>
+          <h2 id="about-showroom">Từ chọn xe đến chăm sóc xe</h2>
+          <p>Toyota Thái Hòa Từ Liêm mở cửa năm 2018 tại khu vực ngã ba Tố Hữu – Mộ Lao. Bạn có thể xem xe, hỏi về từng phiên bản, đăng ký lái thử hoặc mang xe đến bảo dưỡng tại cùng một địa chỉ.</p>
+        </div>
+        <dl className={styles.aboutFacts}>
+          <div><dt>Năm khai trương</dt><dd>2018</dd></div>
+          <div><dt>Khoang sửa chữa khi khai trương</dt><dd>24</dd></div>
+        </dl>
+      </div>
+    </section>
+    <section className={styles.dealerSection} aria-labelledby="about-services">
+      <h2 id="about-services">Bạn cần hỗ trợ gì?</h2>
+      <div className={styles.aboutLinks}>
+        {aboutLinks.map(({href,title,description,action})=><article key={href}>
+          <h3>{title}</h3>
+          <p>{description}</p>
+          <a href={href}>{action} <span aria-hidden="true">↗</span></a>
+        </article>)}
+      </div>
+    </section>
+    <section className={styles.dealerSection} aria-labelledby="about-visit">
+      <div className={styles.aboutVisit}>
+        <Image src={workshop} alt="Kỹ thuật viên kiểm tra xe Toyota trong xưởng, ảnh minh họa" sizes="(max-width: 760px) 88vw, (max-width: 1410px) 44vw, 620px" />
+        <div>
+          <h2 id="about-visit">Đến showroom hoặc đặt lịch xưởng</h2>
+          <p>Khi đặt lịch, bạn có thể trao đổi trước với đại lý về dòng xe muốn xem hoặc hạng mục cần kiểm tra.</p>
+          <div className="actions">
+            <a className="btn" href="/dat-lich-dich-vu/" data-event="cta_click">Đặt lịch bảo dưỡng</a>
+            <a className="btn outline" href={directions} data-event="directions_click">Xem chỉ đường ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <DealerContact />
+  </>
 }
 
 export function ServicePage({title}:{title:string}) {

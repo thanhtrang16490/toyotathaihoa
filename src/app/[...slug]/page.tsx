@@ -7,11 +7,12 @@ import VehicleGallery from '../../components/VehicleGallery'
 import VehicleOptions from '../../components/VehicleOptions'
 import VehicleSupport from '../../components/VehicleSupport'
 import ShowroomCatalog from '../../components/ShowroomCatalog'
-import {AboutHero,ContactPage,DealerContact,DealerHero,ServicePage} from '../../components/DealerPages'
+import {AboutPage,ContactPage,DealerContact,DealerHero,ServicePage} from '../../components/DealerPages'
 import styles from '../../components/showroom-pages.module.css'
 import LeadForm from '../../components/LeadForm'
 import TestDriveDrawer from '../../components/TestDriveDrawer'
 import Image from 'next/image'
+import showroom from '../../assets/showroom-facade.webp'
 import {entries,cars,services,collections,address,hours,redirects,articlesInArchive,articlesPerPage,pagination,pendingTrimVerification,isUsedVehicle,noindexPaths} from '../../catalog'
 import type {Entry} from '../../catalog'
 
@@ -43,6 +44,11 @@ export async function generateMetadata({params}:Props){
  const {slug}=await params
  const path=resolvePath(slug)
  if(!paths.has(path)) notFound()
+ if (path==='/gioi-thieu/') return pageMetadata({
+   title:'Giới thiệu đại lý',path,
+   description:'Tìm hiểu showroom Toyota Thái Hòa Từ Liêm tại Đại Mỗ, Hà Nội. Xem xe mới, xe đã qua sử dụng, đặt lịch lái thử hoặc bảo dưỡng.',
+   image:showroom.src,imageAlt:'Mặt tiền showroom Toyota Thái Hòa Từ Liêm tại Đại Mỗ, Hà Nội',
+ })
  const entry=entries.find(item=>item.slug===path)
  const base=path.replace(/\/page\/\d+\/$/,'/')
  const title=collections[base as keyof typeof collections] || entries.find(item=>item.slug===base)?.title || 'Toyota'
@@ -120,13 +126,15 @@ if (model) {
     <VehicleSupport address={address} hours={hours} />
   </Layout>
 }
+if (path==='/gioi-thieu/') {
+  return <Layout title="Giới thiệu đại lý" path={path}><AboutPage /></Layout>
+}
 const editorialIndex = basePath==='/tin-tuc/' || basePath==='/uu-dai/' || entry?.kind==='category'
 const leadStory = editorialIndex && !archived && pageNumber===1 && list?.[0]?.image ? list[0] : undefined
 const listing = leadStory ? list?.slice(1) : list
-const about = path==='/gioi-thieu/'
 const imageInArticle = entry?.image && entry.html.includes(entry.image)
 return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noindex={noindexPaths.has(path)}>
-  {about ? <AboutHero title={title} /> : servicePage ?
+  {servicePage ?
     <DealerHero title={title} image={entry?.image} service={servicePage} action={servicePage && <a className="btn" href="/dat-lich-dich-vu/" data-event="cta_click">Đặt lịch bảo dưỡng ↗</a>} /> :
   <section className={product ? 'wrap section page-intro product-intro' : article || editorialIndex ? styles.editorialPage : 'wrap section page-intro'}>
     {product && entry?.image && <Image src={entry.image} width={800} height={800} sizes="(max-width: 760px) 100vw, 50vw" className="product-cover" alt={title} loading="eager" fetchPriority="high" />}
@@ -162,8 +170,8 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
     <h2>Hình ảnh {title}</h2>
     <VehicleGallery images={gallery} title={title} />
   </section> : null}
-  {!list && showSource && entry?.html && <section id="chi-tiet-xe" className={'wrap prose source-content '+(article || servicePage || about ? styles.editorialBody : '')} aria-label={product?'Thông tin và thông số xe':'Nội dung'}><div dangerouslySetInnerHTML={{__html:entry.html}} /></section>}
+  {!list && showSource && entry?.html && <section id="chi-tiet-xe" className={'wrap prose source-content '+(article || servicePage ? styles.editorialBody : '')} aria-label={product?'Thông tin và thông số xe':'Nội dung'}><div dangerouslySetInnerHTML={{__html:entry.html}} /></section>}
   {relatedPosts.length>0 && <section className={styles.editorialPage}><h2>Bài viết liên quan</h2><div className={styles.articleGrid}>{relatedPosts.map(item=><Card key={item.slug} entry={item} editorial="article" />)}</div></section>}
-  {(servicePage || about) && <DealerContact />}
+  {servicePage && <DealerContact />}
 </Layout>)
 }
