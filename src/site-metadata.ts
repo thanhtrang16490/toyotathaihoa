@@ -2,7 +2,9 @@ import type {Metadata} from 'next'
 import {dealer} from './catalog'
 import {homeShareImage} from './vehicle-imagery'
 
-export const site = 'https://toyotathaihoatuliem.com.vn'
+import {site} from './site-indexing'
+
+export {site}
 export function pageMetadata({title,path,description,image,imageAlt,noindex,article}: {
   title:string; path:string; description?:string; image?:string; imageAlt?:string; noindex?:boolean; article?:boolean
 }): Metadata {

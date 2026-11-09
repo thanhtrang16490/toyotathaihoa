@@ -33,7 +33,7 @@ Sự kiện `cta_click`, `hotline_click`, `zalo_click`, `directions_click` và `
 ## Chuyển đổi SEO
 
 - Đối chiếu `url-map.csv` với sitemap, liên kết từ trang gốc và bản xuất Search Console. Các dòng `verify` cần quyết định trước khi đổi DNS. Kiểm tra danh mục phân trang và các URL WooCommerce với đại lý.
-- Staging mặc định gửi header `X-Robots-Tag: noindex, nofollow` và robots chặn crawl. Khi tên miền chính đã phục vụ bản production được duyệt, đặt `SITE_INDEXABLE=true` khi chạy Node. Các trang biểu mẫu và danh mục nội bộ dùng meta noindex riêng.
+- Staging mặc định gửi header `X-Robots-Tag: noindex, nofollow` và robots chặn crawl. Khi tên miền chính đã phục vụ bản production được duyệt, đặt `SITE_INDEXABLE=true` khi chạy Node. Tên miền thử nghiệm vẫn bị chặn nếu dùng chung bản triển khai với tên miền chính thức. Các trang biểu mẫu và danh mục nội bộ dùng meta noindex riêng.
 - Dùng proxy HTTPS. Cho phép cache dài và immutable cho `/_next/static/`. Thiết lập cache tài nguyên `/media/` theo chính sách CDN, bật Brotli hoặc gzip cho HTML/CSS/JS và giữ API ở chế độ no-store.
 - Trước khi chuyển DNS, đối chiếu trạng thái 301, đích cuối 200, canonical HTTPS, sitemap và robots trên cấu hình triển khai thực. Sau chuyển đổi, gửi `/sitemap.xml` trong Search Console, kiểm tra URL mẫu, theo dõi lỗi lập chỉ mục, 404 và chuyển hướng. Theo dõi Core Web Vitals thực tế khi có đủ dữ liệu.
 
