@@ -96,6 +96,7 @@ if (formIntent) {
       <header>
         <h1>{title}</h1>
         <p>Để lại thông tin để Toyota Thái Hòa Từ Liêm liên hệ xác nhận yêu cầu.</p>
+        {formIntent==='quote' && <p><a href="/gia-lan-banh/">Tra cứu chi phí lăn bánh tham khảo ↗</a></p>}
       </header>
       <div className={formIntent==='test_drive' ? 'test-drive-page' : 'form-panel'}><LeadForm intent={formIntent} /></div>
     </div>

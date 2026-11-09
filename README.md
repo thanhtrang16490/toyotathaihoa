@@ -30,6 +30,8 @@ npm test
 
 Đặt thêm `SUPABASE_PUBLISHABLE_KEY` để bật đăng nhập tại `/dang-nhap/`. Khu vực `/quan-tri/` kiểm tra tài khoản qua Supabase Auth và yêu cầu `app_metadata.role` là `admin`. Phiên kéo dài tối đa một giờ, sau đó quản trị viên đăng nhập lại.
 
+Migration quản trị thêm trạng thái xử lý yêu cầu và nhập 38 dòng giá lăn bánh từ bảng giá lưu trữ vào `toyota_on_road_prices`. Quản trị viên cập nhật trạng thái khách hàng, số tiền và chế độ hiển thị tại `/quan-tri/`. Trang `/gia-lan-banh/` đọc các dòng giá đã công bố trực tiếp từ Supabase.
+
 Khi bỏ trống cả hai biến Supabase, API có thể gửi qua `LEAD_WEBHOOK_URL` (HTTPS) và `LEAD_WEBHOOK_TOKEN` nếu đầu nhận cần xác thực Bearer. Đầu nhận phải trả HTTP 2xx và JSON `{"accepted":true}` sau khi tiếp nhận. Đầu nhận nên khử yêu cầu trùng theo header `Idempotency-Key` khi khách thử lại.
 
 Thiết lập giới hạn tốc độ cho POST `/api/lead/` ở reverse proxy và xác minh proxy giữ đúng origin/host. Kiểm thử với dữ liệu giả trước khi bật cho khách.

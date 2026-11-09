@@ -4,6 +4,7 @@ import type {Entry} from '../catalog'
 import {corollaDetailPath,corollaTrimSpecs,corollaTrims,vehicleTrims} from '../vehicle-options'
 import {vehicleDetailData} from '../vehicle-detail-data'
 import {gradeAnchor,vehicleGrades} from '../vehicle-grades'
+import {onRoadPath} from '../on-road-prices'
 import TechnicalDetails from './TechnicalDetails'
 import VehicleGallery from './VehicleGallery'
 import CorollaFeatureRail from './CorollaFeatureRail'
@@ -70,6 +71,7 @@ export default function VehicleDetail({model,showPrice}:{model:Entry;showPrice:b
   const name = model.title.replace(/^Toyota /i,'')
   const wordmark = name.toUpperCase()
   const configPath = model.slug+'cau-hinh/'
+  const pricePath = onRoadPath + '?' + new URLSearchParams({dongXe: model.slug.split('/')[2]})
   const trims = vehicleTrims(model.slug)
   const grades = vehicleGrades(model.slug)
   const profile = vehicleDetailData(model)
@@ -107,6 +109,7 @@ export default function VehicleDetail({model,showPrice}:{model:Entry;showPrice:b
           <a className="btn outline" href={configPath} data-vehicle-configure="">Chọn cấu hình</a>
           <button className="btn outline" type="button" data-test-drive="vehicle-options" aria-haspopup="dialog" aria-controls="test-drive-drawer" data-event="cta_click">Đăng ký lái thử</button>
         </div>
+        <p><a href={pricePath} data-event="cta_click">Dự toán giá lăn bánh ↗</a></p>
       </div>
     </section>
     <nav className={styles.sectionNav} aria-label={'Khám phá '+name}>
