@@ -1,6 +1,6 @@
 import type {Metadata} from 'next'
 import {redirect} from 'next/navigation'
-import {getPrices} from '../../../on-road-prices'
+import {getPrices} from '../../../on-road-price-data'
 import {logout} from '../actions'
 import {getAdmin} from '../session'
 import {getLeads,leadIntents,leadPageSize,leadStatuses,type LeadStatus} from '../leads'

@@ -1,5 +1,3 @@
-import {dataRequest} from './supabase-data'
-
 export const onRoadPath = '/gia-lan-banh/'
 
 export const registrationAreas = [
@@ -19,15 +17,6 @@ export type OnRoadPrice = {
   province12: number
   note: string | null
   published: boolean
-}
-
-export async function getPrices(access: 'public' | 'server') {
-  const query = new URLSearchParams({
-    select: 'id,model_id,model,variant,retail,hanoi,province10,province12,note,published',
-    order: 'position.asc,id.asc',
-  })
-  const response = await dataRequest('toyota_on_road_prices', query, access)
-  return response ? await response.json() as OnRoadPrice[] : null
 }
 
 export function onRoadEstimate(row: OnRoadPrice, region?: string) {

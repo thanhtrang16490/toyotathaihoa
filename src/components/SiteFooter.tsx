@@ -29,6 +29,7 @@ export default function SiteFooter() {
         <a href="/dang-ky-lai-thu/">Đăng ký lái thử</a>
         <a href="/nhan-bao-gia/">Nhận báo giá</a>
         <a href="/gia-lan-banh/">Dự toán giá lăn bánh</a>
+        <a href="/gia-lan-banh/?phuongThuc=tra-gop#tra-gop">Dự toán trả góp</a>
       </section>
     </div>
     <div className="home-footer-connect">
