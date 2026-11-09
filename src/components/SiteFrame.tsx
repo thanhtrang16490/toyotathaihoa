@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import {Fragment,type ReactNode} from 'react'
+import type {ReactNode} from 'react'
 import {address,dealer,cars} from '../catalog'
 import {site} from '../site-metadata'
 import {vehicleMenuImagery} from '../vehicle-imagery'
@@ -14,7 +14,8 @@ export default function SiteFrame({title,path,crumbs=[],noindex=false,schema,chi
  const dealerId = new URL('/#dealer',site).href
  const dealerSchema={'@type':'AutoDealer','@id':dealerId,name:dealer,url:site,telephone:'+842433549999',address:{'@type':'PostalAddress',streetAddress:address,addressLocality:'Hà Nội',addressCountry:'VN'}}
  const websiteSchema=path==='/' ? {'@type':'WebSite','@id':new URL('/#website',site).href,name:dealer,url:new URL('/',site).href,inLanguage:'vi-VN',publisher:{'@id':dealerId}} : null
- const breadcrumb=showBreadcrumb ? {'@type':'BreadcrumbList',itemListElement:[['Trang chủ','/'],...crumbs,[title,path]].map(([name,url],i)=>({'@type':'ListItem',position:i+1,name,item:new URL(url,site).href}))} : null
+ const breadcrumbLinks = [['Trang chủ','/'],...crumbs]
+ const breadcrumb=showBreadcrumb ? {'@type':'BreadcrumbList',itemListElement:[...breadcrumbLinks,[title,path]].map(([name,url],i)=>({'@type':'ListItem',position:i+1,name,item:new URL(url,site).href}))} : null
  const structured=JSON.stringify({'@context':'https://schema.org','@graph':[dealerSchema,...[websiteSchema,schema,breadcrumb].filter(Boolean)]}).replaceAll('<','\\u003c')
  return (<><script type="application/ld+json" dangerouslySetInnerHTML={{__html:structured}} />
 
@@ -29,7 +30,18 @@ export default function SiteFrame({title,path,crumbs=[],noindex=false,schema,chi
   </div>
 </header>
 <main id="main" className={isModel ? 'vehicle-detail' : undefined}>
-{showBreadcrumb && !isModel && <nav className="wrap crumb" aria-label="Đường dẫn"><a href="/">Trang chủ</a>{crumbs.map(([name,url])=><Fragment key={url}><span aria-hidden="true">/</span><a key={url} href={url}>{name}</a></Fragment>)}<span aria-hidden="true">/</span><span aria-current="page">{title}</span></nav>}
+{showBreadcrumb && !isModel && <nav className="crumb" aria-label="Đường dẫn">
+  <ol role="list">
+    {breadcrumbLinks.map(([name,url],index)=><li key={url}>
+      {index>0 && <span className="crumb-divider" aria-hidden="true">›</span>}
+      <a href={url}>{name}</a>
+    </li>)}
+    <li className="crumb-current">
+      <span className="crumb-divider" aria-hidden="true">›</span>
+      <span aria-current="page">{title}</span>
+    </li>
+  </ol>
+</nav>}
 {children}
 </main>
 <BrowserInteractions path={path} /></>)

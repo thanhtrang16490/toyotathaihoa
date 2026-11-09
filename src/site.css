@@ -62,7 +62,14 @@ h3{font-size:1.18rem}
 footer{background:#202326;color:#f5f5f5;padding:50px 0;margin-top:35px}
 footer h2{font-size:1.18rem}
 footer a{display:block;width:fit-content;padding-block:5px;text-underline-offset:.25em}
-.crumb{display:flex;flex-wrap:wrap;gap:8px;font-size:.82rem;padding-top:18px;color:var(--muted)}
+.crumb { background: #f6f6f7; color: #52565e; font-size: .8125rem; }
+.crumb ol { display: flex; flex-wrap: wrap; align-items: center; column-gap: 10px; width: min(88%, 1240px); min-height: 44px; margin: 0 auto; padding: 6px 0; list-style: none; }
+.crumb li { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.crumb a { display: inline-flex; align-items: center; min-height: 32px; text-decoration: none; }
+.crumb a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.crumb-divider { color: #62666e; font-size: 1rem; line-height: 1; }
+.crumb-current { flex: 1 1 8rem; color: #191b1e; font-weight: 600; }
+.crumb-current [aria-current] { overflow-wrap: anywhere; }
 .page-intro{padding-bottom:25px}
 .page-intro h1{max-width:22ch;font-size:clamp(2.1rem,4.3vw,4.65rem)}
 .product-intro,.contact-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:clamp(16px,5vw,65px)}
