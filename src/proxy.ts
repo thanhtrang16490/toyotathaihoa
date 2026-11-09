@@ -4,6 +4,9 @@ import {isIndexableHost} from './site-indexing'
 
 export function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname.replace(/\/?$/, '/')
+  if (path === '/admin/') {
+    return new NextResponse(null,{status:307,headers:{Location:'/quan-tri/'}})
+  }
   const target = redirects[path as keyof typeof redirects]
   if (target) {
     const location = new URL(target,request.url)

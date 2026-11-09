@@ -1,0 +1,56 @@
+.main {
+  min-height: 75vh;
+  display: grid;
+  place-items: center;
+  padding: clamp(24px, 6vw, 80px) 18px;
+  background: #f5f5f5;
+  color: #151515;
+}
+
+.panel {
+  width: min(100%, 440px);
+  padding: clamp(24px, 6vw, 48px);
+  border: 1px solid #dedede;
+  border-radius: 12px;
+  background: white;
+}
+
+.panel h1 {
+  margin: 0 0 12px;
+  font-size: clamp(1.75rem, 5vw, 2.35rem);
+  line-height: 1.12;
+}
+
+.panel p { margin: 0 0 16px; }
+.panel .eyebrow { font-size: .85rem; font-weight: 650; color: #565656; }
+.panel .error { color: #a71221; }
+.panel .account { font-weight: 650; overflow-wrap: anywhere; }
+.panel a { text-decoration: underline; text-underline-offset: 3px; }
+
+.form {
+  display: grid;
+  gap: 16px;
+  margin: 24px 0;
+}
+
+.form label { display: grid; gap: 6px; font-weight: 600; }
+
+.form input,
+.form button {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid #767676;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.form button {
+  border-color: #151515;
+  background: #151515;
+  color: white;
+  cursor: pointer;
+}
+
+.form button:hover { background: #363636; }
+.panel :focus-visible { outline: 2px solid #1759a6; outline-offset: 3px; }

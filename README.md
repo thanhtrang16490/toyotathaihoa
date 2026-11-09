@@ -26,7 +26,13 @@ npm test
 
 ## Nhận lead và đo lường
 
-Thiết lập biến môi trường cho tiến trình Node theo `.env.example`. Cấu hình `LEAD_WEBHOOK_URL` là HTTPS, cùng `LEAD_WEBHOOK_TOKEN` nếu đầu nhận yêu cầu xác thực Bearer. Đầu nhận phải trả HTTP 2xx và JSON `{"accepted":true}` sau khi tiếp nhận. Payload gồm `name`, `phone`, `intent`, `model`, `received_at`. Đầu nhận nên khử yêu cầu trùng theo header `Idempotency-Key` khi khách thử lại. Thiết lập giới hạn tốc độ cho POST `/api/lead/` ở reverse proxy và xác minh proxy giữ đúng origin/host. Kiểm thử với dữ liệu giả trước khi bật cho khách.
+Để lưu lead vào Supabase, chạy migration trong `supabase/migrations/` rồi đặt `SUPABASE_URL` và `SUPABASE_SECRET_KEY` cho tiến trình Node theo `.env.example`. Cấu hình local có thể đặt trong `.env.development.local`. Bảng `public.toyota_leads` bật RLS và cấp quyền ghi cho vai trò máy chủ. API dùng `Idempotency-Key` làm ID để lần gửi lại cùng mã không tạo dòng trùng.
+
+Đặt thêm `SUPABASE_PUBLISHABLE_KEY` để bật đăng nhập tại `/dang-nhap/`. Khu vực `/quan-tri/` kiểm tra tài khoản qua Supabase Auth và yêu cầu `app_metadata.role` là `admin`. Phiên kéo dài tối đa một giờ, sau đó quản trị viên đăng nhập lại.
+
+Khi bỏ trống cả hai biến Supabase, API có thể gửi qua `LEAD_WEBHOOK_URL` (HTTPS) và `LEAD_WEBHOOK_TOKEN` nếu đầu nhận cần xác thực Bearer. Đầu nhận phải trả HTTP 2xx và JSON `{"accepted":true}` sau khi tiếp nhận. Đầu nhận nên khử yêu cầu trùng theo header `Idempotency-Key` khi khách thử lại.
+
+Thiết lập giới hạn tốc độ cho POST `/api/lead/` ở reverse proxy và xác minh proxy giữ đúng origin/host. Kiểm thử với dữ liệu giả trước khi bật cho khách.
 
 Sự kiện `cta_click`, `hotline_click`, `zalo_click`, `directions_click` và `lead_success` được đẩy vào `window.dataLayer`. Kết nối trình đo lường do đại lý phê duyệt, thiết lập đồng ý phù hợp, rồi kiểm tra bằng chế độ xem trước. Chỉ gửi đường dẫn trang và đích nội bộ hoặc loại yêu cầu. Dữ liệu nhập trên biểu mẫu được gửi riêng đến đầu nhận lead.
 

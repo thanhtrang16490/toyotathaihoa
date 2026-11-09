@@ -5,6 +5,7 @@ const reply = (status:number, message:string) => new Response(JSON.stringify({me
   status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}
 })
 const intents = new Set(['quote','test_drive','service'])
+const accepted = () => reply(200,'Đại lý đã tiếp nhận yêu cầu của bạn.')
 export async function POST(request: Request) {
   const origin = request.headers.get('origin')
   const host = request.headers.get('host')
@@ -65,19 +66,45 @@ export async function POST(request: Request) {
     }
   }
   const destination=process.env.LEAD_WEBHOOK_URL
-  if(!destination?.startsWith('https://')) return reply(503,'Kênh tiếp nhận trực tuyến chưa được kết nối. Vui lòng gọi hotline để được hỗ trợ.')
+  const supabaseUrl=process.env.SUPABASE_URL
+  const supabaseKey=process.env.SUPABASE_SECRET_KEY
+  const useSupabase=Boolean(supabaseUrl || supabaseKey)
+  const configured=useSupabase
+    ? Boolean(supabaseUrl?.startsWith('https://') && supabaseKey?.startsWith('sb_secret_'))
+    : Boolean(destination?.startsWith('https://'))
+  if(!configured) return reply(503,'Kênh tiếp nhận trực tuyến chưa được kết nối. Vui lòng gọi hotline để được hỗ trợ.')
+
+  const suppliedKey=request.headers.get('idempotency-key')
+  const key=suppliedKey && /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(suppliedKey) ? suppliedKey : randomUUID()
+  const lead={
+    name,phone,intent,model,
+    ...(model && intent !== 'service' && trim ? {trim} : {}),
+    ...(model && intent !== 'service' && color ? {color} : {}),
+    ...testDriveDetails,
+    received_at:new Date().toISOString()
+  }
   try{
-    const token=process.env.LEAD_WEBHOOK_TOKEN
-    const suppliedKey=request.headers.get('idempotency-key')
-    const key=suppliedKey && /^[0-9a-f-]{36}$/i.test(suppliedKey) ? suppliedKey : randomUUID()
-    const response=await fetch(destination,{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Idempotency-Key':key,...(token?{Authorization:'Bearer '+token}:{})},
-      body:JSON.stringify({name,phone,intent,model,...(model && intent !== 'service' && trim ? {trim} : {}),...(model && intent !== 'service' && color ? {color} : {}),...testDriveDetails,received_at:new Date().toISOString()}),
-      redirect:'error',
-      signal:AbortSignal.timeout(8000)
-    })
-    if(response.ok && (await response.json()).accepted===true) return reply(200,'Đại lý đã tiếp nhận yêu cầu của bạn.')
+    const options={method:'POST',redirect:'error' as const,signal:AbortSignal.timeout(8000)}
+    if(useSupabase && supabaseUrl && supabaseKey){
+      const response=await fetch(new URL('/rest/v1/toyota_leads?on_conflict=id',supabaseUrl),{
+        ...options,
+        headers:{
+          'Content-Type':'application/json',
+          apikey:supabaseKey,
+          Prefer:'resolution=ignore-duplicates,return=minimal'
+        },
+        body:JSON.stringify({...lead,id:key})
+      })
+      if(response.ok) return accepted()
+    } else if(destination){
+      const token=process.env.LEAD_WEBHOOK_TOKEN
+      const response=await fetch(destination,{
+        ...options,
+        headers:{'Content-Type':'application/json','Idempotency-Key':key,...(token?{Authorization:'Bearer '+token}:{})},
+        body:JSON.stringify(lead)
+      })
+      if(response.ok && (await response.json()).accepted===true) return accepted()
+    }
   } catch {
     // Avoid logging customer data or credentials.
   }
