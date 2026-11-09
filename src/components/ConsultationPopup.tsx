@@ -6,6 +6,7 @@ const storageKey = 'toyota-consultation-dismissed-until'
 
 export default function ConsultationPopup({phone}:{phone:string}) {
   const [visible,setVisible] = useState(false)
+  const [showHotline,setShowHotline] = useState(false)
 
   useEffect(()=>{
     try {
@@ -43,14 +44,20 @@ export default function ConsultationPopup({phone}:{phone:string}) {
       </span>
       <div>
         <h2 id="consultation-title">Tư vấn chọn xe</h2>
-        <p>Trao đổi với Toyota Thái Hòa Từ Liêm qua điện thoại hoặc Zalo.</p>
+        <p>Tư vấn mẫu xe, phiên bản và lịch lái thử.</p>
       </div>
       <button className="consultation-close" type="button" aria-label="Đóng khung tư vấn" onClick={dismiss}>×</button>
     </header>
-    <div className="consultation-actions">
-      <a className="consultation-submit" href={'tel:'+phone} data-event="hotline_click">Gọi tư vấn</a>
-      <a className="consultation-zalo" href={'https://zalo.me/'+phone} target="_blank" rel="noopener noreferrer" data-event="zalo_click">Nhắn Zalo</a>
-      <button className="consultation-later" type="button" onClick={dismiss}>Để sau</button>
-    </div>
+    <form className="consultation-form" onSubmit={event=>{
+      event.preventDefault()
+      setShowHotline(true)
+    }}>
+      <input type="tel" inputMode="tel" autoComplete="tel" aria-label="Số điện thoại" placeholder="VD: 0985 3333 88" maxLength={24} required />
+      <div className="consultation-actions">
+        <button className="consultation-submit" type="submit">Nhận tư vấn</button>
+        <button className="consultation-later" type="button" onClick={dismiss}>Để sau</button>
+      </div>
+      {showHotline && <p className="consultation-status" role="status">Kênh nhận số trực tuyến chưa được kết nối. Vui lòng gọi <a href={'tel:'+phone} data-event="hotline_click">0985 3333 88</a> để được tư vấn.</p>}
+    </form>
   </section>
 }
