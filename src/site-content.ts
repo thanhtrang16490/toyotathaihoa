@@ -67,8 +67,9 @@ export type ArticleRow = {
   published: boolean
   published_at: string | null
   body?: string | null
+  deleted_at?: string | null
 }
-export const articleFields = 'slug,title,description,image,published,published_at'
+export const articleFields = 'slug,title,description,image,published,published_at,deleted_at'
 
 async function readPublicArticles(query:URLSearchParams):Promise<ArticleRow[]> {
   if (!process.env.SUPABASE_URL || !process.env.SUPABASE_PUBLISHABLE_KEY) return []
@@ -97,7 +98,7 @@ export const getPublicCars = cache(async () => {
 })
 
 function articleEntry(row: ArticleRow, original?: Entry): Entry | null {
-  if (!row.published || !row.title) return null
+  if (!row.published || row.deleted_at || !row.title) return null
   return {
     kind:'post', price:'', category:'Tin tức', gallery:[], source:'', date:'', html:'',
     ...original, slug:row.slug, title:row.title, description:row.description ?? '',

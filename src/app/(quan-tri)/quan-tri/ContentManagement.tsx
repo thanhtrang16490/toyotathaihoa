@@ -2,12 +2,13 @@ import {cars,news} from '../../../catalog'
 import {articleFields,productEntry,readProducts,type ArticleRow} from '../../../site-content'
 import {availabilityLabels} from '../../../product-fields'
 import {dataRequest} from '../../../supabase-data'
-import {createAccount,setProductDeleted,updateAccountAccess} from '../content-actions'
+import {createAccount,setArticleDeleted,setProductDeleted,updateAccountAccess} from '../content-actions'
 import {authAdminRequest,isLocked,type AuthUser} from '../session'
 import {adminSections} from './AdminShell'
 import ArticleForm from './ArticleForm'
 import ProductForm from './ProductForm'
 import DeleteProductButton from './DeleteProductButton'
+import DeleteArticleButton from './DeleteArticleButton'
 import styles from './dashboard.module.css'
 
 export function SaveResult({result}: {result:unknown}) {
@@ -114,6 +115,7 @@ async function ArticleEditor({slug}: {slug:string}) {
     if (!response) return <p className={styles.error} role="alert">Chưa tải được bài viết từ Supabase.</p>
     const rows = await response.json() as ArticleRow[]
     record = rows[0]
+    if (record?.deleted_at) return <p className={styles.error}>Bài viết đã xóa. Khôi phục bài viết trong mục Đã xóa để chỉnh sửa.</p>
     if (!record && !original) return <p className={styles.error}>Không tìm thấy bài viết.</p>
   }
   const published = record?.published ?? Boolean(original)
@@ -144,7 +146,9 @@ function Pagination({page, more, href}: {page:number;more:boolean;href:(page:num
   </nav>
 }
 
-export async function News({selected,pageParam,searchParam}: {selected:unknown;pageParam:unknown;searchParam:unknown}) {
+const articleDate = new Intl.DateTimeFormat('vi-VN',{dateStyle:'medium',timeZone:'Asia/Ho_Chi_Minh'})
+
+export async function News({selected,pageParam,searchParam,archived}: {selected:unknown;pageParam:unknown;searchParam:unknown;archived:boolean}) {
   if (typeof selected==='string' && selected) return <ArticleEditor slug={selected} />
   const rows:ArticleRow[] = []
   const limit = 500
@@ -156,28 +160,50 @@ export async function News({selected,pageParam,searchParam}: {selected:unknown;p
     rows.push(...batch)
     if (batch.length<limit) break
   }
-  const all = new Map(news.map(entry=>[entry.slug,{slug:entry.slug,title:entry.title,published:true,date:entry.published}]))
-  for (const row of rows) all.set(row.slug,{slug:row.slug,title:row.title ?? '',published:row.published,date:all.get(row.slug)?.date || row.published_at || ''})
+  const all = new Map(news.map(entry=>[entry.slug,{slug:entry.slug,title:entry.title,published:true,date:entry.published,deleted:false}]))
+  for (const row of rows) all.set(row.slug,{slug:row.slug,title:row.title ?? '',published:row.published,date:all.get(row.slug)?.date || row.published_at || '',deleted:Boolean(row.deleted_at)})
   const search = typeof searchParam==='string' ? searchParam.trim().slice(0,120) : ''
-  const matches = [...all.values()].filter(row=>row.title.toLocaleLowerCase('vi').includes(search.toLocaleLowerCase('vi')))
+  const matches = [...all.values()].filter(row=>row.deleted===archived && row.title.toLocaleLowerCase('vi').includes(search.toLocaleLowerCase('vi')))
     .sort((a,b)=>b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug))
   const page = toPage(pageParam)
   const start = (page-1)*pageSize
   const items = matches.slice(start,start+pageSize)
   return <section className={styles.panel} aria-labelledby="news-heading">
     <div className={styles.panelHead}>
-      <h2 id="news-heading">Danh sách bài viết</h2><a className={styles.primaryLink} href={articleHref('moi')}>Viết bài mới</a>
+      <div><h2 id="news-heading">{archived ? 'Bài viết đã xóa' : 'Danh sách bài viết'}</h2><p>{matches.length} bài viết</p></div>
+      <div className={styles.rowActions}>
+        <a className={styles.textLink} href={archived ? newsHref : newsHref+'&danhSach=da-xoa'}>{archived ? 'Về danh sách' : 'Đã xóa'}</a>
+        {!archived && <a className={styles.primaryLink} href={articleHref('moi')}>Viết bài mới</a>}
+      </div>
     </div>
     <form action="/quan-tri/" className={styles.searchBar} method="get">
       <input type="hidden" name="muc" value="tin-tuc" />
+      {archived && <input type="hidden" name="danhSach" value="da-xoa" />}
       <label>Tìm tiêu đề <input type="search" name="tim" defaultValue={search} maxLength={120} /></label>
       <button className={styles.secondary} type="submit">Tìm</button>
     </form>
-    {items.length ? <ul className={styles.recent}>{items.map(row=><li key={row.slug} className={styles.manageRow}>
-      <a className={styles.textLink} href={articleHref(row.slug)}>{row.title}</a>
-      <span className={styles.badge} data-status={row.published ? 'closed' : undefined}>{row.published ? 'Đã xuất bản' : 'Bản nháp'}</span>
-    </li>)}</ul> : <p className={styles.empty}>Không có bài viết phù hợp.</p>}
-    <Pagination page={page} more={start+pageSize<matches.length} href={number=>newsHref+'&'+new URLSearchParams({trang:String(number),...(search ? {tim:search} : {})})} />
+    {items.length ? <div className={styles.tableScroll} role="region" aria-label="Bảng tin tức, cuộn ngang để xem thêm" tabIndex={0}>
+      <table className={styles.dataTable}>
+        <caption className={styles.srOnly}>{archived ? 'Bài viết đã xóa' : 'Danh sách tin tức'}</caption>
+        <thead><tr><th scope="col">Bài viết</th><th scope="col">Ngày đăng</th><th scope="col">Trạng thái</th><th scope="col">Thao tác</th></tr></thead>
+        <tbody>{items.map(row=><tr key={row.slug}>
+          <th scope="row" className={styles.articleTitle}><strong>{row.title}</strong></th>
+          <td className={styles.dateCell}>{row.date ? <time dateTime={row.date}>{articleDate.format(new Date(row.date))}</time> : '—'}</td>
+          <td><span className={styles.badge} data-status={!archived && row.published ? 'closed' : undefined}>{archived ? 'Đã xóa' : row.published ? 'Đã xuất bản' : 'Bản nháp'}</span></td>
+          <td><div className={styles.rowActions}>
+            {archived ? <form action={setArticleDeleted}>
+              <input type="hidden" name="slug" value={row.slug} />
+              <button className={styles.secondary} name="operation" value="restore" type="submit" aria-label={'Khôi phục '+row.title}>Khôi phục</button>
+            </form> : <>
+              {row.published && <a className={styles.tableAction} href={row.slug} aria-label={'Xem '+row.title}>Xem</a>}
+              <a className={styles.tableAction} href={articleHref(row.slug)} aria-label={'Sửa '+row.title}>Sửa</a>
+              <DeleteArticleButton slug={row.slug} title={row.title} />
+            </>}
+          </div></td>
+        </tr>)}</tbody>
+      </table>
+    </div> : <p className={styles.empty}>Không có bài viết phù hợp.</p>}
+    <Pagination page={page} more={start+pageSize<matches.length} href={number=>newsHref+'&'+new URLSearchParams({trang:String(number),...(search ? {tim:search} : {}),...(archived ? {danhSach:'da-xoa'} : {})})} />
   </section>
 }
 

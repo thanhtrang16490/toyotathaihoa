@@ -141,12 +141,21 @@ export async function saveArticle(_:ArticleFormState,form:FormData):Promise<Arti
 
   const values = {title,description,image,body:body || null,published}
   const query = new URLSearchParams({select:'slug'})
-  if (original) query.set('on_conflict','slug')
-  else if (existingSlug) query.set('slug','eq.'+existingSlug)
+  let update = Boolean(existingSlug)
+  if (original) {
+    const existing = await dataRequest('toyota_articles',new URLSearchParams({select:'slug,deleted_at',slug:'eq.'+existingSlug}),'server')
+    if (!existing) return {...state,error:'Chưa tải được bài viết. Vui lòng thử lại.'}
+    const [row] = await existing.json() as {slug:string;deleted_at:string|null}[]
+    if (row?.deleted_at) return {...state,error:'Bài viết đã xóa. Khôi phục bài viết trước khi sửa.'}
+    update = Boolean(row)
+  }
+  if (update) {
+    query.set('slug','eq.'+existingSlug)
+    query.set('deleted_at','is.null')
+  }
   const response = await dataRequest('toyota_articles',query,'server',{
-    method:existingSlug && !original ? 'PATCH' : 'POST',
-    ...(original ? {headers:{Prefer:'resolution=merge-duplicates,return=representation'}} : {}),
-    body:JSON.stringify(existingSlug && !original ? values : {...values,slug,original:Boolean(original)}),
+    method:update ? 'PATCH' : 'POST',
+    body:JSON.stringify(update ? values : {...values,slug,original:Boolean(original)}),
   })
   if (!response || (await response.json()).length!==1) {
     return {...state,error:'Chưa lưu được bài viết. Kiểm tra đường dẫn đã được sử dụng chưa và thử lại.'}
@@ -154,6 +163,39 @@ export async function saveArticle(_:ArticleFormState,form:FormData):Promise<Arti
   updateTag(contentTag)
   revalidatePath('/[...slug]', 'page')
   finish('tin-tuc',true,{bai:slug})
+}
+
+export async function setArticleDeleted(form:FormData) {
+  await requireAdmin()
+  const slug = field(form,'slug')
+  const operation = field(form,'operation')
+  const restore = operation==='restore'
+  const original = news.find(entry=>entry.slug===slug)
+  if ((!original && !/^\/tin-tuc\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(slug)) ||
+      (operation!=='delete' && !restore) || (!restore && form.get('confirm')!=='yes')) finish('tin-tuc',false)
+
+  const lookup = await dataRequest('toyota_articles',new URLSearchParams({select:'slug,deleted_at',slug:'eq.'+slug}),'server')
+  if (!lookup) finish('tin-tuc',false)
+  const [row] = await lookup.json() as {slug:string;deleted_at:string|null}[]
+  const deleted_at = restore ? null : new Date().toISOString()
+  const query = new URLSearchParams({select:'slug'})
+  let values:Record<string,unknown> = {deleted_at}
+  if (!row && original && !restore) {
+    values = {...values,slug,original:true,title:original.title,description:original.description,image:original.image,published:true,published_at:original.published || new Date().toISOString()}
+  } else {
+    query.set('slug','eq.'+slug)
+    query.set('deleted_at',restore ? 'not.is.null' : 'is.null')
+  }
+  const response = await dataRequest('toyota_articles',query,'server',{
+    method:!row && original && !restore ? 'POST' : 'PATCH',
+    body:JSON.stringify(values),
+  })
+  const saved = Boolean(response && (await response.json()).length===1)
+  if (saved) {
+    updateTag(contentTag)
+    revalidatePath('/[...slug]','page')
+  }
+  finish('tin-tuc',saved,restore ? {} : {danhSach:'da-xoa'})
 }
 
 export async function createAccount(form:FormData) {

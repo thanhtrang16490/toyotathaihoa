@@ -70,7 +70,7 @@ export default async function AdminPage({searchParams}: {
     const section = query.muc==='san-pham' ? 'products' : query.muc==='tin-tuc' ? 'news' : 'users'
     return <AdminShell section={section} email={admin.email}>
       <SaveResult result={query.ketQua} />
-      {section==='products' ? <Products selected={query.xe} archived={query.danhSach==='da-xoa'} /> : section==='news' ? <News selected={query.bai} pageParam={query.trang} searchParam={query.tim} /> :
+      {section==='products' ? <Products selected={query.xe} archived={query.danhSach==='da-xoa'} /> : section==='news' ? <News selected={query.bai} pageParam={query.trang} searchParam={query.tim} archived={query.danhSach==='da-xoa'} /> :
         <Users adminId={admin.id} pageParam={query.trang} />}
     </AdminShell>
   }
