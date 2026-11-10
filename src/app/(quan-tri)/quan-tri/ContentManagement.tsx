@@ -7,6 +7,7 @@ import {authAdminRequest,isLocked,type AuthUser} from '../session'
 import {adminSections} from './AdminShell'
 import ArticleForm from './ArticleForm'
 import ProductForm from './ProductForm'
+import DeleteProductButton from './DeleteProductButton'
 import styles from './dashboard.module.css'
 
 export function SaveResult({result}: {result:unknown}) {
@@ -71,18 +72,32 @@ export async function Products({selected,archived}: {selected:unknown;archived:b
         {!archived && <a className={styles.primaryLink} href={productHref('moi')}>Thêm sản phẩm</a>}
       </div>
     </div>
-    {visible.length ? <ul className={styles.recent}>{visible.map(car=>{
+    {visible.length ? <div className={styles.tableScroll} role="region" aria-label="Bảng sản phẩm, cuộn ngang để xem thêm" tabIndex={0}>
+      <table className={styles.dataTable}>
+        <caption className={styles.srOnly}>{archived ? 'Sản phẩm đã xóa' : 'Danh mục sản phẩm Toyota'}</caption>
+        <thead><tr>
+          <th scope="col">Sản phẩm</th><th scope="col">Loại xe</th><th scope="col">Giá niêm yết</th>
+          <th scope="col">Trạng thái</th><th scope="col">Thao tác</th>
+        </tr></thead>
+        <tbody>{visible.map(car=>{
       const availability = records.get(car.slug)?.availability
-      return <li key={car.slug} className={styles.manageRow}>
-        <strong>{car.title}<small>{car.category}</small></strong>
-        {car.price && <span>{car.price}</span>}
-        {!archived && <span className={styles.badge}>{availability ? availabilityLabels[availability] : 'Chưa cập nhật'}</span>}
-        {archived ? <form action={setProductDeleted}>
+      return <tr key={car.slug}>
+        <th scope="row"><strong>{car.title}</strong><small>{car.slug}</small></th>
+        <td>{car.category || '—'}</td>
+        <td className={styles.money}>{car.price || 'Liên hệ'}</td>
+        <td><span className={styles.badge}>{archived ? 'Đã xóa' : availability ? availabilityLabels[availability] : 'Chưa cập nhật'}</span></td>
+        <td><div className={styles.rowActions}>{archived ? <form action={setProductDeleted}>
           <input type="hidden" name="slug" value={car.slug} />
           <button className={styles.secondary} name="operation" value="restore" type="submit" aria-label={'Khôi phục '+car.title}>Khôi phục</button>
-        </form> : <a className={styles.textLink} href={productHref(car.slug)} aria-label={'Sửa '+car.title}>Sửa</a>}
-      </li>
-    })}</ul> : <p className={styles.empty}>Không có sản phẩm trong danh sách này.</p>}
+        </form> : <>
+          <a className={styles.tableAction} href={car.slug} aria-label={'Xem '+car.title}>Xem</a>
+          <a className={styles.tableAction} href={productHref(car.slug)} aria-label={'Sửa '+car.title}>Sửa</a>
+          <DeleteProductButton slug={car.slug} title={car.title} />
+        </>}</div></td>
+      </tr>
+    })}</tbody>
+      </table>
+    </div> : <p className={styles.empty}>Không có sản phẩm trong danh sách này.</p>}
   </section>
 }
 
