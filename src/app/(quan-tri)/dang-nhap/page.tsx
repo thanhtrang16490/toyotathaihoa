@@ -13,7 +13,7 @@ export default async function LoginPage({searchParams}: {
   searchParams: Promise<{loi?: string}>
 }) {
   const [admin, query] = await Promise.all([getAdmin(), searchParams])
-  if (admin) redirect('/quan-tri/')
+  if (admin) redirect('/quan-tri/?muc=tong-quan')
 
   return <main className={styles.main}>
     <section className={styles.panel} aria-labelledby="login-title">

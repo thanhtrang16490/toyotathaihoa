@@ -2,17 +2,22 @@ import {cookies} from 'next/headers'
 
 export const sessionCookie = 'toyota-admin-session'
 
-type AuthUser = {email?: string; app_metadata?: {role?: string}}
+export type AuthUser = {id:string; email?: string; app_metadata?: {role?: string}; banned_until?: string}
 type PasswordSession = {access_token: string; expires_in: number; user: AuthUser}
 
 export function isAdmin(user: AuthUser | null) {
-  return user?.app_metadata?.role === 'admin'
+  return user?.app_metadata?.role === 'admin' && !isLocked(user)
 }
 
-async function authRequest(path: string, options: RequestInit = {}, token?: string) {
+export function isLocked(user: AuthUser) {
+  return Boolean(user.banned_until && Date.parse(user.banned_until) > Date.now())
+}
+
+async function authRequest(path: string, options: RequestInit = {}, token?: string, access: 'public' | 'admin' = 'public') {
   const url = process.env.SUPABASE_URL
-  const key = process.env.SUPABASE_PUBLISHABLE_KEY
-  if (!url?.startsWith('https://') || !key?.startsWith('sb_publishable_')) return null
+  const key = access === 'admin' ? process.env.SUPABASE_SECRET_KEY : process.env.SUPABASE_PUBLISHABLE_KEY
+  const prefix = access === 'admin' ? 'sb_secret_' : 'sb_publishable_'
+  if (!url?.startsWith('https://') || !key?.startsWith(prefix)) return null
 
   try {
     return await fetch(new URL('/auth/v1/' + path, url), {
@@ -29,6 +34,10 @@ async function authRequest(path: string, options: RequestInit = {}, token?: stri
   } catch {
     return null
   }
+}
+
+export function authAdminRequest(path = '', options: RequestInit = {}) {
+  return authRequest('admin/users' + path, options, undefined, 'admin')
 }
 
 export async function signIn(email: string, password: string): Promise<PasswordSession | null> {

@@ -33,7 +33,6 @@ export const hours = [
 const models = ['toyota-land-cruiser-fj','yaris-cross','corolla-cross','vios','innova-cross','hilux','camry','fortuner','raize','wigo','veloz-cross','avanza-premio','toyota-land-prado','alphard']
 export const cars = models.flatMap(model=>entries.filter(entry=>entry.slug==='/toyota/'+model+'/'))
 export const news = entries.filter(entry=>entry.kind==='post').sort((a,b)=>b.published.localeCompare(a.published))
-export const offers = news.filter(entry=>/khuyen-mai|uu-dai/.test(entry.slug))
 export const services = entries.filter(entry=>/^\/(dich-vu-|toyota-touch|bao-hiem-toyota|phu-kien-chinh-hang)/.test(entry.slug))
 export const collections = {
   '/xe-toyota-moi/': 'Xe Toyota mới',
@@ -56,16 +55,19 @@ export const redirects = {
 } as const
 
 export const articlesPerPage = 10
-export function articlesInArchive(path:string){
-  if(path==='/tin-tuc/') return news
-  if(path==='/uu-dai/') return offers
+export function articlesInArchive(path:string, articles = news){
+  if(path==='/tin-tuc/') return articles
+  if(path==='/uu-dai/') return articles.filter(entry=>/khuyen-mai|uu-dai/.test(entry.slug))
   const category=entries.find(entry=>entry.kind==='category' && entry.slug===path)
   if(!category) return undefined
   const term=path.split('/').filter(Boolean).at(-1)
-  return news.filter(entry=>term && entry.taxonomy?.includes(term))
+  return articles.filter(entry=>term && entry.taxonomy?.includes(term))
 }
-export const pagination = ['/tin-tuc/','/uu-dai/',...entries.filter(entry=>entry.kind==='category').map(entry=>entry.slug)]
-  .flatMap(path=>Array.from({length:Math.max(0,Math.ceil((articlesInArchive(path)?.length||0)/articlesPerPage)-1)},(_,index)=>path+'page/'+(index+2)+'/'))
+export function archivePages(articles = news) {
+  return ['/tin-tuc/','/uu-dai/',...entries.filter(entry=>entry.kind==='category').map(entry=>entry.slug)]
+    .flatMap(path=>Array.from({length:Math.max(0,Math.ceil((articlesInArchive(path, articles)?.length||0)/articlesPerPage)-1)},(_,index)=>path+'page/'+(index+2)+'/'))
+}
+export const pagination = archivePages()
 
 // These source pages mix trim-level prices or specifications. Restore after dealer verification.
 export const pendingTrimVerification = new Set(['/toyota/hilux/','/toyota/corolla-cross/','/toyota/yaris-cross/','/toyota/innova-cross/'])

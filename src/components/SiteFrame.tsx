@@ -6,6 +6,7 @@ import {vehicleMenuImagery} from '../vehicle-imagery'
 import logo from '../assets/logo.webp'
 import ShowroomMenu from './ShowroomMenu'
 import BrowserInteractions from './BrowserInteractions'
+import PublicSiteExtras from './PublicSiteExtras'
 const nav = [['Xe Toyota','/xe-toyota-moi/'],['Ưu đãi','/uu-dai/'],['Dịch vụ','/dich-vu/'],['Tin tức','/tin-tuc/'],['Giới thiệu','/gioi-thieu/'],['Liên hệ','/contact/']]
 export default function SiteFrame({title,path,crumbs=[],noindex=false,schema,children}:{title:string,path:string,crumbs?:string[][],noindex?:boolean,schema?:Record<string,unknown>,children:ReactNode}){
  const isModel=cars.some(car=>car.slug===path)
@@ -44,5 +45,6 @@ export default function SiteFrame({title,path,crumbs=[],noindex=false,schema,chi
 </nav>}
 {children}
 </main>
-<BrowserInteractions path={path} /></>)
+<BrowserInteractions path={path} />
+<PublicSiteExtras /></>)
 }

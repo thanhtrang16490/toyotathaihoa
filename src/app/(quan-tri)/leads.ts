@@ -22,7 +22,7 @@ export function leadListUrl({testDrive,status,page}: ReturnType<typeof leadListF
   return params.size ? '/quan-tri/?' + params : '/quan-tri/'
 }
 
-type Lead = {
+export type Lead = {
   id: string
   name: string
   phone: string
@@ -38,15 +38,24 @@ type Lead = {
   status: LeadStatus
 }
 
-export async function getLeads({testDrive,status,page}: ReturnType<typeof leadListFilters>) {
+export async function getLeads({testDrive,status,page}: ReturnType<typeof leadListFilters>, limit = leadPageSize + 1) {
   const query = new URLSearchParams({
     select: 'id,name,phone,intent,model,trim,color,email,preferred_date,preferred_time,test_drive_note,received_at,status',
     status: status ? 'eq.' + status : 'neq.test',
     order: 'received_at.desc,id.desc',
-    limit: String(leadPageSize + 1),
+    limit: String(limit),
     offset: String((page - 1) * leadPageSize),
   })
   if (testDrive) query.set('intent', 'eq.test_drive')
   const response = await dataRequest('toyota_leads', query, 'server')
   return response ? await response.json() as Lead[] : null
+}
+
+export async function getLeadCount(status: LeadStatus) {
+  const query = new URLSearchParams({select: 'id', status: 'eq.' + status, limit: '1'})
+  const response = await dataRequest('toyota_leads', query, 'server', {
+    method: 'HEAD', headers: {Prefer: 'count=exact'},
+  })
+  const total = response?.headers.get('content-range')?.match(/\/(\d+)$/)?.[1]
+  return total === undefined ? null : Number(total)
 }

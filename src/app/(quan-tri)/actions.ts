@@ -29,7 +29,7 @@ export async function login(form: FormData) {
     path: '/',
     maxAge: Math.min(3600, session.expires_in),
   })
-  redirect('/quan-tri/')
+  redirect('/quan-tri/?muc=tong-quan')
 }
 
 export async function logout() {

@@ -4,11 +4,13 @@ import {vehicleGrades} from '../vehicle-grades'
 import {vehicleMenuImagery} from '../vehicle-imagery'
 import VehicleComparison from './VehicleComparison'
 import styles from './showroom-pages.module.css'
+import {availabilityLabels,getPublicProductDetails} from '../site-content'
 
 const categories = [...new Set(cars.map(car=>car.category).filter(Boolean))]
 const fuelLabels:Record<string,string> = {Xăng:'Xăng',Hybrid:'Hybrid',Diesel:'Diesel'}
 
-export default function ShowroomCatalog({title,used=false}:{title:string;used?:boolean}) {
+export default async function ShowroomCatalog({title,used=false}:{title:string;used?:boolean}) {
+  const productDetails = used ? undefined : await getPublicProductDetails()
   return <div className={styles.catalog}>
     <header className={styles.catalogHeading}>
       <h1>{title}</h1>
@@ -50,6 +52,7 @@ export default function ShowroomCatalog({title,used=false}:{title:string;used?:b
           </div>
           <div className={styles.catalogGrid}>
             {cars.map(car=>{
+              const details = productDetails?.get(car.slug)
               const grades = vehicleGrades(car.slug)
               const fuels = [...new Set(grades.map(grade=>grade.powertrain.split(' ')[0]))]
               const seats = [...new Set(grades.map(grade=>grade.seats))].sort((a,b)=>a-b)
@@ -60,6 +63,7 @@ export default function ShowroomCatalog({title,used=false}:{title:string;used?:b
                 <div className={styles.modelBody}>
                   <h2>{car.title.replace(/^Toyota /i,'')}</h2>
                   <p>{!pendingTrimVerification.has(car.slug) && car.price || 'Liên hệ để nhận báo giá'}</p>
+                  {details && <p>{availabilityLabels[details.availability]}</p>}
                   <ul className={styles.tags} aria-label="Đặc điểm">
                     {car.category && <li>{car.category}</li>}
                     {fuels.map(fuel=><li key={fuel}>{fuelLabels[fuel] || fuel}</li>)}

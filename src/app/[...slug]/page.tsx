@@ -18,8 +18,9 @@ import type {Entry} from '../../catalog'
 
 import {notFound} from 'next/navigation'
 import {pageMetadata,site} from '../../site-metadata'
+import {getPublicProductDetails,getPublishedArticle,getPublishedNews} from '../../site-content'
 const paths = new Set([...Object.keys(collections),...entries.map(entry=>entry.slug),...pagination].filter(path=>path!=='/' && !(path in redirects)))
-export const dynamicParams=false
+export const revalidate = 300
 export function generateStaticParams(){
  return [...paths].map(path=>({slug:path.split('/').filter(Boolean).map(decodeURIComponent)}))
 }
@@ -30,6 +31,26 @@ function resolvePath(slug:string[]){
  const encoded=raw.replace(/%[A-Fa-f0-9]{2}/g,value=>value.toLowerCase())
  if (paths.has(encoded)) return encoded
  return '/'+slug.map(part=>encodeURIComponent(part)).join('/').replace(/%[A-F0-9]{2}/g,value=>value.toLowerCase())+'/'
+}
+const newArticlePath = /^\/tin-tuc\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/
+
+async function resolveContent(path:string) {
+ const base = path.replace(/\/page\/[1-9]\d*\/$/,'/')
+ const page = base === path ? 1 : Number(path.match(/\/page\/(\d+)\/$/)?.[1])
+ const isArchive = articlesInArchive(base) !== undefined
+ if (!(path in redirects) && isArchive && (base === path || page >= 2)) {
+   const list = articlesInArchive(base,await getPublishedNews()) ?? []
+   if (page > Math.max(1,Math.ceil(list.length / articlesPerPage))) notFound()
+   return {entry:entries.find(item=>item.slug===base),list,body:null}
+ }
+ if (!paths.has(path) && !newArticlePath.test(path)) notFound()
+ const entry = entries.find(item=>item.slug===path)
+ if (entry?.kind === 'post' || (!entry && newArticlePath.test(path))) {
+   const article = await getPublishedArticle(path)
+   if (!article.entry) notFound()
+   return {entry:article.entry,body:article.body}
+ }
+ return {entry,body:null}
 }
 const descriptions:Record<string,string> = {
   '/toyota/corolla-cross/': 'Khám phá Toyota Corolla Cross 1.8V và HEV, thiết kế, thông số và màu xe. Đăng ký lái thử tại Toyota Thái Hòa Từ Liêm.',
@@ -43,26 +64,25 @@ const descriptions:Record<string,string> = {
 export async function generateMetadata({params}:Props){
  const {slug}=await params
  const path=resolvePath(slug)
- if(!paths.has(path)) notFound()
+ const {entry} = await resolveContent(path)
  if (path==='/gioi-thieu/') return pageMetadata({
    title:'Giới thiệu đại lý',path,
    description:'Tìm hiểu showroom Toyota Thái Hòa Từ Liêm tại Đại Mỗ, Hà Nội. Xem xe mới, xe đã qua sử dụng, đặt lịch lái thử hoặc bảo dưỡng.',
    image:showroom.src,imageAlt:'Mặt tiền showroom Toyota Thái Hòa Từ Liêm tại Đại Mỗ, Hà Nội',
  })
- const entry=entries.find(item=>item.slug===path)
  const base=path.replace(/\/page\/\d+\/$/,'/')
- const title=collections[base as keyof typeof collections] || entries.find(item=>item.slug===base)?.title || 'Toyota'
+ const title=collections[base as keyof typeof collections] || entry?.title || 'Toyota'
  const suffix=path.match(/\/page\/(\d+)\/$/)?.[1]
- return pageMetadata({title:suffix?title+' · Trang '+suffix:title,path,description:descriptions[path] ?? (entry?.kind==='product'?'Xem hình ảnh, phiên bản và thông tin '+title+' tại Toyota Thái Hòa Từ Liêm.':descriptions[base] ? descriptions[base]+(suffix?' Trang '+suffix+'.':'') : entry?.description),image:vehicleDetailImagery[path] || entry?.image,noindex:noindexPaths.has(path),article:entry?.kind==='post'})
+ const productDetails = entry?.kind === 'product' ? (await getPublicProductDetails()).get(path) : undefined
+ return pageMetadata({title:suffix?title+' · Trang '+suffix:title,path,description:productDetails?.description || descriptions[path] || (entry?.kind==='product'?'Xem hình ảnh, phiên bản và thông tin '+title+' tại Toyota Thái Hòa Từ Liêm.':descriptions[base] ? descriptions[base]+(suffix?' Trang '+suffix+'.':'') : entry?.description),image:vehicleDetailImagery[path] || entry?.image,noindex:noindexPaths.has(path),article:entry?.kind==='post'})
 }
 export default async function Page({params}:Props){
  const path=resolvePath((await params).slug)
- if(!paths.has(path)) notFound()
+ const {entry,list:articleList,body} = await resolveContent(path)
 
 const pageMatch = path.match(/\/page\/(\d+)\/$/)
 const pageNumber = pageMatch ? Number(pageMatch[1]) : 1
 const basePath = path.replace(/\/page\/\d+\/$/, '/')
-const entry=entries.find(item=>item.slug===basePath)
 const baseTitle=collections[basePath as keyof typeof collections] || entry?.title || 'Toyota'
 const title=baseTitle+(pageNumber>1?' · Trang '+pageNumber:'')
 const model=cars.find(item=>item.slug===path)
@@ -80,7 +100,6 @@ const archive=entry?.kind==='product_cat' ? segmentLabels[archiveKey]
     ? cars.filter(item=>item.category===segmentLabels[archiveKey])
     : entries.filter(item=>item.kind==='product' && !isUsedVehicle(item) && entry.archiveLinks?.includes(item.slug))
   : undefined
-const articleList = articlesInArchive(basePath)
 const pageCount = Math.ceil((articleList?.length||0)/articlesPerPage)
 const list=articleList?.slice((pageNumber-1)*articlesPerPage,pageNumber*articlesPerPage) || indexes[path] || archive
 const pageLink=(index:number)=>index===1?basePath:basePath+'page/'+index+'/' 
@@ -88,7 +107,7 @@ const isFj = path === '/toyota/toyota-land-cruiser-fj/'
 const gallery = entry?.gallery ?? []
 const article=entry?.kind==='post' ? {'@type':'Article',headline:title,description:entry.description,datePublished:entry.published||undefined,image:entry.image ? new URL(entry.image,site).href : undefined,mainEntityOfPage:new URL(path,site).href} : undefined
 const crumbs=product?[['Xe Toyota','/xe-toyota-moi/']]:article?[['Tin tức','/tin-tuc/']]:servicePage?[['Dịch vụ','/dich-vu/']]:[]
-const relatedPosts=article ? entries.filter(item=>item.kind==='post' && item.slug!==path && entry?.links?.includes(item.slug)).slice(0,4) : []
+const relatedPosts=article && entry?.links?.length ? (await getPublishedNews()).filter(item=>item.slug!==path && entry.links?.includes(item.slug)).slice(0,4) : []
 const archived=basePath==='/uu-dai/' || (article && /khuyen-mai|uu-dai/.test(path))
 if (formIntent) {
   return <Layout title={title} path={path} noindex={noindexPaths.has(path)}>
@@ -120,8 +139,9 @@ const variantDialog = model && <dialog id="chon-phien-ban" className={isFj ? "te
     <VehicleOptions vehicle={model} showColorPrices={isFj && showSource} previewSrc={path===corollaDetailPath ? model.image : vehicleMenuImagery[path] || model.image} />
   </dialog>
 if (model) {
+  const productDetails = (await getPublicProductDetails()).get(model.slug)
   return <Layout title={title} path={path} crumbs={crumbs} noindex={noindexPaths.has(path)}>
-    <VehicleDetail model={model} showPrice={showSource} />
+    <VehicleDetail model={model} showPrice={showSource} productDetails={productDetails} />
     {variantDialog}
     <TestDriveDrawer model={model.title} />
     <VehicleSupport address={address} hours={hours} />
@@ -133,7 +153,7 @@ if (path==='/gioi-thieu/') {
 const editorialIndex = basePath==='/tin-tuc/' || basePath==='/uu-dai/' || entry?.kind==='category'
 const leadStory = editorialIndex && !archived && pageNumber===1 && list?.[0]?.image ? list[0] : undefined
 const listing = leadStory ? list?.slice(1) : list
-const imageInArticle = entry?.image && entry.html.includes(entry.image)
+const imageInArticle = body == null && entry?.image && entry.html.includes(entry.image)
 return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noindex={noindexPaths.has(path)}>
   {servicePage ?
     <DealerHero title={title} image={entry?.image} service={servicePage} action={servicePage && <a className="btn" href="/dat-lich-dich-vu/" data-event="cta_click">Đặt lịch bảo dưỡng ↗</a>} /> :
@@ -171,7 +191,9 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
     <h2>Hình ảnh {title}</h2>
     <VehicleGallery images={gallery} title={title} />
   </section> : null}
-  {!list && showSource && entry?.html && <section id="chi-tiet-xe" className={'wrap prose source-content '+(article || servicePage ? styles.editorialBody : '')} aria-label={product?'Thông tin và thông số xe':'Nội dung'}><div dangerouslySetInnerHTML={{__html:entry.html}} /></section>}
+  {!list && showSource && (body || entry?.html) && <section id="chi-tiet-xe" className={'wrap prose source-content '+(article || servicePage ? styles.editorialBody : '')} aria-label={product?'Thông tin và thông số xe':'Nội dung'}>
+    {body != null ? <div style={{whiteSpace:'pre-wrap',overflowWrap:'anywhere'}}>{body}</div> : entry && <div dangerouslySetInnerHTML={{__html:entry.html}} />}
+  </section>}
   {relatedPosts.length>0 && <section className={styles.editorialPage}><h2>Bài viết liên quan</h2><div className={styles.articleGrid}>{relatedPosts.map(item=><Card key={item.slug} entry={item} editorial="article" />)}</div></section>}
   {servicePage && <DealerContact />}
 </Layout>)

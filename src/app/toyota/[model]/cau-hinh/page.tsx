@@ -2,6 +2,7 @@ import {notFound} from 'next/navigation'
 import {cars} from '../../../../catalog'
 import VehicleConfigurator from '../../../../components/VehicleConfigurator'
 import BrowserInteractions from '../../../../components/BrowserInteractions'
+import PublicSiteExtras from '../../../../components/PublicSiteExtras'
 import TestDriveDrawer from '../../../../components/TestDriveDrawer'
 import {pageMetadata} from '../../../../site-metadata'
 import {vehicleDetailImagery} from '../../../../vehicle-imagery'
@@ -46,5 +47,6 @@ export default async function Page({params,searchParams}:RouteProps) {
     <VehicleConfigurator model={model.title} detailPath={model.slug} trims={trims} initialTrim={initialTrim} initialColor={initialColor} colors={colors} scenes={scenes} />
     <TestDriveDrawer model={model.title} />
     <BrowserInteractions path={model.slug+'cau-hinh/'} />
+    <PublicSiteExtras />
   </>
 }
