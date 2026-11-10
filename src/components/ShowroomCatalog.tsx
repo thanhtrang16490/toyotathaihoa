@@ -4,13 +4,15 @@ import {vehicleGrades} from '../vehicle-grades'
 import {vehicleMenuImagery} from '../vehicle-imagery'
 import VehicleComparison from './VehicleComparison'
 import styles from './showroom-pages.module.css'
-import {availabilityLabels,getPublicProductDetails} from '../site-content'
+import {getPublicCars,getPublicProductDetails} from '../site-content'
+import {availabilityLabels} from '../product-fields'
 
-const categories = [...new Set(cars.map(car=>car.category).filter(Boolean))]
 const fuelLabels:Record<string,string> = {Xăng:'Xăng',Hybrid:'Hybrid',Diesel:'Diesel'}
 
 export default async function ShowroomCatalog({title,used=false}:{title:string;used?:boolean}) {
-  const productDetails = used ? undefined : await getPublicProductDetails()
+  const [catalogue,productDetails] = used ? [[],undefined] : await Promise.all([getPublicCars(),getPublicProductDetails()])
+  const categories = [...new Set(catalogue.map(car=>car.category).filter(Boolean))]
+  const builtIn = new Set(cars.map(car=>car.slug))
   return <div className={styles.catalog}>
     <header className={styles.catalogHeading}>
       <h1>{title}</h1>
@@ -42,28 +44,30 @@ export default async function ShowroomCatalog({title,used=false}:{title:string;u
           </div>
         </div> : <>
           <div className={styles.catalogTools}>
-            <p className={styles.resultCount} id="model-count" role="status">{cars.length} mẫu xe</p>
-            <VehicleComparison models={cars.map(car=>({
+            <p className={styles.resultCount} id="model-count" role="status">{catalogue.length} mẫu xe</p>
+            <VehicleComparison models={catalogue.filter(car=>builtIn.has(car.slug)).map(car=>({
               title:car.title.replace(/^Toyota /i,''),
               path:car.slug,
-              price:pendingTrimVerification.has(car.slug) ? '' : car.price,
+              price:pendingTrimVerification.has(car.slug) && !productDetails?.get(car.slug)?.retail_price ? '' : car.price,
               grades:vehicleGrades(car.slug),
             }))} />
           </div>
           <div className={styles.catalogGrid}>
-            {cars.map(car=>{
+            {catalogue.length===0 && <p>Chưa có sản phẩm đang hiển thị. Liên hệ đại lý để được tư vấn.</p>}
+            {catalogue.map(car=>{
               const details = productDetails?.get(car.slug)
+              const image = details?.image || vehicleMenuImagery[car.slug] || car.image
               const grades = vehicleGrades(car.slug)
               const fuels = [...new Set(grades.map(grade=>grade.powertrain.split(' ')[0]))]
               const seats = [...new Set(grades.map(grade=>grade.seats))].sort((a,b)=>a-b)
               return <article key={car.slug} className={styles.modelCard} data-category={car.category} data-model={car.title} data-fuel={fuels.join(' ')}>
-                <a className={styles.modelImage} href={car.slug} tabIndex={-1} aria-hidden="true">
-                  <Image src={vehicleMenuImagery[car.slug] || car.image} alt="" width={720} height={320} sizes="(max-width: 560px) 88vw, (max-width: 900px) 48vw, 36vw" />
-                </a>
+                {image && <a className={styles.modelImage} href={car.slug} tabIndex={-1} aria-hidden="true">
+                  <Image src={image} alt="" width={720} height={320} sizes="(max-width: 560px) 88vw, (max-width: 900px) 48vw, 36vw" />
+                </a>}
                 <div className={styles.modelBody}>
                   <h2>{car.title.replace(/^Toyota /i,'')}</h2>
-                  <p>{!pendingTrimVerification.has(car.slug) && car.price || 'Liên hệ để nhận báo giá'}</p>
-                  {details && <p>{availabilityLabels[details.availability]}</p>}
+                  <p>{(details?.retail_price || !pendingTrimVerification.has(car.slug)) && car.price || 'Liên hệ để nhận báo giá'}</p>
+                  {details?.availability && <p>{availabilityLabels[details.availability]}</p>}
                   <ul className={styles.tags} aria-label="Đặc điểm">
                     {car.category && <li>{car.category}</li>}
                     {fuels.map(fuel=><li key={fuel}>{fuelLabels[fuel] || fuel}</li>)}
@@ -71,7 +75,7 @@ export default async function ShowroomCatalog({title,used=false}:{title:string;u
                   </ul>
                   <div className={styles.modelActions}>
                     <a className="btn card-link" href={car.slug}>Khám phá xe<span className={styles.visuallyHidden}> {car.title}</span></a>
-                    <a className="btn outline" href={car.slug+'cau-hinh/'}>Cấu hình<span className={styles.visuallyHidden}> {car.title}</span></a>
+                    {builtIn.has(car.slug) && <a className="btn outline" href={car.slug+'cau-hinh/'}>Cấu hình<span className={styles.visuallyHidden}> {car.title}</span></a>}
                   </div>
                 </div>
               </article>

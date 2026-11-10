@@ -3,7 +3,8 @@
 import {revalidatePath,updateTag} from 'next/cache'
 import {redirect} from 'next/navigation'
 import {cars,entries,news,redirects} from '../../catalog'
-import {availabilityLabels,contentTag} from '../../site-content'
+import {contentSlug,contentTag,mediaPath,productPath} from '../../site-content'
+import {availabilityLabels,productCategories} from '../../product-fields'
 import {dataRequest} from '../../supabase-data'
 import {authAdminRequest,getAdmin,type AuthUser} from './session'
 
@@ -22,27 +23,89 @@ function field(form:FormData, name:string) {
   return typeof value === 'string' ? value.trim() : ''
 }
 
-export async function saveProductDetails(form:FormData) {
-  await requireAdmin()
-  const slug = field(form,'slug')
-  const description = field(form,'description')
-  const availability = field(form,'availability')
-  if (!cars.some(car=>car.slug===slug) || description.length>500 || !Object.hasOwn(availabilityLabels,availability)) finish('san-pham',false)
-
-  const response = await dataRequest('toyota_product_details',new URLSearchParams({on_conflict:'slug'}),'server',{
-    method:'POST', headers:{Prefer:'resolution=merge-duplicates,return=minimal'},
-    body:JSON.stringify({slug,description,availability}),
-  })
-  if (response) {
-    updateTag(contentTag)
-    revalidatePath(slug)
-    revalidatePath('/xe-toyota-moi/')
-  }
-  finish('san-pham',Boolean(response))
+function refreshCatalogue() {
+  updateTag(contentTag)
+  revalidatePath('/', 'layout')
 }
 
-const articleSlug = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
-const mediaPath = /^\/media\/[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*\.(?:webp|png|jpg|jpeg|avif)$/
+export type ProductFormState = {
+  title:string
+  description:string
+  category:string
+  image:string
+  retailPrice:string
+  availability:string
+  newSlug:string
+  error?:string
+}
+
+export async function saveProductDetails(_:ProductFormState,form:FormData):Promise<ProductFormState> {
+  await requireAdmin()
+  const existing = field(form,'slug')
+  const newSlug = field(form,'new_slug')
+  const slug = existing || '/toyota/'+newSlug+'/'
+  const original = cars.find(car=>car.slug===slug)
+  const title = field(form,'title')
+  const description = field(form,'description')
+  const category = field(form,'category')
+  const image = field(form,'image')
+  const retailPrice = field(form,'retail_price')
+  const availability = field(form,'availability')
+  const state = {newSlug,title,description,category,image,retailPrice,availability}
+  const price = retailPrice ? Number(retailPrice) : null
+  const validCategory = productCategories.some(value=>value===category) || category===original?.category
+
+  if (!productPath.test(slug) || slug in redirects ||
+      (!existing && (!contentSlug.test(newSlug) || newSlug.length>80 || entries.some(entry=>entry.slug===slug))) ||
+      title.length<2 || title.length>100 || description.length>500 || !validCategory ||
+      (image && (image.length>400 || !mediaPath.test(image))) ||
+      (price!==null && (!/^\d{1,11}$/.test(retailPrice) || price<1 || price>20_000_000_000)) ||
+      !Object.hasOwn(availabilityLabels,availability)) {
+    return {...state,error:'Kiểm tra tên, đường dẫn, loại xe, ảnh và giá trước khi lưu.'}
+  }
+
+  const values = {title,description,category:category===original?.category ? null : category,image:image || null,retail_price:price,availability}
+  const query = new URLSearchParams({select:'slug'})
+  const update = Boolean(existing && !original)
+  if (update) {
+    query.set('slug','eq.'+slug)
+    query.set('deleted_at','is.null')
+  } else if (original) query.set('on_conflict','slug')
+  const response = await dataRequest('toyota_product_details',query,'server',{
+    method:update ? 'PATCH' : 'POST',
+    ...(original ? {headers:{Prefer:'resolution=merge-duplicates,return=representation'}} : {}),
+    body:JSON.stringify(update ? values : {...values,slug}),
+  })
+  if (!response || (await response.json()).length!==1) {
+    return {...state,error:'Chưa lưu được sản phẩm. Kiểm tra đường dẫn có bị trùng và cơ sở dữ liệu đã cập nhật.'}
+  }
+  refreshCatalogue()
+  finish('san-pham',true,{xe:slug})
+}
+
+export async function setProductDeleted(form:FormData) {
+  await requireAdmin()
+  const slug = field(form,'slug')
+  const operation = field(form,'operation')
+  const restore = operation==='restore'
+  if (!productPath.test(slug) || (operation!=='delete' && !restore) || (!restore && form.get('confirm')!=='yes')) finish('san-pham',false)
+  const deleted_at = restore ? null : new Date().toISOString()
+  const bundled = !restore && cars.some(car=>car.slug===slug)
+  const query = new URLSearchParams({select:'slug'})
+  if (bundled) query.set('on_conflict','slug')
+  else {
+    query.set('slug','eq.'+slug)
+    query.set('deleted_at',restore ? 'not.is.null' : 'is.null')
+  }
+  const response = await dataRequest('toyota_product_details',query,'server',{
+    method:bundled ? 'POST' : 'PATCH',
+    ...(bundled ? {headers:{Prefer:'resolution=merge-duplicates,missing=default,return=representation'}} : {}),
+    body:JSON.stringify(bundled ? {slug,deleted_at} : {deleted_at}),
+  })
+  const saved = Boolean(response && (await response.json()).length===1)
+  if (saved) refreshCatalogue()
+  finish('san-pham',saved,restore ? {xe:slug} : {danhSach:'da-xoa'})
+}
 
 export type ArticleFormState = {
   title:string
@@ -70,7 +133,7 @@ export async function saveArticle(_:ArticleFormState,form:FormData):Promise<Arti
   if (title.length<2 || title.length>250 || description.length>500 || body.length>30000 ||
       (image && image!==original?.image && !mediaPath.test(image)) ||
       (!original && !body) ||
-      (!existingSlug && (!articleSlug.test(newSlug) || newSlug.length>120 || newSlug==='page' ||
+      (!existingSlug && (!contentSlug.test(newSlug) || newSlug.length>120 || newSlug==='page' ||
         slug in redirects || entries.some(entry=>entry.slug===slug))) ||
       (existingSlug && !original && !/^\/tin-tuc\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(existingSlug))) {
     return {...state,error:'Kiểm tra tiêu đề, đường dẫn, ảnh bìa và nội dung trước khi lưu.'}

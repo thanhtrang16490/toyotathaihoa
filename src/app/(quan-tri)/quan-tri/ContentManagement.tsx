@@ -1,10 +1,12 @@
 import {cars,news} from '../../../catalog'
-import {articleFields,availabilityLabels,type ArticleRow,type ProductDetails} from '../../../site-content'
+import {articleFields,productEntry,readProducts,type ArticleRow} from '../../../site-content'
+import {availabilityLabels} from '../../../product-fields'
 import {dataRequest} from '../../../supabase-data'
-import {createAccount,saveProductDetails,updateAccountAccess} from '../content-actions'
+import {createAccount,setProductDeleted,updateAccountAccess} from '../content-actions'
 import {authAdminRequest,isLocked,type AuthUser} from '../session'
 import {adminSections} from './AdminShell'
 import ArticleForm from './ArticleForm'
+import ProductForm from './ProductForm'
 import styles from './dashboard.module.css'
 
 export function SaveResult({result}: {result:unknown}) {
@@ -13,29 +15,74 @@ export function SaveResult({result}: {result:unknown}) {
   return null
 }
 
-export async function Products() {
-  const response = await dataRequest('toyota_product_details',new URLSearchParams({select:'slug,description,availability'}),'server')
-  if (!response) return <p className={styles.error} role="alert">Chưa tải được danh mục quản trị từ Supabase.</p>
-  const rows = await response.json() as ProductDetails[]
+const productsHref = adminSections.products.href
+const productHref = (slug:string) => productsHref+'&'+new URLSearchParams({xe:slug})
+const deletedProductsHref = productsHref+'&danhSach=da-xoa'
+
+export async function Products({selected,archived}: {selected:unknown;archived:boolean}) {
+  const rows = await readProducts('server')
+  if (!rows) return <p className={styles.error} role="alert">Chưa tải được danh mục quản trị. Kiểm tra migration Supabase.</p>
   const records = new Map(rows.map(row=>[row.slug,row]))
-  return <section className={styles.panel} aria-labelledby="products-heading">
-    <div className={styles.panelHead}><h2 id="products-heading">Danh mục xe Toyota</h2><span>{cars.length} mẫu xe</span></div>
-    <div className={styles.list}>{cars.map(car=>{
-      const record = records.get(car.slug)
-      return <details key={car.slug} className={styles.card}>
-        <summary className={styles.manageRow}><strong>{car.title}</strong><span>{car.category}</span>
-          <span className={styles.badge}>{record ? availabilityLabels[record.availability] : 'Chưa cập nhật'}</span>
-        </summary>
-        <form action={saveProductDetails} className={styles.editor}>
-          <input type="hidden" name="slug" value={car.slug} />
-          <label className={styles.wide}>Mô tả công khai<textarea name="description" rows={3} maxLength={500} defaultValue={record?.description ?? ''} /></label>
-          <label>Tình trạng bán<select name="availability" defaultValue={record?.availability ?? 'contact'}>
-            {Object.entries(availabilityLabels).map(([value,label])=><option key={value} value={value}>{label}</option>)}
-          </select></label>
-          <div className={styles.formActions}><a className={styles.textLink} href={car.slug}>Xem trang xe ↗</a><button type="submit">Lưu sản phẩm</button></div>
+  const catalogue = new Map(cars.map(car=>[car.slug,car]))
+  for (const row of rows) {
+    const entry = productEntry(row,catalogue.get(row.slug))
+    if (entry) catalogue.set(row.slug,entry)
+  }
+  if (typeof selected==='string' && selected) {
+    const create = selected==='moi'
+    const item = catalogue.get(selected)
+    const row = records.get(selected)
+    if (!create && (!item || row?.deleted_at)) return <p className={styles.error}>Không tìm thấy sản phẩm đang bán. <a href={productsHref}>Về danh sách</a></p>
+    return <>
+      <section className={styles.panel} aria-labelledby="product-editor">
+        <div className={styles.panelHead}>
+          <h2 id="product-editor">{create ? 'Thêm sản phẩm' : 'Sửa sản phẩm'}</h2>
+          <a className={styles.textLink} href={productsHref}>Về danh sách</a>
+        </div>
+        <ProductForm key={selected} slug={item?.slug} permalink={productHref(selected)} initial={{
+          title:item?.title ?? '',
+          category:item?.category ?? '',
+          description:row?.description ?? '',
+          image:row?.image ?? '',
+          retailPrice:row?.retail_price ? String(row.retail_price) : '',
+          availability:row?.availability ?? 'contact',
+          newSlug:'',
+        }} />
+      </section>
+      {item && <section className={styles.panel} aria-labelledby="remove-product">
+        <div className={styles.panelHead}>
+          <div><h2 id="remove-product">Xóa khỏi danh mục</h2><p>Sản phẩm sẽ ẩn trên website và có thể khôi phục từ danh sách đã xóa.</p></div>
+          <a className={styles.textLink} href={item.slug}>Xem trang xe ↗</a>
+        </div>
+        <form action={setProductDeleted} className={styles.statusForm}>
+          <input type="hidden" name="slug" value={item.slug} />
+          <label><input name="confirm" value="yes" type="checkbox" required /> Xác nhận xóa {item.title}</label>
+          <button name="operation" value="delete" type="submit">Xóa sản phẩm</button>
         </form>
-      </details>
-    })}</div>
+      </section>}
+    </>
+  }
+  const visible = [...catalogue.values()].filter(car=>Boolean(records.get(car.slug)?.deleted_at)===archived)
+  return <section className={styles.panel} aria-labelledby="products-heading">
+    <div className={styles.panelHead}>
+      <div><h2 id="products-heading">{archived ? 'Sản phẩm đã xóa' : 'Danh mục xe Toyota'}</h2><p>{visible.length} mẫu xe</p></div>
+      <div className={styles.formActions}>
+        <a className={styles.textLink} href={archived ? productsHref : deletedProductsHref}>{archived ? 'Về danh mục' : 'Đã xóa'}</a>
+        {!archived && <a className={styles.primaryLink} href={productHref('moi')}>Thêm sản phẩm</a>}
+      </div>
+    </div>
+    {visible.length ? <ul className={styles.recent}>{visible.map(car=>{
+      const availability = records.get(car.slug)?.availability
+      return <li key={car.slug} className={styles.manageRow}>
+        <strong>{car.title}<small>{car.category}</small></strong>
+        {car.price && <span>{car.price}</span>}
+        {!archived && <span className={styles.badge}>{availability ? availabilityLabels[availability] : 'Chưa cập nhật'}</span>}
+        {archived ? <form action={setProductDeleted}>
+          <input type="hidden" name="slug" value={car.slug} />
+          <button className={styles.secondary} name="operation" value="restore" type="submit" aria-label={'Khôi phục '+car.title}>Khôi phục</button>
+        </form> : <a className={styles.textLink} href={productHref(car.slug)} aria-label={'Sửa '+car.title}>Sửa</a>}
+      </li>
+    })}</ul> : <p className={styles.empty}>Không có sản phẩm trong danh sách này.</p>}
   </section>
 }
 

@@ -9,7 +9,7 @@ export const adminSections = {
   leads: {href: '/quan-tri/', label: 'Yêu cầu khách hàng', description: 'Xem và xử lý yêu cầu báo giá, lái thử và dịch vụ.'},
   drives: {href: '/quan-tri/?muc=lai-thu', label: 'Đăng ký lái thử', description: 'Xem xe khách chọn và liên hệ để xác nhận lịch lái thử.'},
   prices: {href: '/quan-tri/?muc=gia', label: 'Giá lăn bánh', description: 'Cập nhật giá niêm yết, giá theo khu vực và trạng thái hiển thị.'},
-  products: {href: '/quan-tri/?muc=san-pham', label: 'Sản phẩm', description: 'Cập nhật mô tả và tình trạng bán của các mẫu Toyota đang có trong danh mục.'},
+  products: {href: '/quan-tri/?muc=san-pham', label: 'Sản phẩm', description: 'Thêm, sửa, xóa và khôi phục các mẫu xe trong danh mục công khai.'},
   news: {href: '/quan-tri/?muc=tin-tuc', label: 'Tin tức', description: 'Soạn bài, lưu nháp và quản lý bài viết trên website.'},
   users: {href: '/quan-tri/?muc=nguoi-dung', label: 'Người dùng', description: 'Tạo tài khoản, cấp quyền khi tạo và quản lý quyền đăng nhập.'},
 } as const

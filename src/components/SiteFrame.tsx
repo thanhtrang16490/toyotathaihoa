@@ -7,8 +7,10 @@ import logo from '../assets/logo.webp'
 import ShowroomMenu from './ShowroomMenu'
 import BrowserInteractions from './BrowserInteractions'
 import PublicSiteExtras from './PublicSiteExtras'
+import {getPublicCars,getPublicProductDetails} from '../site-content'
 const nav = [['Xe Toyota','/xe-toyota-moi/'],['Ưu đãi','/uu-dai/'],['Dịch vụ','/dich-vu/'],['Tin tức','/tin-tuc/'],['Giới thiệu','/gioi-thieu/'],['Liên hệ','/contact/']]
-export default function SiteFrame({title,path,crumbs=[],noindex=false,schema,children}:{title:string,path:string,crumbs?:string[][],noindex?:boolean,schema?:Record<string,unknown>,children:ReactNode}){
+export default async function SiteFrame({title,path,crumbs=[],noindex=false,schema,children}:{title:string,path:string,crumbs?:string[][],noindex?:boolean,schema?:Record<string,unknown>,children:ReactNode}){
+ const [catalogue,details] = await Promise.all([getPublicCars(),getPublicProductDetails()])
  const isModel=cars.some(car=>car.slug===path)
  const isFj = path === '/toyota/toyota-land-cruiser-fj/'
  const showBreadcrumb=path!=='/' && !noindex
@@ -23,9 +25,10 @@ export default function SiteFrame({title,path,crumbs=[],noindex=false,schema,chi
 <a className="skip" href="#main">Đến nội dung</a>
 <header className={path==='/' ? 'showroom-header home-header' : isFj ? 'showroom-header fj-header' : 'showroom-header'}>
   <div className="wrap header-row">
-    <ShowroomMenu links={nav} path={path} models={cars.map(({slug,title,image,category,variants})=>({
+    <ShowroomMenu links={nav} path={path} models={catalogue.map(({slug,title,image,category,variants})=>({
       slug,title,category,
-      image:vehicleMenuImagery[slug] || (slug==='/toyota/vios/' ? variants?.[0]?.image || image : image),
+      configured:cars.some(car=>car.slug===slug),
+      image:details.get(slug)?.image || vehicleMenuImagery[slug] || (slug==='/toyota/vios/' ? variants?.[0]?.image || image : image),
     }))} />
     <a href="/" className="brand"><Image src={logo} width={194} height={63} alt={dealer} /></a>
   </div>

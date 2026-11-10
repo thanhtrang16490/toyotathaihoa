@@ -1,8 +1,10 @@
-import {cars,phone} from '../catalog'
+import {phone} from '../catalog'
 import {testDriveTimes} from '../test-drive'
+import {getPublicCars} from '../site-content'
 
-export default function LeadForm({intent='quote',model='',fixedModel=false}:{intent?:string;model?:string;fixedModel?:boolean}) {
+export default async function LeadForm({intent='quote',model='',fixedModel=false}:{intent?:string;model?:string;fixedModel?:boolean}) {
   const service = intent==='service'
+  const cars = service || fixedModel ? [] : await getPublicCars()
   const testDrive = intent==='test_drive'
   const contact = <>
     <label>Họ và tên<input name="name" autoComplete="name" required minLength={2} maxLength={100} /></label>

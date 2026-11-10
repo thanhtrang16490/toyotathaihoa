@@ -1,16 +1,63 @@
 import {cache} from 'react'
-import {news, type Entry} from './catalog'
+import {cars,news, type Entry} from './catalog'
 import {dataRequest} from './supabase-data'
+import type {availabilityLabels} from './product-fields'
 
 export const contentTag = 'toyota-content'
 const publicCache = {cache:'force-cache', next:{revalidate:300,tags:[contentTag]}} as const satisfies RequestInit
 
-export const availabilityLabels = {
-  contact: 'Liên hệ để xác nhận tình trạng xe',
-  available: 'Đang nhận tư vấn mua xe',
-  unavailable: 'Tạm ngừng nhận tư vấn mua xe',
-} as const
-export type ProductDetails = {slug:string; description:string; availability:keyof typeof availabilityLabels}
+export const productPath = /^\/toyota\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/
+export const contentSlug = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
+export const mediaPath = /^\/media\/[a-zA-Z0-9_-]+(?:\/[a-zA-Z0-9_-]+)*\.(?:webp|png|jpg|jpeg|avif)$/
+export type ProductDetails = {
+  slug:string
+  description:string | null
+  availability:keyof typeof availabilityLabels | null
+  title?:string | null
+  category?:string | null
+  image?:string | null
+  retail_price?:number | null
+  deleted_at?:string | null
+}
+
+const priceFormat = new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND'})
+
+export function productEntry(row:ProductDetails, original?:Entry):Entry | undefined {
+  if (!original && !row.title) return undefined
+  return {
+    kind:'product', gallery:[], source:'', date:'', published:'', html:'',
+    ...original,
+    slug:row.slug,
+    title:row.title || original?.title || '',
+    category:row.category || original?.category || '',
+    image:row.image || original?.image || '',
+    description:row.description ?? original?.description ?? '',
+    price:row.retail_price ? priceFormat.format(row.retail_price) : original?.price || '',
+  }
+}
+
+export async function readProducts(access:'public'|'server'):Promise<ProductDetails[] | null> {
+  if (access==='public' && (!process.env.SUPABASE_URL || !process.env.SUPABASE_PUBLISHABLE_KEY)) return []
+  const table = access==='public' ? 'toyota_public_products' : 'toyota_product_details'
+  const options = access==='public' ? {...publicCache,acceptNotFound:true} : {}
+  const rows:ProductDetails[] = []
+  const limit = 500
+  for (let offset=0; ; offset+=limit) {
+    const query = new URLSearchParams({select:'*',order:'slug.asc',limit:String(limit),offset:String(offset)})
+    const response = await dataRequest(table,query,access,options)
+    if (!response?.ok) {
+      if (access==='server') return null
+      if (offset===0 && response?.status===404 && (await response.json()).code==='PGRST205') {
+        const legacy = await dataRequest('toyota_product_details',new URLSearchParams({select:'slug,description,availability'}),'public',publicCache)
+        return legacy ? legacy.json() : []
+      }
+      throw new Error('Could not load the public product catalogue')
+    }
+    const batch = await response.json() as ProductDetails[]
+    rows.push(...batch)
+    if (batch.length<limit) return rows
+  }
+}
 
 export type ArticleRow = {
   slug: string
@@ -34,10 +81,19 @@ async function readPublicArticles(query:URLSearchParams):Promise<ArticleRow[]> {
 }
 
 export const getPublicProductDetails = cache(async () => {
-  const query = new URLSearchParams({select:'slug,description,availability'})
-  const response = await dataRequest('toyota_product_details',query,'public',publicCache)
-  const rows = response ? await response.json() as ProductDetails[] : []
+  const rows = await readProducts('public') ?? []
   return new Map(rows.map(row=>[row.slug,row]))
+})
+
+export const getPublicCars = cache(async () => {
+  const rows = await getPublicProductDetails()
+  const catalogue = new Map(cars.map(car=>[car.slug,car]))
+  for (const row of rows.values()) {
+    const entry = row.deleted_at ? undefined : productEntry(row,catalogue.get(row.slug))
+    if (entry) catalogue.set(row.slug,entry)
+    else catalogue.delete(row.slug)
+  }
+  return [...catalogue.values()]
 })
 
 function articleEntry(row: ArticleRow, original?: Entry): Entry | null {

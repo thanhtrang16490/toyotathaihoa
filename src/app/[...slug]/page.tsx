@@ -18,7 +18,8 @@ import type {Entry} from '../../catalog'
 
 import {notFound} from 'next/navigation'
 import {pageMetadata,site} from '../../site-metadata'
-import {getPublicProductDetails,getPublishedArticle,getPublishedNews} from '../../site-content'
+import {getPublicCars,getPublicProductDetails,getPublishedArticle,getPublishedNews,productPath} from '../../site-content'
+import {availabilityLabels} from '../../product-fields'
 const paths = new Set([...Object.keys(collections),...entries.map(entry=>entry.slug),...pagination].filter(path=>path!=='/' && !(path in redirects)))
 export const revalidate = 300
 export function generateStaticParams(){
@@ -43,8 +44,13 @@ async function resolveContent(path:string) {
    if (page > Math.max(1,Math.ceil(list.length / articlesPerPage))) notFound()
    return {entry:entries.find(item=>item.slug===base),list,body:null}
  }
- if (!paths.has(path) && !newArticlePath.test(path)) notFound()
+ if (path in redirects || (!paths.has(path) && !newArticlePath.test(path) && !productPath.test(path))) notFound()
  const entry = entries.find(item=>item.slug===path)
+ if (productPath.test(path)) {
+   const car = (await getPublicCars()).find(item=>item.slug===path)
+   if (car) return {entry:car,body:null}
+   if (!entry || cars.some(item=>item.slug===path)) notFound()
+ }
  if (entry?.kind === 'post' || (!entry && newArticlePath.test(path))) {
    const article = await getPublishedArticle(path)
    if (!article.entry) notFound()
@@ -74,7 +80,7 @@ export async function generateMetadata({params}:Props){
  const title=collections[base as keyof typeof collections] || entry?.title || 'Toyota'
  const suffix=path.match(/\/page\/(\d+)\/$/)?.[1]
  const productDetails = entry?.kind === 'product' ? (await getPublicProductDetails()).get(path) : undefined
- return pageMetadata({title:suffix?title+' · Trang '+suffix:title,path,description:productDetails?.description || descriptions[path] || (entry?.kind==='product'?'Xem hình ảnh, phiên bản và thông tin '+title+' tại Toyota Thái Hòa Từ Liêm.':descriptions[base] ? descriptions[base]+(suffix?' Trang '+suffix+'.':'') : entry?.description),image:vehicleDetailImagery[path] || entry?.image,noindex:noindexPaths.has(path),article:entry?.kind==='post'})
+ return pageMetadata({title:suffix?title+' · Trang '+suffix:title,path,description:productDetails?.description || descriptions[path] || (entry?.kind==='product'?'Xem hình ảnh, phiên bản và thông tin '+title+' tại Toyota Thái Hòa Từ Liêm.':descriptions[base] ? descriptions[base]+(suffix?' Trang '+suffix+'.':'') : entry?.description),image:productDetails?.image || vehicleDetailImagery[path] || entry?.image,noindex:noindexPaths.has(path),article:entry?.kind==='post'})
 }
 export default async function Page({params}:Props){
  const path=resolvePath((await params).slug)
@@ -85,23 +91,26 @@ const pageNumber = pageMatch ? Number(pageMatch[1]) : 1
 const basePath = path.replace(/\/page\/\d+\/$/, '/')
 const baseTitle=collections[basePath as keyof typeof collections] || entry?.title || 'Toyota'
 const title=baseTitle+(pageNumber>1?' · Trang '+pageNumber:'')
-const model=cars.find(item=>item.slug===path)
+const model=cars.some(item=>item.slug===path) ? entry : undefined
 const product=entry?.kind==='product'
-const usedVehicle = !!entry && isUsedVehicle(entry)
+const productDetails = product ? (await getPublicProductDetails()).get(path) : undefined
+const usedVehicle = !!entry && !productDetails && isUsedVehicle(entry)
 const pendingTrims = pendingTrimVerification.has(path)
 const showSource = !pendingTrims && !usedVehicle
 
 const formIntent=({'/nhan-bao-gia/':'quote','/dang-ky-lai-thu/':'test_drive','/dat-lich-dich-vu/':'service'} as Record<string,string>)[path]
 const servicePage=services.some(item=>item.slug===path)
-const indexes:Record<string,Entry[]>={'/shop-2/':entries.filter(item=>item.kind==='product' && !isUsedVehicle(item))}
+const showroomArchive = path==='/shop-2/' || entry?.kind==='product_cat'
+const catalogue = showroomArchive ? await getPublicCars() : []
+const archiveProducts = showroomArchive ? [...catalogue,...entries.filter(item=>item.kind==='product' && !isUsedVehicle(item) && !cars.some(car=>car.slug===item.slug))] : []
 const segmentLabels:Record<string,string>={'ban-tai':'Bán tải','da-dung':'Đa dụng','hatchback':'Hatchback','sedan':'Sedan','suv':'SUV'}
 const archiveKey=path.split('/').filter(Boolean).at(-1)||''
 const archive=entry?.kind==='product_cat' ? segmentLabels[archiveKey]
-    ? cars.filter(item=>item.category===segmentLabels[archiveKey])
-    : entries.filter(item=>item.kind==='product' && !isUsedVehicle(item) && entry.archiveLinks?.includes(item.slug))
+    ? catalogue.filter(item=>item.category===segmentLabels[archiveKey])
+    : archiveProducts.filter(item=>entry.archiveLinks?.includes(item.slug))
   : undefined
 const pageCount = Math.ceil((articleList?.length||0)/articlesPerPage)
-const list=articleList?.slice((pageNumber-1)*articlesPerPage,pageNumber*articlesPerPage) || indexes[path] || archive
+const list=articleList?.slice((pageNumber-1)*articlesPerPage,pageNumber*articlesPerPage) || (path==='/shop-2/' ? archiveProducts : archive)
 const pageLink=(index:number)=>index===1?basePath:basePath+'page/'+index+'/' 
 const isFj = path === '/toyota/toyota-land-cruiser-fj/'
 const gallery = entry?.gallery ?? []
@@ -139,7 +148,6 @@ const variantDialog = model && <dialog id="chon-phien-ban" className={isFj ? "te
     <VehicleOptions vehicle={model} showColorPrices={isFj && showSource} previewSrc={path===corollaDetailPath ? model.image : vehicleMenuImagery[path] || model.image} />
   </dialog>
 if (model) {
-  const productDetails = (await getPublicProductDetails()).get(model.slug)
   return <Layout title={title} path={path} crumbs={crumbs} noindex={noindexPaths.has(path)}>
     <VehicleDetail model={model} showPrice={showSource} productDetails={productDetails} />
     {variantDialog}
@@ -161,7 +169,16 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
     {product && entry?.image && <Image src={entry.image} width={800} height={800} sizes="(max-width: 760px) 100vw, 50vw" className="product-cover" alt={title} loading="eager" fetchPriority="high" />}
     <div className={article || editorialIndex ? styles.editorialHeader : undefined}><p className="eyebrow">{product?'DANH MỤC TOYOTA':article?'TIN TỨC TOYOTA':'TOYOTA THÁI HÒA TỪ LIÊM'}</p>
     <h1>{title}</h1>
-    {product && <><p className="price">{showSource && entry?.price || 'Liên hệ để nhận báo giá'}</p><p className="muted">{pendingTrims ? "Giá và thông số theo phiên bản đang được đối chiếu. Liên hệ đại lý để xác nhận phiên bản, màu và giá." : usedVehicle ? "Thông tin xe lưu trữ. Liên hệ đại lý để xác nhận tình trạng xe." : "Giá tham khảo theo trang đại lý. Vui lòng xác nhận giá và tình trạng xe với đại lý."}</p><div className="actions"><a className="btn" href="/nhan-bao-gia/" data-event="cta_click">Nhận báo giá ↗</a></div></>}
+    {product && <>
+      <p className="price">{showSource && entry.price || 'Liên hệ để nhận báo giá'}</p>
+      {productDetails?.availability && <p>{availabilityLabels[productDetails.availability]}</p>}
+      {productDetails?.description && <p>{productDetails.description}</p>}
+      <p className="muted">{pendingTrims ? "Giá và thông số theo phiên bản đang được đối chiếu. Liên hệ đại lý để xác nhận phiên bản, màu và giá." : usedVehicle ? "Thông tin xe lưu trữ. Liên hệ đại lý để xác nhận tình trạng xe." : "Giá tham khảo theo trang đại lý. Vui lòng xác nhận giá và tình trạng xe với đại lý."}</p>
+      <div className="actions">
+        <a className="btn" href={productDetails ? '/nhan-bao-gia/?'+new URLSearchParams({model:entry.title}) : '/nhan-bao-gia/'} data-event="cta_click">Nhận báo giá ↗</a>
+        {productDetails && <a className="btn outline" href={'/dang-ky-lai-thu/?'+new URLSearchParams({model:entry.title})} data-event="cta_click">Đăng ký lái thử ↗</a>}
+      </div>
+    </>}
     {article && entry?.published && <time className="muted" dateTime={entry.published}>{new Intl.DateTimeFormat('vi-VN',{timeZone:'Asia/Ho_Chi_Minh',dateStyle:'long'}).format(new Date(entry.published))}</time>}
     {archived && <p className="notice">Chương trình theo thời điểm công bố. Gọi đại lý để xác nhận ưu đãi đang áp dụng.</p>}
     </div>

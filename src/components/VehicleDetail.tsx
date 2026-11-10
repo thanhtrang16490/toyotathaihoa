@@ -65,7 +65,8 @@ function RollingNumber({value}:{value:string}) {
   </span>
 }
 
-import {availabilityLabels,type ProductDetails} from '../site-content'
+import type {ProductDetails} from '../site-content'
+import {availabilityLabels} from '../product-fields'
 
 export default function VehicleDetail({model,showPrice,productDetails}:{model:Entry;showPrice:boolean;productDetails?:ProductDetails}) {
   const isCorolla = model.slug===corollaDetailPath
@@ -96,7 +97,7 @@ export default function VehicleDetail({model,showPrice,productDetails}:{model:En
     <section id="tong-quan" className="product-intro corolla-intro">
       <div className={styles.studio}>
         <span className={styles.wordmark} aria-hidden="true">{wordmark}</span>
-        <Image src={isCorolla ? model.image : profile.studio} width={isCorolla ? 800 : 720} height={isCorolla ? 800 : 320} sizes="(max-width: 760px) 95vw, (max-width: 1210px) 86vw, 1040px" className="product-cover" alt={model.title} loading="eager" fetchPriority="high" />
+        <Image src={productDetails?.image || (isCorolla ? model.image : profile.studio)} width={isCorolla ? 800 : 720} height={isCorolla ? 800 : 320} sizes="(max-width: 760px) 95vw, (max-width: 1210px) 86vw, 1040px" className="product-cover" alt={model.title} loading="eager" fetchPriority="high" />
       </div>
       <div className={styles.introCopy}>
         <div className={styles.versionRail} aria-label={'Phiên bản '+name}>
@@ -105,8 +106,8 @@ export default function VehicleDetail({model,showPrice,productDetails}:{model:En
         </div>
         <h1>{name}</h1>
         {fuel && <span className={styles.fuel}>{fuel}</span>}
-        <p>{!isCorolla && showPrice && model.price || 'Liên hệ để xác nhận giá theo phiên bản'}</p>
-        {productDetails && <p>{availabilityLabels[productDetails.availability]}</p>}
+        <p>{(productDetails?.retail_price || (!isCorolla && showPrice)) && model.price || 'Liên hệ để xác nhận giá theo phiên bản'}</p>
+        {productDetails?.availability && <p>{availabilityLabels[productDetails.availability]}</p>}
         {productDetails?.description && <p>{productDetails.description}</p>}
         <div className="actions model-stage-actions">
           <a id="chon-mau-xe" className="btn" href="#chon-phien-ban" aria-haspopup="dialog">Chọn mẫu xe</a>

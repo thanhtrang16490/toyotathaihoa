@@ -2,7 +2,7 @@
 
 import {useEffect,useRef,useState} from 'react'
 
-type MenuModel={slug:string,title:string,image:string,category:string}
+type MenuModel={slug:string,title:string,image:string,category:string,configured:boolean}
 
 export default function ShowroomMenu({links,path,models}:{links:string[][],path:string,models:MenuModel[]}) {
   const drawer=useRef<HTMLDialogElement>(null)
@@ -113,11 +113,11 @@ export default function ShowroomMenu({links,path,models}:{links:string[][],path:
             </div>
             <a className="showroom-menu-model" href={model.slug} aria-current={path===model.slug?'page':undefined}>
               <span className="showroom-model-name">{model.title}</span>
-              <img src={model.image} width="720" height="320" alt="" loading="lazy" />
+              {model.image && <img src={model.image} width="720" height="320" alt="" loading="lazy" />}
               <span className="showroom-model-tag">{model.category}</span>
             </a>
             <div className="showroom-model-actions">
-              {model.slug==='/toyota/toyota-land-cruiser-fj/'
+              {!model.configured || model.slug==='/toyota/toyota-land-cruiser-fj/'
                 ? <a href={'/nhan-bao-gia/?model='+encodeURIComponent(model.title)}>Nhận báo giá</a>
                 : <a href={model.slug+'#chon-phien-ban'}>Chọn phiên bản và màu xe</a>}
               <a href={'/dang-ky-lai-thu/?model='+encodeURIComponent(model.title)}>Đăng ký lái thử</a>
@@ -125,7 +125,7 @@ export default function ShowroomMenu({links,path,models}:{links:string[][],path:
           </div> : showModels ? <>
             {models.map((vehicle,index)=><button id={'showroom-model-'+index} className="showroom-menu-model" key={vehicle.slug} type="button" onClick={()=>selectModel(vehicle)}>
               <span className="showroom-model-name">{vehicle.title.replace(/^Toyota /,'')}</span>
-              <img src={vehicle.image} width="720" height="320" alt="" loading="lazy" />
+              {vehicle.image && <img src={vehicle.image} width="720" height="320" alt="" loading="lazy" />}
               <span className="showroom-model-tag">{vehicle.category}</span>
             </button>)}
             <a className="showroom-menu-all" href="/xe-toyota-moi/">Xem tất cả dòng xe →</a>

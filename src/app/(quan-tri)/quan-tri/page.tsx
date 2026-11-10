@@ -61,7 +61,7 @@ async function Overview() {
 }
 
 export default async function AdminPage({searchParams}: {
-  searchParams: Promise<{muc?: string; ketQua?: string; trang?: string; trangThai?: string; bai?: string; tim?: string}>
+  searchParams: Promise<{muc?: string; ketQua?: string; trang?: string; trangThai?: string; bai?: string; tim?: string; xe?:string; danhSach?:string}>
 }) {
   const admin = await getAdmin()
   if (!admin) redirect('/dang-nhap/')
@@ -70,7 +70,7 @@ export default async function AdminPage({searchParams}: {
     const section = query.muc==='san-pham' ? 'products' : query.muc==='tin-tuc' ? 'news' : 'users'
     return <AdminShell section={section} email={admin.email}>
       <SaveResult result={query.ketQua} />
-      {section==='products' ? <Products /> : section==='news' ? <News selected={query.bai} pageParam={query.trang} searchParam={query.tim} /> :
+      {section==='products' ? <Products selected={query.xe} archived={query.danhSach==='da-xoa'} /> : section==='news' ? <News selected={query.bai} pageParam={query.trang} searchParam={query.tim} /> :
         <Users adminId={admin.id} pageParam={query.trang} />}
     </AdminShell>
   }

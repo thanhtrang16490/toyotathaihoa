@@ -3,7 +3,8 @@ import ConsultationPopup from '../components/ConsultationPopup'
 import Layout from '../components/SiteFrame'
 import HomeModelRail from '../components/HomeModelRail'
 import HomeHeroMotion from '../components/HomeHeroMotion'
-import {cars, dealer, phone} from '../catalog'
+import {dealer, phone} from '../catalog'
+import {getPublicCars} from '../site-content'
 import hero from '../assets/generated/corolla-cross-coastal-hero-v2.webp'
 import {homeShareImage,vehicleImagery} from '../vehicle-imagery'
 import workshop from '../assets/generated/toyota-service-workshop.webp'
@@ -31,12 +32,14 @@ const homeDescriptions:Record<string,string> = {
   '/toyota/fortuner/':'SUV 7 chỗ với các phiên bản xăng và diesel.',
   '/toyota/innova-cross/':'Xe đa dụng 7 hoặc 8 chỗ tùy phiên bản.',
 }
-const modelPhotos = Object.entries(vehicleImagery).map(([slug,photo])=>({slug,photo}))
-export default function Home(){
+export default async function Home(){
+const cars = await getPublicCars()
+const modelPhotos = Object.entries(vehicleImagery).filter(([slug])=>cars.some(car=>car.slug===slug)).map(([slug,photo])=>({slug,photo}))
+const cross = cars.find(car=>car.slug==='/toyota/corolla-cross/')
 return (<Layout title={dealer} path="/">
   <ConsultationPopup phone={phone} />
   <section className="hero showroom-hero">
-    <div className="hero-copy"><h1>Toyota Corolla Cross</h1><div className="actions"><a className="btn outline" href="/toyota/corolla-cross/" data-event="cta_click">Khám phá Corolla Cross</a></div></div>
+    <div className="hero-copy"><h1>{cross?.title || 'Khám phá xe Toyota'}</h1><div className="actions"><a className="btn outline" href={cross?.slug || '/xe-toyota-moi/'} data-event="cta_click">{cross ? 'Khám phá '+cross.title.replace(/^Toyota /,'') : 'Xem danh mục xe'}</a></div></div>
     <HomeHeroMotion>
       <picture>
         <source

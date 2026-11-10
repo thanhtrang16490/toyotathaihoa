@@ -1,5 +1,5 @@
 export async function dataRequest(
-  table: 'toyota_leads' | 'toyota_on_road_prices' | 'toyota_product_details' | 'toyota_articles' | 'toyota_public_articles',
+  table: 'toyota_leads' | 'toyota_on_road_prices' | 'toyota_product_details' | 'toyota_public_products' | 'toyota_articles' | 'toyota_public_articles',
   query: URLSearchParams,
   access: 'public' | 'server',
   options: RequestInit & {acceptNotFound?:boolean} = {},

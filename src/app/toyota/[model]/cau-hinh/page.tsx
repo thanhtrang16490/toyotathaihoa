@@ -8,12 +8,15 @@ import {pageMetadata} from '../../../../site-metadata'
 import {vehicleDetailImagery} from '../../../../vehicle-imagery'
 import {vehicleDetailData} from '../../../../vehicle-detail-data'
 import {corollaDetailPath,vehicleColors,vehicleTrims} from '../../../../vehicle-options'
+import {getPublicCars} from '../../../../site-content'
 
 type RouteProps = {params:Promise<{model:string}>;searchParams:Promise<{trim?:string|string[];color?:string|string[]}>}
 
 async function findModel(params:RouteProps['params']) {
   const {model:slug} = await params
-  const model = cars.find(car=>car.slug==='/toyota/'+slug+'/')
+  const path = '/toyota/'+slug+'/'
+  if (!cars.some(car=>car.slug===path)) notFound()
+  const model = (await getPublicCars()).find(car=>car.slug===path)
   if (!model) notFound()
   return model
 }
