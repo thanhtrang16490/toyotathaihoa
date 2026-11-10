@@ -32,7 +32,9 @@ npm test
 
 Migration quản trị thêm trạng thái xử lý yêu cầu và nhập 38 dòng giá lăn bánh từ bảng giá lưu trữ vào `toyota_on_road_prices`. Quản trị viên cập nhật trạng thái khách hàng, số tiền và chế độ hiển thị tại `/quan-tri/`. Trang `/gia-lan-banh/` đọc các dòng giá đã công bố trực tiếp từ Supabase.
 
-Khi bỏ trống cả hai biến Supabase, API có thể gửi qua `LEAD_WEBHOOK_URL` (HTTPS) và `LEAD_WEBHOOK_TOKEN` nếu đầu nhận cần xác thực Bearer. Đầu nhận phải trả HTTP 2xx và JSON `{"accepted":true}` sau khi tiếp nhận. Đầu nhận nên khử yêu cầu trùng theo header `Idempotency-Key` khi khách thử lại.
+Đăng ký từ trang `/dang-ky-lai-thu/` và từ trang xe cùng lưu vào Supabase. Mục **Đăng ký lái thử** tại `/quan-tri/?muc=lai-thu` hiển thị thông tin liên hệ, dòng xe, phiên bản và màu nếu có, lịch mong muốn và ghi chú. Quản trị viên có thể lọc và đổi trạng thái giữa **Mới**, **Đã liên hệ** và **Đã xử lý**. Ngày, giờ khách chọn là đề xuất; đại lý gọi để xác nhận.
+
+Khi bỏ trống cả hai biến Supabase, API có thể gửi yêu cầu báo giá và dịch vụ qua `LEAD_WEBHOOK_URL` (HTTPS) và `LEAD_WEBHOOK_TOKEN` nếu đầu nhận cần xác thực Bearer. Đăng ký lái thử luôn cần Supabase để hiển thị trong admin. Webhook phải trả HTTP 2xx và JSON `{"accepted":true}` sau khi tiếp nhận và nên khử yêu cầu trùng theo header `Idempotency-Key`.
 
 Thiết lập giới hạn tốc độ cho POST `/api/lead/` ở reverse proxy và xác minh proxy giữ đúng origin/host. Kiểm thử với dữ liệu giả trước khi bật cho khách.
 
@@ -47,4 +49,4 @@ Sự kiện `cta_click`, `hotline_click`, `zalo_click`, `directions_click` và `
 
 Proxy cần ghi đè các header forwarded do khách gửi và truyền host/proto đã xác thực. Kiểm tra POST trên URL HTTPS triển khai.
 
-Chạy `npm run audit` để kiểm tra tham chiếu trong bản build, `node scripts/check-lead.mjs` để thử API với đầu nhận HTTPS cục bộ và `node scripts/lighthouse.mjs` để đo Lighthouse mobile trên server local.
+Chạy `npm run audit` để kiểm tra tham chiếu trong bản build, `node scripts/check-lead.mjs` để thử API đăng ký với Supabase mô phỏng qua HTTPS và `node scripts/lighthouse.mjs` để đo Lighthouse mobile trên server local.

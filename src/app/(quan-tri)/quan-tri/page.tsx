@@ -3,7 +3,7 @@ import {redirect} from 'next/navigation'
 import {getPrices} from '../../../on-road-price-data'
 import {logout} from '../actions'
 import {getAdmin} from '../session'
-import {getLeads,leadIntents,leadPageSize,leadStatuses,type LeadStatus} from '../leads'
+import {getLeads,leadIntents,leadListFilters,leadListUrl,leadPageSize,leadStatuses} from '../leads'
 import {updateLead,updatePrice} from '../manage'
 import styles from './dashboard.module.css'
 
@@ -15,6 +15,9 @@ export const metadata: Metadata = {
 const dateFormat = new Intl.DateTimeFormat('vi-VN', {
   dateStyle: 'short', timeStyle: 'short', timeZone: 'Asia/Ho_Chi_Minh',
 })
+const preferredDateFormat = new Intl.DateTimeFormat('vi-VN', {
+  day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC',
+})
 const currency = new Intl.NumberFormat('vi-VN', {style: 'currency', currency: 'VND'})
 
 export default async function AdminPage({searchParams}: {
@@ -24,14 +27,11 @@ export default async function AdminPage({searchParams}: {
   if (!admin) redirect('/dang-nhap/')
   const query = await searchParams
   const priceTab = query.muc === 'gia'
-  const page = typeof query.trang === 'string' && /^[1-9]\d{0,5}$/.test(query.trang) ? Number(query.trang) : 1
-  const status = typeof query.trangThai === 'string' && Object.hasOwn(leadStatuses, query.trangThai)
-    ? query.trangThai as LeadStatus : undefined
-  const leads = priceTab ? null : await getLeads(page, status)
+  const filters = leadListFilters(query.muc, query.trangThai, query.trang)
+  const {page,status,testDrive} = filters
+  const leads = priceTab ? null : await getLeads(filters)
   const prices = priceTab ? await getPrices('server') : null
-  const pageLink = (number: number) => '/quan-tri/?' + new URLSearchParams({
-    trang: String(number), ...(status ? {trangThai:status} : {}),
-  })
+  const pageLink = (number: number) => leadListUrl({...filters,page:number})
 
   return <main id="main" className={styles.dashboard}>
     <header className={styles.header}>
@@ -43,7 +43,8 @@ export default async function AdminPage({searchParams}: {
       <form action={logout}><button type="submit">Đăng xuất</button></form>
     </header>
     <nav className={styles.nav} aria-label="Mục quản trị">
-      <a href="/quan-tri/" aria-current={!priceTab ? 'page' : undefined}>Yêu cầu khách hàng</a>
+      <a href="/quan-tri/" aria-current={!priceTab && !testDrive ? 'page' : undefined}>Yêu cầu khách hàng</a>
+      <a href="/quan-tri/?muc=lai-thu" aria-current={testDrive ? 'page' : undefined}>Đăng ký lái thử</a>
       <a href="/quan-tri/?muc=gia" aria-current={priceTab ? 'page' : undefined}>Giá lăn bánh</a>
       <a href="/">Về trang chủ</a>
     </nav>
@@ -68,8 +69,9 @@ export default async function AdminPage({searchParams}: {
           </form>
         </details>)}</div>}
     </section> : <section aria-labelledby="admin-leads">
-      <h2 id="admin-leads">Yêu cầu khách hàng</h2>
+      <h2 id="admin-leads">{testDrive ? 'Đăng ký lái thử' : 'Yêu cầu khách hàng'}</h2>
       <form action="/quan-tri/" method="get" className={styles.filter}>
+        {testDrive && <input type="hidden" name="muc" value="lai-thu" />}
         <label>Trạng thái <select name="trangThai" defaultValue={status ?? ''}>
           <option value="">Tất cả</option>
           {Object.entries(leadStatuses).map(([value,label]) => <option key={value} value={value}>{label}</option>)}
@@ -77,18 +79,24 @@ export default async function AdminPage({searchParams}: {
         <button type="submit">Lọc</button>
       </form>
       {leads === null ? <p role="alert">Chưa tải được yêu cầu từ Supabase.</p> :
-        leads.length === 0 ? <p>Chưa có yêu cầu phù hợp.</p> :
+        leads.length === 0 ? <p>{testDrive ? 'Chưa có đăng ký lái thử phù hợp.' : 'Chưa có yêu cầu phù hợp.'}</p> :
         <div className={styles.list}>{leads.slice(0,leadPageSize).map(lead => <details key={lead.id} className={styles.card}>
           <summary><strong>{lead.name} · {leadIntents[lead.intent]}</strong><span>{leadStatuses[lead.status]} · {dateFormat.format(new Date(lead.received_at))}</span></summary>
           <dl className={styles.info}>
             <div><dt>Điện thoại</dt><dd><a href={'tel:' + lead.phone}>{lead.phone}</a></dd></div>
             {lead.email && <div><dt>Email</dt><dd>{lead.email}</dd></div>}
             {lead.model && <div><dt>Xe quan tâm</dt><dd>{[lead.model,lead.trim,lead.color].filter(Boolean).join(' · ')}</dd></div>}
-            {(lead.preferred_date || lead.preferred_time) && <div><dt>Lịch mong muốn</dt><dd>{[lead.preferred_date,lead.preferred_time].filter(Boolean).join(' · ')}</dd></div>}
+            {lead.intent === 'test_drive' && <div><dt>Lịch mong muốn</dt><dd>{[
+              lead.preferred_date && preferredDateFormat.format(new Date(lead.preferred_date)),
+              lead.preferred_time,
+            ].filter(Boolean).join(' · ') || 'Khách chưa chọn ngày, giờ'}</dd></div>}
             {lead.test_drive_note && <div><dt>Ghi chú lái thử</dt><dd>{lead.test_drive_note}</dd></div>}
           </dl>
           <form action={updateLead} className={styles.filter}>
             <input type="hidden" name="id" value={lead.id} />
+            {testDrive && <input type="hidden" name="muc" value="lai-thu" />}
+            {status && <input type="hidden" name="trangThai" value={status} />}
+            {page > 1 && <input type="hidden" name="trang" value={page} />}
             <label>Trạng thái <select name="status" defaultValue={lead.status}>
               {Object.entries(leadStatuses).map(([value,label]) => <option key={value} value={value}>{label}</option>)}
             </select></label>

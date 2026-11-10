@@ -5,7 +5,6 @@ const reply = (status:number, message:string) => new Response(JSON.stringify({me
   status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}
 })
 const intents = new Set(['quote','test_drive','service'])
-const accepted = () => reply(200,'Đại lý đã tiếp nhận yêu cầu của bạn.')
 export async function POST(request: Request) {
   const origin = request.headers.get('origin')
   const host = request.headers.get('host')
@@ -23,7 +22,7 @@ export async function POST(request: Request) {
       const chunk=await reader.read()
       if(chunk.done) break
       size+=chunk.value.byteLength
-      if(size>4096){
+      if(size>8192){
         await reader.cancel()
         return reply(413,'Dữ liệu vượt giới hạn.')
       }
@@ -42,6 +41,7 @@ export async function POST(request: Request) {
   }
   const testDriveDetails:Record<string,string> = {}
   if (intent==='test_drive') {
+    if (!model) return reply(422,'Vui lòng chọn dòng xe muốn lái thử.')
     const date = form.get('preferred_date') ?? ''
     const time = form.get('preferred_time') ?? ''
     const note = (form.get('test_drive_note') ?? '').trim()
@@ -68,12 +68,15 @@ export async function POST(request: Request) {
   const destination=process.env.LEAD_WEBHOOK_URL
   const supabaseUrl=process.env.SUPABASE_URL
   const supabaseKey=process.env.SUPABASE_SECRET_KEY
-  const useSupabase=Boolean(supabaseUrl || supabaseKey)
+  const useSupabase=intent==='test_drive' || Boolean(supabaseUrl || supabaseKey)
   const configured=useSupabase
     ? Boolean(supabaseUrl?.startsWith('https://') && supabaseKey?.startsWith('sb_secret_'))
     : Boolean(destination?.startsWith('https://'))
   if(!configured) return reply(503,'Kênh tiếp nhận trực tuyến chưa được kết nối. Vui lòng gọi hotline để được hỗ trợ.')
 
+  const accepted = () => reply(200,intent==='test_drive'
+    ? 'Đại lý đã nhận đăng ký lái thử. Chúng tôi sẽ gọi để xác nhận lịch.'
+    : 'Đại lý đã tiếp nhận yêu cầu của bạn.')
   const suppliedKey=request.headers.get('idempotency-key')
   const key=suppliedKey && /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(suppliedKey) ? suppliedKey : randomUUID()
   const lead={
@@ -108,5 +111,5 @@ export async function POST(request: Request) {
   } catch {
     // Avoid logging customer data or credentials.
   }
-  return reply(502,'Chưa nhận được xác nhận từ đại lý. Vui lòng gọi hotline để được hỗ trợ.')
+  return reply(502,'Chưa nhận được xác nhận từ đại lý. Vui lòng thử gửi lại hoặc gọi hotline để được hỗ trợ.')
 }

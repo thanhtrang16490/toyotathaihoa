@@ -3,7 +3,7 @@
 import {redirect} from 'next/navigation'
 import {dataRequest} from '../../supabase-data'
 import {getAdmin} from './session'
-import {leadStatuses} from './leads'
+import {leadListFilters,leadListUrl,leadStatuses} from './leads'
 
 async function requireAdmin() {
   if (!await getAdmin()) redirect('/dang-nhap/')
@@ -17,14 +17,15 @@ export async function updateLead(form: FormData) {
   await requireAdmin()
   const id = form.get('id')
   const status = form.get('status')
+  const filters = leadListFilters(form.get('muc'), form.get('trangThai'), form.get('trang'))
   if (typeof id !== 'string' || !/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(id) ||
-      typeof status !== 'string' || !Object.hasOwn(leadStatuses, status)) finish('yeu-cau', false)
+      typeof status !== 'string' || !Object.hasOwn(leadStatuses, status)) redirect(leadListUrl(filters,'loi'))
 
   const query = new URLSearchParams({id: 'eq.' + id, status: 'neq.test', select: 'id'})
   const response = await dataRequest('toyota_leads', query, 'server', {
     method: 'PATCH', body: JSON.stringify({status}),
   })
-  finish('yeu-cau', Boolean(response && (await response.json()).length === 1))
+  redirect(leadListUrl(filters,response && (await response.json()).length === 1 ? 'da-luu' : 'loi'))
 }
 
 function amount(value: FormDataEntryValue | null) {
