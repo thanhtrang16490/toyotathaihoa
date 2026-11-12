@@ -3,10 +3,12 @@ import Image, {getImageProps} from 'next/image'
 import ConsultationPopup from '../components/ConsultationPopup'
 import VehicleSupport from '../components/VehicleSupport'
 import Layout from '../components/SiteFrame'
+import {HomeAbout,HomeNews} from '../components/HomeEditorial'
+import HomeTestimonials from '../components/HomeTestimonials'
 import HomeModelRail from '../components/HomeModelRail'
 import HomeHeroSlider from '../components/HomeHeroSlider'
 import {address, dealer, hours, phone} from '../catalog'
-import {getPublicCars} from '../site-content'
+import {getPublicCars,getPublishedNews} from '../site-content'
 import hero from '../assets/generated/corolla-cross-coastal-hero-v2.webp'
 import {homeShareImage,vehicleImagery,vehicleDetailImagery} from '../vehicle-imagery'
 import workshop from '../assets/generated/toyota-service-workshop.webp'
@@ -46,7 +48,7 @@ const homeDescriptions:Record<string,string> = {
   '/toyota/alphard/':'Xe đa dụng 7 chỗ với động cơ hybrid.',
 }
 export default async function Home(){
-const cars = await getPublicCars()
+const [cars,articles] = await Promise.all([getPublicCars(),getPublishedNews()])
 const modelPhotos = Object.entries(vehicleImagery).flatMap(([slug,photo])=>{
   const model = cars.find(car=>car.slug===slug)
   return model ? [{model,photo}] : []
@@ -119,7 +121,7 @@ return (<Layout title={dealer} path="/">
   <div className="home-model-band">
   <section id="home-models" className="wrap section home-models" aria-labelledby="home-models-title">
     <h2 id="home-models-title">Khám phá các dòng xe Toyota</h2>
-    <HomeModelRail labels={lineup.map(({model})=>model.title)}>
+    <HomeModelRail models={lineup.map(({model})=>({title:model.title,category:model.category,slug:model.slug}))}>
       {lineup.map(({model,photo})=>{
         const {slug} = model
         const seats = [...new Set(vehicleGrades(slug).map(grade=>grade.seats))].sort((a,b)=>a-b)
@@ -144,5 +146,8 @@ return (<Layout title={dealer} path="/">
       <a href="/uu-dai/"><Image src={vehicleImagery['/toyota/camry/']} alt="" fill fetchPriority="low" sizes="(max-width: 600px) 85vw, (max-width: 1000px) 70vw, (max-width: 1060px) 30vw, 310px" /><span>Ưu đãi dành cho bạn <b aria-hidden="true">→</b></span></a>
     </div>
   </section>
+  <HomeAbout />
+  <HomeNews articles={articles.slice(0,3)} />
+  <HomeTestimonials />
 </Layout>)
 }
