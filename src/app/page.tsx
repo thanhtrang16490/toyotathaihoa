@@ -1,10 +1,11 @@
 import {vehicleGrades} from '../vehicle-grades'
 import Image, {getImageProps} from 'next/image'
 import ConsultationPopup from '../components/ConsultationPopup'
+import VehicleSupport from '../components/VehicleSupport'
 import Layout from '../components/SiteFrame'
 import HomeModelRail from '../components/HomeModelRail'
 import HomeHeroSlider from '../components/HomeHeroSlider'
-import {dealer, phone} from '../catalog'
+import {address, dealer, hours, phone} from '../catalog'
 import {getPublicCars} from '../site-content'
 import hero from '../assets/generated/corolla-cross-coastal-hero-v2.webp'
 import {homeShareImage,vehicleImagery,vehicleDetailImagery} from '../vehicle-imagery'
@@ -75,6 +76,7 @@ const slides = [
 ]
 return (<Layout title={dealer} path="/">
   <ConsultationPopup phone={phone} />
+  <div className="home-vehicle-support"><VehicleSupport address={address} hours={hours} /></div>
   <HomeHeroSlider slides={slides} firstImage={
       <picture>
         <source

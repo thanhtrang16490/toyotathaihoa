@@ -891,6 +891,9 @@ header.fj-header:has(>.header-row){border-bottom:0;background:#fff}
   writing-mode:vertical-rl;
   transform:translateY(-50%) rotate(180deg);
 }
+@media(max-width:768px){
+  .home-vehicle-support { display:none; }
+}
 .vehicle-support-trigger:hover{background:#1735bc}
 .vehicle-support-trigger:focus-visible{outline-offset:-4px;outline-color:white}
 .technical-drawer.vehicle-support-drawer{
