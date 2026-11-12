@@ -70,7 +70,7 @@ export default function HomeHeroSlider({slides,firstImage}:{slides:Slide[];first
       </div>
       <p className="hero-quote-note">{slide.testDrive ? 'Đại lý sẽ liên hệ để xác nhận lịch lái thử.' : slide.campaignPeriod ? 'Quyền lợi tùy mẫu xe và điều kiện chương trình. Liên hệ đại lý để biết chi tiết.' : 'Đại lý sẽ tư vấn phiên bản và chi phí lăn bánh.'}</p>
     </div>
-    <HomeHeroMotion renderControls={motionToggle=>slides.length>1 ? <div className="hero-slide-controls" role="group" aria-label="Chuyển ảnh giới thiệu" onKeyDown={event=>{
+    <HomeHeroMotion slideIndex={index} slideReady={ready} onAdvance={slides.length>1 ? ()=>move(1) : undefined} renderControls={(motionToggle,timer)=>slides.length>1 ? <div className="hero-slide-controls" role="group" aria-label="Chuyển ảnh giới thiệu" onKeyDown={event=>{
       if (event.key!=='ArrowLeft' && event.key!=='ArrowRight') return
       event.preventDefault()
       move(event.key==='ArrowLeft' ? -1 : 1)
@@ -79,6 +79,7 @@ export default function HomeHeroSlider({slides,firstImage}:{slides:Slide[];first
       {slides.map(({href,title},position)=><button key={href} className="hero-slide-dot" type="button"
         aria-label={'Xem '+title} aria-current={index===position?'true':undefined} onClick={()=>selectSlide(position)} />)}
       <button type="button" aria-label="Slide sau" onClick={()=>move(1)}>›</button>
+      {timer}
       {motionToggle}
     </div> : motionToggle}>
       {(previous===null ? [index] : [previous,index]).map(position=>{
