@@ -6,8 +6,9 @@ import Layout from '../components/SiteFrame'
 import {HomeAbout,HomeNews} from '../components/HomeEditorial'
 import HomeTestimonials from '../components/HomeTestimonials'
 import HomeModelRail from '../components/HomeModelRail'
+import HomeOfferRail from '../components/HomeOfferRail'
 import HomeHeroSlider from '../components/HomeHeroSlider'
-import {address, dealer, hours, phone} from '../catalog'
+import {address, articlesInArchive, dealer, hours, phone} from '../catalog'
 import {getPublicCars,getPublishedNews} from '../site-content'
 import hero from '../assets/generated/corolla-cross-coastal-hero-v2.webp'
 import {homeShareImage,vehicleImagery,vehicleDetailImagery} from '../vehicle-imagery'
@@ -91,6 +92,12 @@ const slides = [
     testDrive:true,
   }] : []),
 ]
+const offerDate = new Intl.DateTimeFormat('vi-VN',{dateStyle:'short',timeZone:'Asia/Ho_Chi_Minh'})
+const campaign = slides.find(slide=>'campaignPeriod' in slide)
+const offerCards = [
+  ...(campaign && 'campaignPeriod' in campaign ? [{title:campaign.title+'/2026', href:campaign.href, image:campaign.image, period:campaign.campaignPeriod, published:''}] : []),
+  ...(articlesInArchive('/uu-dai/',articles) ?? []).map(({title,slug,image,published})=>({title,href:slug,image,published,period:''})),
+].slice(0,8)
 return (<Layout title={dealer} path="/">
   <ConsultationPopup phone={phone} />
   <div className="home-vehicle-support"><VehicleSupport address={address} hours={hours} /></div>
@@ -109,15 +116,22 @@ return (<Layout title={dealer} path="/">
         <Image className="hero-img" src={hero} sizes="100vw" alt="Ảnh minh họa Toyota Corolla Cross màu trắng trước kiến trúc bê tông bên bờ biển" loading="eager" fetchPriority="high" />
       </picture>
   } />
-  <nav className="wrap home-highlights" id="home-highlights" aria-label="Xe Toyota nổi bật">
-    {modelPhotos.slice(1,4).map(({model,photo})=>{
-      const {slug} = model
-      return <a key={slug} href={slug}>
-        <Image src={photo} alt="" fill fetchPriority="low" sizes="(max-width: 600px) 85vw, (max-width: 1000px) 70vw, (max-width: 1060px) 30vw, 310px" />
-        <span>{model.title}<span aria-hidden="true">→</span></span>
+  <HomeOfferRail>
+    {offerCards.map(({title,href,image,period,published})=>{
+      const date = new Date(published)
+      return <a key={href} href={href}>
+        {image && <Image src={image} alt="" fill fetchPriority="low" sizes="(max-width: 600px) 75vw, (max-width: 1000px) 42vw, (max-width: 1650px) 40vw, 660px" />}
+        <span>
+          <span className="home-offer-copy">
+            {period ? <small>{period}</small> : !Number.isNaN(date.getTime()) &&
+              <small>Đăng ngày <time dateTime={date.toISOString()}>{offerDate.format(date)}</time></small>}
+            <strong className="home-offer-title">{title}</strong>
+          </span>
+          <span className="home-offer-arrow" aria-hidden="true">→</span>
+        </span>
       </a>
     })}
-  </nav>
+  </HomeOfferRail>
   <div className="home-model-band">
   <section id="home-models" className="wrap section home-models" aria-labelledby="home-models-title">
     <h2 id="home-models-title">Khám phá các dòng xe Toyota</h2>
