@@ -2,7 +2,7 @@
 
 import {useEffect,useRef,useState,type ReactNode} from 'react'
 
-export default function HomeHeroMotion({children}:{children:ReactNode}) {
+export default function HomeHeroMotion({children,renderControls}:{children:ReactNode;renderControls:(motionToggle:ReactNode)=>ReactNode}) {
   const media=useRef<HTMLDivElement>(null)
   const [paused,setPaused]=useState(false)
   const [motionAllowed,setMotionAllowed]=useState(false)
@@ -25,8 +25,8 @@ export default function HomeHeroMotion({children}:{children:ReactNode}) {
     <div ref={media} className="home-hero-media" data-paused={paused || !motionAllowed || !visible}>
       {children}
     </div>
-    {motionAllowed && <button type="button" className="home-hero-pause" aria-label={paused ? 'Tiếp tục chuyển động ảnh' : 'Tạm dừng chuyển động ảnh'} aria-pressed={paused} onClick={()=>setPaused(value=>!value)}>
+    {renderControls(motionAllowed ? <button type="button" className="home-hero-pause" aria-label={paused ? 'Tiếp tục chuyển động ảnh' : 'Tạm dừng chuyển động ảnh'} aria-pressed={paused} onClick={()=>setPaused(value=>!value)}>
       <span aria-hidden="true">{paused ? '▷' : 'Ⅱ'}</span>
-    </button>}
+    </button> : null)}
   </>
 }

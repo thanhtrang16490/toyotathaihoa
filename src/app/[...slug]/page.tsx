@@ -1,3 +1,4 @@
+import {accessoryCategories,accessoryPaths,phone} from '../../catalog'
 import {corollaDetailPath} from '../../vehicle-options'
 import VehicleDetail from '../../components/VehicleDetail'
 import Layout from '../../components/SiteFrame'
@@ -99,6 +100,8 @@ const pendingTrims = pendingTrimVerification.has(path)
 const showSource = !pendingTrims && !usedVehicle
 
 const formIntent=({'/nhan-bao-gia/':'quote','/dang-ky-lai-thu/':'test_drive','/dat-lich-dich-vu/':'service'} as Record<string,string>)[path]
+const accessory = product && accessoryPaths.has(path)
+const accessoryHub = path==='/phu-kien-chinh-hang/'
 const servicePage=services.some(item=>item.slug===path)
 const showroomArchive = path==='/shop-2/' || entry?.kind==='product_cat'
 const catalogue = showroomArchive ? await getPublicCars() : []
@@ -124,6 +127,12 @@ if (formIntent) {
       <header>
         <h1>{title}</h1>
         <p>Để lại thông tin để Toyota Thái Hòa Từ Liêm liên hệ xác nhận yêu cầu.</p>
+        {formIntent==='test_drive' && <div className="drive-guide">
+          <Image src={showroom} alt="Showroom Toyota Thái Hòa Từ Liêm" sizes="(max-width: 760px) 90vw, 400px" />
+          <h2>Khi đến lái thử</h2>
+          <p>Mang theo giấy phép lái xe còn hiệu lực. Nhân viên sẽ giới thiệu xe và cùng bạn trải nghiệm các tính năng quan tâm.</p>
+          <a href={'tel:'+phone} data-event="hotline_click">Hỏi về lịch lái thử · 0985 3333 88</a>
+        </div>}
         {formIntent==='quote' && <p><a href="/gia-lan-banh/">Tra cứu chi phí lăn bánh tham khảo ↗</a></p>}
       </header>
       <div className={formIntent==='test_drive' ? 'test-drive-page' : 'form-panel'}><LeadForm intent={formIntent} /></div>
@@ -167,7 +176,7 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
     <DealerHero title={title} image={entry?.image} service={servicePage} action={servicePage && <a className="btn" href="/dat-lich-dich-vu/" data-event="cta_click">Đặt lịch bảo dưỡng ↗</a>} /> :
   <section className={product ? 'wrap section page-intro product-intro' : article || editorialIndex ? styles.editorialPage : 'wrap section page-intro'}>
     {product && entry?.image && <Image src={entry.image} width={800} height={800} sizes="(max-width: 760px) 100vw, 50vw" className="product-cover" alt={title} loading="eager" fetchPriority="high" />}
-    <div className={article || editorialIndex ? styles.editorialHeader : undefined}><p className="eyebrow">{product?'DANH MỤC TOYOTA':article?'TIN TỨC TOYOTA':'TOYOTA THÁI HÒA TỪ LIÊM'}</p>
+    <div className={article || editorialIndex ? styles.editorialHeader : undefined}><p className="eyebrow">{accessory?'PHỤ KIỆN TOYOTA':product?'DANH MỤC TOYOTA':article?'TIN TỨC TOYOTA':'TOYOTA THÁI HÒA TỪ LIÊM'}</p>
     <h1>{title}</h1>
     {product && <>
       <p className="price">{showSource && entry.price || 'Liên hệ để nhận báo giá'}</p>
@@ -175,7 +184,7 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
       {productDetails?.description && <p>{productDetails.description}</p>}
       <p className="muted">{pendingTrims ? "Giá và thông số theo phiên bản đang được đối chiếu. Liên hệ đại lý để xác nhận phiên bản, màu và giá." : usedVehicle ? "Thông tin xe lưu trữ. Liên hệ đại lý để xác nhận tình trạng xe." : "Giá tham khảo theo trang đại lý. Vui lòng xác nhận giá và tình trạng xe với đại lý."}</p>
       <div className="actions">
-        <a className="btn" href={productDetails ? '/nhan-bao-gia/?'+new URLSearchParams({model:entry.title}) : '/nhan-bao-gia/'} data-event="cta_click">Nhận báo giá ↗</a>
+        {accessory ? <a className="btn" href="#bao-gia-phu-kien">Hỏi giá phụ kiện</a> : <a className="btn" href={productDetails ? '/nhan-bao-gia/?'+new URLSearchParams({model:entry.title}) : '/nhan-bao-gia/'} data-event="cta_click">Nhận báo giá ↗</a>}
         {productDetails && <a className="btn outline" href={'/dang-ky-lai-thu/?'+new URLSearchParams({model:entry.title})} data-event="cta_click">Đăng ký lái thử ↗</a>}
       </div>
     </>}
@@ -186,9 +195,12 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
     {article && entry?.image && !imageInArticle && <Image className={styles.articleCover} src={entry.image} alt="" width={1200} height={675} sizes="88vw" />}
   </section>}
   {path==='/thong-tin-xu-ly-du-lieu/' && <section className="wrap prose"><p>Thông tin bạn nhập được chuyển đến đầu nhận của Toyota Thái Hòa Từ Liêm để tư vấn, xác nhận lái thử hoặc liên hệ về lịch bảo dưỡng. Các sự kiện đo lường trên trang không chứa họ tên hoặc số điện thoại bạn nhập.</p><p>Liên hệ bộ phận chăm sóc khách hàng qua <a href="mailto:cskh@toyotathaihoatuliem.com.vn">cskh@toyotathaihoatuliem.com.vn</a> để hỏi về việc xử lý thông tin.</p></section>}
-  {product && <nav className="wrap product-jump" aria-label="Chi tiết xe">
+  {accessoryHub && <nav className="wrap section actions" aria-label="Danh mục phụ kiện">
+    {accessoryCategories.map(category=><a key={category.slug} className="btn outline" href={category.slug}>{category.title}</a>)}
+  </nav>}
+  {product && <nav className="wrap product-jump" aria-label={accessory ? 'Chi tiết phụ kiện' : 'Chi tiết xe'}>
     {showSource && entry?.html && <a href="#chi-tiet-xe">Thông tin và thông số</a>}
-    {gallery.length > 0 && <a href="#hinh-anh-xe">Hình ảnh xe</a>}
+    {gallery.length > 0 && <a href="#hinh-anh-xe">{accessory ? 'Hình ảnh phụ kiện' : 'Hình ảnh xe'}</a>}
   </nav>}
   {listing && <section className={editorialIndex ? styles.editorialPage : 'wrap section collection'}>
     {editorialIndex && <nav className={styles.editorialNav} aria-label="Khám phá bài viết">
@@ -212,6 +224,14 @@ return (<Layout title={title} path={path} schema={article} crumbs={crumbs} noind
     {body != null ? <div style={{whiteSpace:'pre-wrap',overflowWrap:'anywhere'}}>{body}</div> : entry && <div dangerouslySetInnerHTML={{__html:entry.html}} />}
   </section>}
   {relatedPosts.length>0 && <section className={styles.editorialPage}><h2>Bài viết liên quan</h2><div className={styles.articleGrid}>{relatedPosts.map(item=><Card key={item.slug} entry={item} editorial="article" />)}</div></section>}
+  {accessory && <section id="bao-gia-phu-kien" className="wrap section dealer-contact-actions">
+    <div>
+      <h2>Hỏi giá {title}</h2>
+      <p>Đại lý sẽ xác nhận phụ kiện phù hợp với dòng xe, đời xe và chi phí lắp đặt.</p>
+      <a href="/phu-kien-chinh-hang/">Xem danh mục phụ kiện ↗</a>
+    </div>
+    <div className="form-panel"><LeadForm intent="quote" fixedModel model={title.slice(0,100)} /></div>
+  </section>}
   {servicePage && <DealerContact />}
 </Layout>)
 }

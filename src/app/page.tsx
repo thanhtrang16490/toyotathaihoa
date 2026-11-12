@@ -1,14 +1,18 @@
+import {vehicleGrades} from '../vehicle-grades'
 import Image, {getImageProps} from 'next/image'
 import ConsultationPopup from '../components/ConsultationPopup'
 import Layout from '../components/SiteFrame'
 import HomeModelRail from '../components/HomeModelRail'
-import HomeHeroMotion from '../components/HomeHeroMotion'
+import HomeHeroSlider from '../components/HomeHeroSlider'
 import {dealer, phone} from '../catalog'
 import {getPublicCars} from '../site-content'
 import hero from '../assets/generated/corolla-cross-coastal-hero-v2.webp'
-import {homeShareImage,vehicleImagery} from '../vehicle-imagery'
+import {homeShareImage,vehicleImagery,vehicleDetailImagery} from '../vehicle-imagery'
 import workshop from '../assets/generated/toyota-service-workshop.webp'
 import {pageMetadata} from '../site-metadata'
+import {todayInVietnam} from '../test-drive'
+
+export const revalidate = 60
 export const metadata = pageMetadata({
   title:dealer,
   path:'/',
@@ -36,11 +40,42 @@ export default async function Home(){
 const cars = await getPublicCars()
 const modelPhotos = Object.entries(vehicleImagery).filter(([slug])=>cars.some(car=>car.slug===slug)).map(([slug,photo])=>({slug,photo}))
 const cross = cars.find(car=>car.slug==='/toyota/corolla-cross/')
+const fj = cars.find(car=>car.slug==='/toyota/toyota-land-cruiser-fj/')
+const today = todayInVietnam()
+const slides = [
+  ...(today >= '2026-11-01' && today <= '2026-11-30' ? [{
+    title:'Ưu đãi Toyota tháng 11',
+    href:'/uu-dai/',
+    description:'Nhẹ gánh tài chính, vững bước cùng Toyota.',
+    campaignPeriod:'Áp dụng từ 01 đến 30/11/2026',
+    campaignOffers:[
+      {value:'Từ 0%/năm',label:'Lãi suất cố định trong 2 năm'},
+      {value:'Đến 100%',label:'Hỗ trợ lệ phí trước bạ'},
+      {value:'1 năm',label:'Tặng bảo hiểm vật chất xe'},
+    ],
+    image:'/media/generated/toyota-november-2026-campaign.webp',
+    detailLabel:'Xem ưu đãi',
+  }] : []),
+  {title:cross?.title || 'Khám phá xe Toyota',href:cross?.slug || '/xe-toyota-moi/',description:cross ? 'Gọn gàng khi đi phố, linh hoạt cho những chuyến đi cuối tuần.' : 'Chọn dòng xe phù hợp với nhu cầu của bạn.',highlights:cross ? ['SUV 5 chỗ','Phiên bản xăng và hybrid'] : undefined},
+  ...Object.entries({
+    '/toyota/camry/':'Sedan cho những chuyến đi thoải mái, có lựa chọn động cơ hybrid.',
+    '/toyota/hilux/':'Bán tải diesel cho công việc và những chuyến đi xa.',
+  }).flatMap(([slug,description])=>{
+    const model = cars.find(car=>car.slug===slug)
+    return model ? [{title:model.title,href:slug,description,image:vehicleImagery[slug]}] : []
+  }),
+  ...(fj ? [{
+    title:fj.title,
+    href:fj.slug,
+    description:'Thiết kế vuông vức và hệ dẫn động hai cầu cho những chuyến đi ngoài đường nhựa.',
+    highlights:['Động cơ xăng 2.7L','Tự động 6 cấp','5 chỗ'],
+    image:vehicleDetailImagery[fj.slug],
+    testDrive:true,
+  }] : []),
+]
 return (<Layout title={dealer} path="/">
   <ConsultationPopup phone={phone} />
-  <section className="hero showroom-hero">
-    <div className="hero-copy"><h1>{cross?.title || 'Khám phá xe Toyota'}</h1><div className="actions"><a className="btn outline" href={cross?.slug || '/xe-toyota-moi/'} data-event="cta_click">{cross ? 'Khám phá '+cross.title.replace(/^Toyota /,'') : 'Xem danh mục xe'}</a></div></div>
-    <HomeHeroMotion>
+  <HomeHeroSlider slides={slides} firstImage={
       <picture>
         <source
           media="(max-width: 600px)"
@@ -54,10 +89,7 @@ return (<Layout title={dealer} path="/">
         <source media="(min-width: 601px)" type="image/avif" srcSet={desktopHeroAvif} sizes="100vw" width={1672} height={941} />
         <Image className="hero-img" src={hero} sizes="100vw" alt="Ảnh minh họa Toyota Corolla Cross màu trắng trước kiến trúc bê tông bên bờ biển" loading="eager" fetchPriority="high" />
       </picture>
-    </HomeHeroMotion>
-    <a className="home-scroll" href="#home-highlights" aria-label="Đến các xe nổi bật">↓</a>
-    <span className="hero-image-credit">Ảnh minh họa</span>
-  </section>
+  } />
   <nav className="wrap home-highlights" id="home-highlights" aria-label="Xe Toyota nổi bật">
     {modelPhotos.slice(1,4).map(({slug,photo})=>{
       const model = cars.find(car=>car.slug===slug)
@@ -69,18 +101,18 @@ return (<Layout title={dealer} path="/">
     })}
   </nav>
   <div className="home-model-band">
-  <section className="wrap section home-models">
-    <h2>Khám phá các dòng xe Toyota</h2>
-    <p className="home-imagery-note">Hình ảnh minh họa bằng AI.</p>
+  <section id="home-models" className="wrap section home-models" aria-labelledby="home-models-title">
+    <h2 id="home-models-title">Khám phá các dòng xe Toyota</h2>
     <HomeModelRail labels={modelPhotos.map(({slug})=>cars.find(car=>car.slug===slug)?.title || slug)}>
       {modelPhotos.map(({slug,photo})=>{
         const model = cars.find(car=>car.slug===slug)
         if (!model) return null
+        const seats = [...new Set(vehicleGrades(slug).map(grade=>grade.seats))].sort((a,b)=>a-b)
         return <a key={slug} className="home-model-tile" href={slug}>
-          <Image src={photo} alt="" fill fetchPriority="low" sizes="(max-width: 600px) 85vw, (max-width: 1000px) 44vw, (max-width: 1880px) 45vw, 830px" />
+          <Image src={photo} alt="" fill fetchPriority="low" sizes="(max-width: 600px) 85vw, (max-width: 1000px) 55vw, (max-width: 1880px) 55vw, 1050px" />
           <h3>{model.title.replace(/^Toyota /,'')}</h3>
           <div className="home-model-copy">
-            <p className="home-model-tag">{model.category}</p>
+            <p className="home-model-tag">{model.category}{seats.length>0 && ' · '+seats.join('–')+' chỗ'}</p>
             <p className="home-model-description">{homeDescriptions[slug]}</p>
             <span className="home-model-cta">Khám phá xe <span aria-hidden="true">→</span></span>
           </div>

@@ -134,7 +134,11 @@ export default function BrowserInteractions({path}:{path:string}){
         const result=await response.json()
         status.textContent=result.message
         if(response.ok){
-          ;(window.dataLayer ??= []).push({event:'lead_success',intent:body.get('intent'),page_path:location.pathname})
+          const heroModel = params.get('hero_model')
+          const attribution = ['quote','test_drive'].includes(body.get('intent') ?? '') && params.get('source')==='home_hero'
+            ? {cta_source:'home_hero', ...(['corolla-cross','camry','hilux','toyota-land-cruiser-fj'].includes(heroModel ?? '') ? {hero_model:heroModel} : {})}
+            : {}
+          ;(window.dataLayer ??= []).push({event:'lead_success',intent:body.get('intent'),page_path:location.pathname,...attribution})
           retryKey=undefined
           form.reset()
           syncSelection()
@@ -231,11 +235,34 @@ export default function BrowserInteractions({path}:{path:string}){
 {
 
   const numbers = document.querySelectorAll<HTMLElement>('[data-rolling-number]')
-  if (numbers.length && 'IntersectionObserver' in window) {
+  if (numbers.length && 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const observer = new IntersectionObserver(entries=>{
       for (const entry of entries) {
         if (!entry.isIntersecting || entry.intersectionRatio<.5) continue
-        entry.target.setAttribute('data-rolling-visible','')
+        const digits = entry.target.querySelector<HTMLElement>('[data-rolling-digits]')
+        const value = digits?.previousElementSibling?.textContent
+        if (digits && value) {
+          digits.replaceChildren(...Array.from(value, character=>{
+            const column = document.createElement('span')
+            if (!/^[0-9]$/.test(character)) {
+              column.textContent = character
+              return column
+            }
+            const digit = Number(character)
+            const reel = document.createElement('span')
+            column.className = digits.dataset.windowClass || ''
+            reel.className = digits.dataset.reelClass || ''
+            reel.style.setProperty('--digit-offset', -100*digit/(digit+1)+'%')
+            for (let step=0; step<=digit; step++) {
+              const frame = document.createElement('span')
+              frame.textContent = String(step)
+              reel.append(frame)
+            }
+            column.append(reel)
+            return column
+          }))
+          entry.target.setAttribute('data-rolling-visible','')
+        }
         observer.unobserve(entry.target)
       }
     },{threshold:.5})
@@ -247,7 +274,10 @@ export default function BrowserInteractions({path}:{path:string}){
     const target = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-event],a[href^="tel:"]') : null
     if (!target) return
     const href = target.getAttribute('href')
-    ;(window.dataLayer ??= []).push({event: target.dataset.event ?? 'hotline_click', page_path: location.pathname, ...(href?.startsWith('/') ? {target_path: href.split('?')[0]} : {})})
+    ;(window.dataLayer ??= []).push({event: target.dataset.event ?? 'hotline_click', page_path: location.pathname,
+      ...(target.dataset.ctaSource ? {cta_source:target.dataset.ctaSource} : {}),
+      ...(target.dataset.heroModel ? {hero_model:target.dataset.heroModel} : {}),
+      ...(href?.startsWith('/') ? {target_path: href.split('?')[0]} : {})})
   }
   document.addEventListener('click',track,{signal})
 }

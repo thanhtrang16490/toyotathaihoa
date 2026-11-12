@@ -9,6 +9,7 @@ export default function ConsultationPopup({phone}:{phone:string}) {
   const [showHotline,setShowHotline] = useState(false)
 
   useEffect(()=>{
+    if (window.matchMedia('(max-width: 768px)').matches) return
     try {
       if (Number(localStorage.getItem(storageKey))>Date.now()) return
     } catch {
@@ -16,7 +17,7 @@ export default function ConsultationPopup({phone}:{phone:string}) {
     }
     const initialScroll = window.scrollY
     function showAfterScroll() {
-      if (window.scrollY-initialScroll<240) return
+      if (window.scrollY-initialScroll<Math.max(240,(document.documentElement.scrollHeight-window.innerHeight)*.5-initialScroll)) return
       window.removeEventListener('scroll',showAfterScroll)
       setVisible(true)
     }

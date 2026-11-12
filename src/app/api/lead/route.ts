@@ -1,10 +1,11 @@
+import {serviceItems} from '../../../service-booking'
 import {randomUUID} from 'node:crypto'
 import {testDriveTimes,todayInVietnam} from '../../../test-drive'
 
 const reply = (status:number, message:string) => new Response(JSON.stringify({message}),{
   status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'}
 })
-const intents = new Set(['quote','test_drive','service'])
+const intents = new Set(['quote','test_drive','service','contact'])
 export async function POST(request: Request) {
   const origin = request.headers.get('origin')
   const host = request.headers.get('host')
@@ -39,31 +40,46 @@ export async function POST(request: Request) {
   if(trim.length > 100 || color.length > 100 || form.get('website') || name.length<2 || name.length>100 || !/^(?:0|\+84)[235789]\d{8,9}$/.test(phone) || !intents.has(intent) || model.length>100 || form.get('consent')!=='yes'){
     return reply(422,'Kiểm tra họ tên, số điện thoại và xác nhận đồng ý trước khi gửi.')
   }
-  const testDriveDetails:Record<string,string> = {}
-  if (intent==='test_drive') {
-    if (!model) return reply(422,'Vui lòng chọn dòng xe muốn lái thử.')
+  const details: Record<string,string> = {}
+  if (intent==='test_drive' || intent==='service') {
     const date = form.get('preferred_date') ?? ''
     const time = form.get('preferred_time') ?? ''
-    const note = (form.get('test_drive_note') ?? '').trim()
-    const email = (form.get('email') ?? '').trim()
     if (date) {
       const parsed = new Date(date+'T00:00:00Z')
       if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || Number.isNaN(parsed.getTime()) ||
         parsed.toISOString().slice(0,10)!==date || date<todayInVietnam()) {
-        return reply(422,'Vui lòng chọn ngày lái thử từ hôm nay trở đi.')
+        return reply(422,'Vui lòng chọn ngày mong muốn từ hôm nay trở đi.')
       }
-      testDriveDetails.preferred_date = date
+      details.preferred_date = date
     }
     if (time) {
-      if (!testDriveTimes.includes(time)) return reply(422,'Vui lòng chọn giờ lái thử trong danh sách.')
-      testDriveDetails.preferred_time = time
+      if (intent==='test_drive' ? !testDriveTimes.includes(time) : !/^([01][0-9]|2[0-3]):[0-5][0-9]$/.test(time)) return reply(422,'Vui lòng chọn giờ lái thử trong danh sách.')
+      details.preferred_time = time
     }
+  }
+  if (intent==='test_drive') {
+    if (!model) return reply(422,'Vui lòng chọn dòng xe muốn lái thử.')
+    const note = (form.get('test_drive_note') ?? '').trim()
+    const email = (form.get('email') ?? '').trim()
     if (note.length>200) return reply(422,'Nội dung muốn trải nghiệm tối đa 200 ký tự.')
-    if (note) testDriveDetails.test_drive_note = note
+    if (note) details.test_drive_note = note
     if (email) {
       if (email.length>120 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return reply(422,'Vui lòng kiểm tra địa chỉ email.')
-      testDriveDetails.email = email
+      details.email = email
     }
+  }
+  if (intent==='service') {
+    const plate = (form.get('license_plate') ?? '').trim().toUpperCase()
+    const item = (form.get('service_item') ?? '').trim()
+    if (plate && !/^[0-9A-Z .-]{5,20}$/.test(plate)) return reply(422,'Vui lòng kiểm tra biển số xe.')
+    if (item && !serviceItems.some(option=>option===item)) return reply(422,'Vui lòng chọn hạng mục trong danh sách.')
+    if (plate) details.license_plate = plate
+    if (item) details.service_item = item
+  }
+  if (intent==='contact') {
+    const message = (form.get('contact_message') ?? '').trim()
+    if (message.length<5 || message.length>1000) return reply(422,'Vui lòng nhập nội dung từ 5 đến 1.000 ký tự.')
+    details.contact_message = message
   }
   const destination=process.env.LEAD_WEBHOOK_URL
   const supabaseUrl=process.env.SUPABASE_URL
@@ -83,7 +99,7 @@ export async function POST(request: Request) {
     name,phone,intent,model,
     ...(model && intent !== 'service' && trim ? {trim} : {}),
     ...(model && intent !== 'service' && color ? {color} : {}),
-    ...testDriveDetails,
+    ...details,
     received_at:new Date().toISOString()
   }
   try{

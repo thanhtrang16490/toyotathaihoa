@@ -8,7 +8,7 @@ import ShowroomMenu from './ShowroomMenu'
 import BrowserInteractions from './BrowserInteractions'
 import PublicSiteExtras from './PublicSiteExtras'
 import {getPublicCars,getPublicProductDetails} from '../site-content'
-const nav = [['Xe Toyota','/xe-toyota-moi/'],['Ưu đãi','/uu-dai/'],['Dịch vụ','/dich-vu/'],['Tin tức','/tin-tuc/'],['Giới thiệu','/gioi-thieu/'],['Liên hệ','/contact/']]
+const nav = [['Xe Toyota','/xe-toyota-moi/'],['Ưu đãi','/uu-dai/'],['Dịch vụ','/dich-vu/'],['Xe cũ','/xe-da-qua-su-dung/'],['Tin tức','/tin-tuc/'],['Phụ kiện','/phu-kien-chinh-hang/'],['Giới thiệu','/gioi-thieu/'],['Liên hệ','/contact/']]
 export default async function SiteFrame({title,path,crumbs=[],noindex=false,schema,children}:{title:string,path:string,crumbs?:string[][],noindex?:boolean,schema?:Record<string,unknown>,children:ReactNode}){
  const [catalogue,details] = await Promise.all([getPublicCars(),getPublicProductDetails()])
  const isModel=cars.some(car=>car.slug===path)
@@ -31,6 +31,11 @@ export default async function SiteFrame({title,path,crumbs=[],noindex=false,sche
       image:details.get(slug)?.image || vehicleMenuImagery[slug] || (slug==='/toyota/vios/' ? variants?.[0]?.image || image : image),
     }))} />
     <a href="/" className="brand"><Image src={logo} width={194} height={63} alt={dealer} /></a>
+    <a className="site-search-link" href="/tim-kiem/" aria-label="Tìm kiếm">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+        <circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" />
+      </svg>
+    </a>
   </div>
 </header>
 <main id="main" className={isModel ? 'vehicle-detail' : undefined}>

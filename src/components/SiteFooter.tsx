@@ -1,18 +1,16 @@
-import {address,dealer,directions,phone} from '../catalog'
+import {address,dealer,directions,phone,hours,contactNumbers} from '../catalog'
 
 export default function SiteFooter() {
   return <footer className="site-footer home-footer">
     <a className="home-back-top" href="#main">↑<br/>Về đầu trang</a>
-    <div className="home-footer-region">
-      <p className="home-footer-muted">Khu vực / Ngôn ngữ</p>
-      <p><span className="home-region-flag" aria-hidden="true">★</span> Việt Nam / Tiếng Việt</p>
-    </div>
     <div className="home-footer-columns">
       <section>
         <h2>Địa điểm &amp; Liên hệ</h2>
         <a href="/contact/">Liên hệ đại lý</a>
         <a href={directions} data-event="directions_click">Tìm đường đến showroom</a>
-        <a href={'tel:'+phone} data-event="hotline_click">Hotline · 0985 3333 88</a>
+        {contactNumbers.map(([label,number,display])=>
+          <a key={number} href={'tel:'+number} data-event="hotline_click">{label} · {display}</a>)}
+        <ul className="footer-hours">{hours.map(hour=><li key={hour}>{hour}</li>)}</ul>
       </section>
       <section>
         <h2>Về Toyota Thái Hòa Từ Liêm</h2>

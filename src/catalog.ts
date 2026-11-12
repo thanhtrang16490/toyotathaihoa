@@ -23,6 +23,13 @@ export interface Entry {
 export const entries: Entry[] = data.records
 export const dealer = 'Toyota Thái Hòa Từ Liêm'
 export const phone = '0985333388'
+export const servicePhone = '0981555588'
+export const contactNumbers = [
+  ['Xe mới',phone,'0985 3333 88'],
+  ['Xe đã qua sử dụng','0936313338','093 631 3338'],
+  ['Dịch vụ',servicePhone,'0981 5555 88'],
+  ['Chăm sóc khách hàng','02433549999','024 3354 9999'],
+] as const
 export const address = 'Ngã ba Tố Hữu – Mộ Lao, Tổ dân phố số 02 Ngọc Trục, Phường Đại Mỗ, TP. Hà Nội'
 export const directions = 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(dealer+' '+address)
 export const hours = [
@@ -33,6 +40,8 @@ export const hours = [
 const models = ['toyota-land-cruiser-fj','yaris-cross','corolla-cross','vios','innova-cross','hilux','camry','fortuner','raize','wigo','veloz-cross','avanza-premio','toyota-land-prado','alphard']
 export const cars = models.flatMap(model=>entries.filter(entry=>entry.slug==='/toyota/'+model+'/'))
 export const news = entries.filter(entry=>entry.kind==='post').sort((a,b)=>b.published.localeCompare(a.published))
+export const accessoryCategories = entries.filter(entry=>entry.kind==='product_cat' && entry.slug.startsWith('/danh-muc/phu-kien-toyota/'))
+export const accessoryPaths = new Set(entries.filter(entry=>entry.kind==='product' && entry.category==='Phụ kiện Toyota').map(entry=>entry.slug))
 export const services = entries.filter(entry=>/^\/(dich-vu-|toyota-touch|bao-hiem-toyota|phu-kien-chinh-hang)/.test(entry.slug))
 export const collections = {
   '/xe-toyota-moi/': 'Xe Toyota mới',

@@ -117,9 +117,9 @@ export default function ShowroomMenu({links,path,models}:{links:string[][],path:
               <span className="showroom-model-tag">{model.category}</span>
             </a>
             <div className="showroom-model-actions">
-              {!model.configured || model.slug==='/toyota/toyota-land-cruiser-fj/'
-                ? <a href={'/nhan-bao-gia/?model='+encodeURIComponent(model.title)}>Nhận báo giá</a>
-                : <a href={model.slug+'#chon-phien-ban'}>Chọn phiên bản và màu xe</a>}
+              <a href={'/nhan-bao-gia/?model='+encodeURIComponent(model.title)}>Nhận báo giá</a>
+              {model.configured && model.slug!=='/toyota/toyota-land-cruiser-fj/' &&
+                <a href={model.slug+'#chon-phien-ban'}>Chọn phiên bản và màu xe</a>}
               <a href={'/dang-ky-lai-thu/?model='+encodeURIComponent(model.title)}>Đăng ký lái thử</a>
             </div>
           </div> : showModels ? <>

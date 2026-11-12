@@ -1,10 +1,11 @@
-import {phone} from '../catalog'
+import {phone,servicePhone} from '../catalog'
 import {testDriveTimes} from '../test-drive'
+import {serviceItems} from '../service-booking'
 import {getPublicCars} from '../site-content'
 
 export default async function LeadForm({intent='quote',model='',fixedModel=false}:{intent?:string;model?:string;fixedModel?:boolean}) {
   const service = intent==='service'
-  const cars = service || fixedModel ? [] : await getPublicCars()
+  const cars = service || fixedModel || intent==='contact' ? [] : await getPublicCars()
   const testDrive = intent==='test_drive'
   const contact = <>
     <label>Họ và tên<input name="name" autoComplete="name" required minLength={2} maxLength={100} /></label>
@@ -12,7 +13,7 @@ export default async function LeadForm({intent='quote',model='',fixedModel=false
   </>
   const vehicle = <>
     {fixedModel ? <>
-      <p className="test-drive-model"><span>Xe lái thử</span><strong>{model}</strong></p>
+      <p className="test-drive-model"><span>{testDrive ? 'Xe lái thử' : 'Sản phẩm quan tâm'}</span><strong>{model}</strong></p>
       <input type="hidden" name="model" value={model} />
     </> : <label>Dòng xe quan tâm<select name="model" defaultValue={model} required={testDrive}>
       <option value="">Chọn dòng xe</option>
@@ -52,12 +53,22 @@ export default async function LeadForm({intent='quote',model='',fixedModel=false
       </section>
     </> : <>
       {contact}
-      {!service && vehicle}
+      {intent==='contact' ? <label>Nội dung cần hỗ trợ<textarea name="contact_message" required minLength={5} maxLength={1000} rows={4} /></label> : service ? <>
+        <label>Dòng xe<input name="model" maxLength={100} /></label>
+        <label>Biển số<input name="license_plate" autoCapitalize="characters" minLength={5} maxLength={20} /></label>
+        <label>Hạng mục<select name="service_item" defaultValue="">
+          <option value="">Chọn hạng mục</option>
+          {serviceItems.map(item=><option key={item}>{item}</option>)}
+        </select></label>
+        <label>Ngày mong muốn<input name="preferred_date" type="date" /></label>
+        <label>Giờ mong muốn<input name="preferred_time" type="time" /></label>
+        <p>Đại lý sẽ gọi để xác nhận lịch hẹn.</p>
+      </> : vehicle}
     </>}
     <label hidden>Website<input name="website" tabIndex={-1} autoComplete="off" /></label>
     <label className="consent"><input name="consent" type="checkbox" value="yes" required /><span>Tôi đồng ý để đại lý dùng thông tin trên để liên hệ về yêu cầu này. <a href="/thong-tin-xu-ly-du-lieu/">Xem thông tin xử lý dữ liệu.</a></span></label>
-    <button className="btn" type="submit">{testDrive ? 'Gửi đăng ký lái thử' : 'Gửi yêu cầu ↗'}</button>
+    <button className="btn" type="submit">{testDrive ? 'Gửi đăng ký lái thử' : intent==='contact' ? 'Gửi liên hệ' : 'Gửi yêu cầu ↗'}</button>
     <p className="form-status" role="status" tabIndex={-1}></p>
-    <a className="text-link" href={'tel:'+(service?'0981555588':phone)} data-event="hotline_click">{service?'Gọi dịch vụ · 0981 5555 88':'Gọi tư vấn · 0985 3333 88'}</a>
+    <a className="text-link" href={'tel:'+(service?servicePhone:phone)} data-event="hotline_click">{service?'Gọi dịch vụ · 0981 5555 88':'Gọi tư vấn · 0985 3333 88'}</a>
   </form>
 }

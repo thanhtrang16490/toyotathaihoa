@@ -311,3 +311,12 @@
 .gradeCard :global(.btn) { margin-top: auto; width: 100%; text-align: center; }
 .gradeNote { max-width: 55ch; margin: -16px auto 28px; text-align: center; color: #51535a; }
 .detail[data-shared-vehicle="true"] .specs img { aspect-ratio: 16 / 10; object-fit: cover; }
+
+.detail .versionRail,
+.detail[data-shared-vehicle="true"] .versionRail {
+  justify-content: start;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  max-width: 100%;
+}
+.versionRail a { flex: 0 0 auto; white-space: nowrap; }

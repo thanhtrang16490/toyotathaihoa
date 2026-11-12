@@ -1,7 +1,7 @@
 import {dataRequest} from '../../supabase-data'
 
 export const leadStatuses = {new: 'Mới', contacted: 'Đã liên hệ', closed: 'Đã xử lý'} as const
-export const leadIntents = {quote: 'Báo giá', test_drive: 'Lái thử', service: 'Dịch vụ'} as const
+export const leadIntents = {quote: 'Báo giá', test_drive: 'Lái thử', service: 'Dịch vụ', contact: 'Liên hệ'} as const
 export type LeadStatus = keyof typeof leadStatuses
 export const leadPageSize = 25
 
@@ -33,6 +33,9 @@ export type Lead = {
   email: string | null
   preferred_date: string | null
   preferred_time: string | null
+  license_plate?: string | null
+  contact_message?: string | null
+  service_item?: string | null
   test_drive_note: string | null
   received_at: string
   status: LeadStatus
@@ -40,7 +43,7 @@ export type Lead = {
 
 export async function getLeads({testDrive,status,page}: ReturnType<typeof leadListFilters>, limit = leadPageSize + 1) {
   const query = new URLSearchParams({
-    select: 'id,name,phone,intent,model,trim,color,email,preferred_date,preferred_time,test_drive_note,received_at,status',
+    select: '*',
     status: status ? 'eq.' + status : 'neq.test',
     order: 'received_at.desc,id.desc',
     limit: String(limit),

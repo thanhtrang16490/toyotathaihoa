@@ -1,19 +1,14 @@
+import DealerMap from './DealerMap'
+import LeadForm from './LeadForm'
 import Image, {type StaticImageData} from 'next/image'
 import type {ReactNode} from 'react'
-import {address,dealer,directions,hours,phone,services} from '../catalog'
+import {address,dealer,directions,hours,phone,services,servicePhone,contactNumbers} from '../catalog'
 import showroom from '../assets/showroom-facade.webp'
 import workshop from '../assets/generated/toyota-service-workshop.webp'
 import Card from './Card'
 import styles from './showroom-pages.module.css'
 
-const servicePhone = '0981555588'
 const email = 'cskh@toyotathaihoatuliem.com.vn'
-const contactNumbers = [
-  ['Xe mới',phone,'0985 3333 88'],
-  ['Xe đã qua sử dụng','0936313338','093 631 3338'],
-  ['Dịch vụ',servicePhone,'0981 5555 88'],
-  ['Chăm sóc khách hàng','02433549999','024 3354 9999'],
-]
 
 export function DealerHero({title,image,imageAlt='',action,service=false}:{title:string;image?:string|StaticImageData;imageAlt?:string;action?:ReactNode;service?:boolean}) {
   return <>
@@ -51,7 +46,18 @@ export function DealerContact() {
 }
 
 export function ContactPage({title}:{title:string}) {
-  return <><DealerHero title={title} image={showroom} /><DealerContact /></>
+  return <>
+    <DealerHero title={title} image={showroom} />
+    <DealerContact />
+    <section className="wrap section dealer-contact-actions" aria-label="Chỉ đường và gửi liên hệ">
+      <div>
+        <h2>Đường đến showroom</h2>
+        <DealerMap src={'https://maps.google.com/maps?'+new URLSearchParams({q:dealer+' '+address,output:'embed'})} />
+        <p><a href={directions} data-event="directions_click">Mở Google Maps ↗</a></p>
+      </div>
+      <div className="form-panel"><h2>Gửi liên hệ</h2><LeadForm intent="contact" /></div>
+    </section>
+  </>
 }
 
 const aboutLinks = [

@@ -136,10 +136,13 @@ export default async function AdminPage({searchParams}: {
             <div><dt>Điện thoại</dt><dd><a href={'tel:' + lead.phone}>{lead.phone}</a></dd></div>
             {lead.email && <div><dt>Email</dt><dd>{lead.email}</dd></div>}
             {lead.model && <div><dt>Xe quan tâm</dt><dd>{[lead.model,lead.trim,lead.color].filter(Boolean).join(' · ')}</dd></div>}
-            {lead.intent === 'test_drive' && <div><dt>Lịch mong muốn</dt><dd>{[
+            {(lead.intent === 'service' || lead.intent === 'test_drive') && <div><dt>Lịch mong muốn</dt><dd>{[
               lead.preferred_date && preferredDateFormat.format(new Date(lead.preferred_date)),
               lead.preferred_time,
             ].filter(Boolean).join(' · ') || 'Khách chưa chọn ngày, giờ'}</dd></div>}
+            {lead.license_plate && <div><dt>Biển số</dt><dd>{lead.license_plate}</dd></div>}
+            {lead.contact_message && <div><dt>Nội dung liên hệ</dt><dd>{lead.contact_message}</dd></div>}
+            {lead.service_item && <div><dt>Hạng mục dịch vụ</dt><dd>{lead.service_item}</dd></div>}
             {lead.test_drive_note && <div><dt>Ghi chú lái thử</dt><dd>{lead.test_drive_note}</dd></div>}
           </dl>
           <form action={updateLead} className={styles.statusForm}>

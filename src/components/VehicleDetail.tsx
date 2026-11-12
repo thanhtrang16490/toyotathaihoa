@@ -1,5 +1,5 @@
+import VehicleVideo from './VehicleVideo'
 import Image from 'next/image'
-import type {CSSProperties} from 'react'
 import type {Entry} from '../catalog'
 import {corollaDetailPath,corollaTrimSpecs,corollaTrims,vehicleTrims} from '../vehicle-options'
 import {vehicleDetailData} from '../vehicle-detail-data'
@@ -48,20 +48,16 @@ const fjSpecs = [
   ['Số chỗ', '5'],
 ] as const
 
+const reviewVideos: Record<string,string> = {
+  '/toyota/camry/':'TRW4goRITlU',
+  '/toyota/corolla-cross/':'IViW1DK9mLs',
+}
+
 function RollingNumber({value}:{value:string}) {
   return <span className={styles.rollingNumber} data-rolling-number="">
     <span className={styles.rollingValue}>{value}</span>
-    <span className={styles.rollingDigits} aria-hidden="true">
-      {[...value].map((character,index)=>{
-        if (!/^[0-9]$/.test(character)) return <span key={index}>{character}</span>
-        const digit = Number(character)
-        return <span className={styles.rollingWindow} key={index}>
-          <span className={styles.rollingReel} style={{'--digit-offset':-100*digit/(digit+1)+'%'} as CSSProperties}>
-            {Array.from({length:digit+1},(_,step)=><span key={step}>{step}</span>)}
-          </span>
-        </span>
-      })}
-    </span>
+    <span className={styles.rollingDigits} aria-hidden="true"
+      data-rolling-digits="" data-window-class={styles.rollingWindow} data-reel-class={styles.rollingReel} />
   </span>
 }
 
@@ -69,6 +65,7 @@ import type {ProductDetails} from '../site-content'
 import {availabilityLabels} from '../product-fields'
 
 export default function VehicleDetail({model,showPrice,productDetails}:{model:Entry;showPrice:boolean;productDetails?:ProductDetails}) {
+  const video = reviewVideos[model.slug]
   const isCorolla = model.slug===corollaDetailPath
   const isFj = model.slug==='/toyota/toyota-land-cruiser-fj/'
   const name = model.title.replace(/^Toyota /i,'')
@@ -101,16 +98,16 @@ export default function VehicleDetail({model,showPrice,productDetails}:{model:En
       </div>
       <div className={styles.introCopy}>
         <div className={styles.versionRail} aria-label={'Phiên bản '+name}>
-          <span>{isCorolla ? 'SUV' : model.category}</span>
           {trims.map(trim=><a key={trim} href={configPath+'?'+new URLSearchParams({trim})} data-vehicle-configure="">{trim}</a>)}
         </div>
         <h1>{name}</h1>
         {fuel && <span className={styles.fuel}>{fuel}</span>}
-        <p>{(productDetails?.retail_price || (!isCorolla && showPrice)) && model.price || 'Liên hệ để xác nhận giá theo phiên bản'}</p>
+        <p className="model-price">{(productDetails?.retail_price || (!isCorolla && showPrice)) && model.price || 'Liên hệ để xác nhận giá theo phiên bản'}</p>
         {productDetails?.availability && <p>{availabilityLabels[productDetails.availability]}</p>}
         {productDetails?.description && <p>{productDetails.description}</p>}
         <div className="actions model-stage-actions">
-          <a id="chon-mau-xe" className="btn" href="#chon-phien-ban" aria-haspopup="dialog">Chọn mẫu xe</a>
+          <a className="btn" href={'/nhan-bao-gia/?'+new URLSearchParams({model:model.title})} data-event="cta_click">Nhận báo giá</a>
+          <a id="chon-mau-xe" className="btn outline" href="#chon-phien-ban" aria-haspopup="dialog">Chọn mẫu xe</a>
           <a className="btn outline" href={configPath} data-vehicle-configure="">Chọn cấu hình</a>
           <button className="btn outline" type="button" data-test-drive="vehicle-options" aria-haspopup="dialog" aria-controls="test-drive-drawer" data-event="cta_click">Đăng ký lái thử</button>
         </div>
@@ -202,6 +199,21 @@ export default function VehicleDetail({model,showPrice,productDetails}:{model:En
         </article>)}
       </div>
     </section>}
+    <section className="wrap section vehicle-help" aria-label={'Thông tin thêm về '+name}>
+      {video && <section>
+        <h2>Video giới thiệu {name}</h2>
+        <VehicleVideo id={video} title={name} />
+      </section>}
+      <h2>Câu hỏi thường gặp</h2>
+      <details>
+        <summary>Tôi có thể nhận báo giá theo phiên bản ở đâu?</summary>
+        <p><a href={'/nhan-bao-gia/?'+new URLSearchParams({model:model.title})}>Gửi yêu cầu báo giá {name}</a> để đại lý xác nhận giá và tình trạng xe.</p>
+      </details>
+      <details>
+        <summary>Tôi có thể chọn thời gian lái thử không?</summary>
+        <p>Bạn có thể đề xuất ngày và giờ khi <a href={'/dang-ky-lai-thu/?'+new URLSearchParams({model:model.title})}>đăng ký lái thử {name}</a>. Đại lý sẽ liên hệ để xác nhận.</p>
+      </details>
+    </section>
     <section className="vehicle-next">
       <p className="eyebrow">TOYOTA THÁI HÒA TỪ LIÊM</p>
       <h2>Trải nghiệm {name}.</h2>

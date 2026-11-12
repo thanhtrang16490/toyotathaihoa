@@ -1,10 +1,13 @@
 import {test,expect} from '@playwright/test'
+import {todayInVietnam} from '../src/test-drive'
 test('navigation, model detail and responsive layout',async ({page})=>{
   const errors:string[]=[]
   page.on('pageerror',error=>errors.push(error.message))
   page.on('console',message=>{if(message.type()==='error') errors.push(message.text())})
   await page.goto('/')
-  await expect(page.getByRole('heading',{level:1})).toHaveText('Toyota Corolla Cross')
+  const today = todayInVietnam()
+  const campaignActive = today >= '2026-11-01' && today <= '2026-11-30'
+  await expect(page.getByRole('heading',{level:1})).toHaveText(campaignActive ? 'Ưu đãi Toyota tháng 11' : 'Toyota Corolla Cross')
   await expect(page.locator('.hero-img')).toHaveJSProperty('complete',true)
   const menu = page.getByRole('button',{name:'Menu',exact:true})
   await menu.click()
@@ -203,4 +206,24 @@ test('Land Cruiser FJ highlights, gallery and color selection',async ({page})=>{
   await page.getByRole('radio',{name:'Nâu đồng',exact:true}).check()
   await page.getByRole('button',{name:'Đăng ký lái thử',exact:true}).click()
   await expect(page.getByRole('dialog',{name:'Đăng ký lái thử'})).toContainText('Nâu đồng')
+})
+
+
+test('header search finds vehicles without Vietnamese accents',async ({page})=>{
+  await page.goto('/')
+  await page.getByRole('link',{name:'Tìm kiếm',exact:true}).click()
+  await page.getByRole('searchbox').fill('camry')
+  await page.getByRole('button',{name:'Tìm kiếm',exact:true}).click()
+  await expect(page.locator('main a[href="/toyota/camry/"]')).toBeVisible()
+})
+
+test('vehicle numbers render their real value before JavaScript',async ({request})=>{
+  for (const slug of ['camry','corolla-cross']) {
+    const response = await request.get('/toyota/'+slug+'/')
+    expect(response.ok()).toBeTruthy()
+    const html = await response.text()
+    expect(html).toMatch(/data-rolling-number=""><span[^>]*>[^<]+<\/span>/)
+    expect(html).toMatch(/data-rolling-digits=""[^>]*><\/span>/)
+    expect(html).not.toContain('youtube-nocookie.com/embed/')
+  }
 })

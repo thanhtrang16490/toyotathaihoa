@@ -79,10 +79,29 @@ try {
   for (const [key,value] of Object.entries(preferences)) assert.equal(incoming[key],value)
   assert.equal((await send(undefined,origin,preferences,id)).status,200)
   assert.equal(rows.size,2)
+  const service = {
+    intent:'service',
+    license_plate:'30a-123.45',
+    service_item:'Bảo dưỡng định kỳ',
+    preferred_date:preferences.preferred_date,
+    preferred_time:'10:15',
+  }
+  const serviceId=randomUUID()
+  assert.equal((await send(undefined,origin,{...service,preferred_time:'99:00'})).status,422)
+  assert.equal((await send(undefined,origin,service,serviceId)).status,200)
+  assert.equal(rows.get(serviceId).license_plate,'30A-123.45')
+  for (const field of ['intent','service_item','preferred_date','preferred_time']) {
+    assert.equal(rows.get(serviceId)[field],service[field])
+  }
+  const contact = {intent:'contact',model:'',contact_message:'Tôi muốn hỏi về giờ mở cửa.'}
+  const contactId=randomUUID()
+  assert.equal((await send(undefined,origin,{...contact,contact_message:'   '},contactId)).status,422)
+  assert.equal((await send(undefined,origin,contact,contactId)).status,200)
+  assert.equal(rows.get(contactId).contact_message,contact.contact_message)
   accepted=false
   assert.equal((await send()).status,502)
-  assert.equal(rows.size,2)
-  console.log('Validated test drive fields, validation, Supabase acknowledgement, retries and upstream failure.')
+  assert.equal(rows.size,4)
+  console.log('Validated test drive service booking and contact fields, validation, Supabase acknowledgement, retries and upstream failure.')
 } finally {
   app?.kill()
   receiver?.close()
