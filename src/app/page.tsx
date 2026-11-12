@@ -36,10 +36,25 @@ const homeDescriptions:Record<string,string> = {
   '/toyota/hilux/':'Bán tải diesel 2.8L với tùy chọn dẫn động 4×2 hoặc 4×4.',
   '/toyota/fortuner/':'SUV 7 chỗ với các phiên bản xăng và diesel.',
   '/toyota/innova-cross/':'Xe đa dụng 7 hoặc 8 chỗ tùy phiên bản.',
+  '/toyota/toyota-land-cruiser-fj/':'SUV với hệ dẫn động hai cầu, phù hợp nhiều dạng địa hình.',
+  '/toyota/toyota-land-prado/':'SUV 7 chỗ với hệ dẫn động bốn bánh.',
+  '/toyota/yaris-cross/':'SUV đô thị 5 chỗ, có phiên bản hybrid.',
+  '/toyota/raize/':'SUV đô thị nhỏ gọn với động cơ tăng áp.',
+  '/toyota/wigo/':'Hatchback 5 chỗ nhỏ gọn, dễ xoay trở trong phố.',
+  '/toyota/veloz-cross/':'Xe đa dụng 7 chỗ với hàng ghế linh hoạt.',
+  '/toyota/avanza-premio/':'Xe đa dụng 7 chỗ với lựa chọn số sàn hoặc số tự động.',
+  '/toyota/alphard/':'Xe đa dụng 7 chỗ với động cơ hybrid.',
 }
 export default async function Home(){
 const cars = await getPublicCars()
-const modelPhotos = Object.entries(vehicleImagery).filter(([slug])=>cars.some(car=>car.slug===slug)).map(([slug,photo])=>({slug,photo}))
+const modelPhotos = Object.entries(vehicleImagery).flatMap(([slug,photo])=>{
+  const model = cars.find(car=>car.slug===slug)
+  return model ? [{model,photo}] : []
+})
+const featuredSlugs = new Set(modelPhotos.map(({model})=>model.slug))
+const lineup = [...modelPhotos,...cars.filter(model=>!featuredSlugs.has(model.slug)).map(model=>({
+  model,photo:vehicleDetailImagery[model.slug] || model.image,
+}))]
 const cross = cars.find(car=>car.slug==='/toyota/corolla-cross/')
 const fj = cars.find(car=>car.slug==='/toyota/toyota-land-cruiser-fj/')
 const today = todayInVietnam()
@@ -93,9 +108,8 @@ return (<Layout title={dealer} path="/">
       </picture>
   } />
   <nav className="wrap home-highlights" id="home-highlights" aria-label="Xe Toyota nổi bật">
-    {modelPhotos.slice(1,4).map(({slug,photo})=>{
-      const model = cars.find(car=>car.slug===slug)
-      if (!model) return null
+    {modelPhotos.slice(1,4).map(({model,photo})=>{
+      const {slug} = model
       return <a key={slug} href={slug}>
         <Image src={photo} alt="" fill fetchPriority="low" sizes="(max-width: 600px) 85vw, (max-width: 1000px) 70vw, (max-width: 1060px) 30vw, 310px" />
         <span>{model.title}<span aria-hidden="true">→</span></span>
@@ -105,17 +119,16 @@ return (<Layout title={dealer} path="/">
   <div className="home-model-band">
   <section id="home-models" className="wrap section home-models" aria-labelledby="home-models-title">
     <h2 id="home-models-title">Khám phá các dòng xe Toyota</h2>
-    <HomeModelRail labels={modelPhotos.map(({slug})=>cars.find(car=>car.slug===slug)?.title || slug)}>
-      {modelPhotos.map(({slug,photo})=>{
-        const model = cars.find(car=>car.slug===slug)
-        if (!model) return null
+    <HomeModelRail labels={lineup.map(({model})=>model.title)}>
+      {lineup.map(({model,photo})=>{
+        const {slug} = model
         const seats = [...new Set(vehicleGrades(slug).map(grade=>grade.seats))].sort((a,b)=>a-b)
         return <a key={slug} className="home-model-tile" href={slug}>
-          <Image src={photo} alt="" fill fetchPriority="low" sizes="(max-width: 600px) 85vw, (max-width: 1000px) 55vw, (max-width: 1880px) 55vw, 1050px" />
+          {photo && <Image src={photo} alt="" fill fetchPriority="low" sizes="(max-width: 600px) 85vw, (max-width: 1000px) 55vw, (max-width: 1880px) 55vw, 1050px" />}
           <h3>{model.title.replace(/^Toyota /,'')}</h3>
           <div className="home-model-copy">
             <p className="home-model-tag">{model.category}{seats.length>0 && ' · '+seats.join('–')+' chỗ'}</p>
-            <p className="home-model-description">{homeDescriptions[slug]}</p>
+            {homeDescriptions[slug] && <p className="home-model-description">{homeDescriptions[slug]}</p>}
             <span className="home-model-cta">Khám phá xe <span aria-hidden="true">→</span></span>
           </div>
         </a>

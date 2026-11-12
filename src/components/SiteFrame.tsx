@@ -4,6 +4,7 @@ import {address,dealer,cars} from '../catalog'
 import {site} from '../site-metadata'
 import {vehicleMenuImagery} from '../vehicle-imagery'
 import logo from '../assets/logo.webp'
+import HomeSpotlight from './HomeSpotlight'
 import ShowroomMenu from './ShowroomMenu'
 import BrowserInteractions from './BrowserInteractions'
 import PublicSiteExtras from './PublicSiteExtras'
@@ -31,11 +32,18 @@ export default async function SiteFrame({title,path,crumbs=[],noindex=false,sche
       image:details.get(slug)?.image || vehicleMenuImagery[slug] || (slug==='/toyota/vios/' ? variants?.[0]?.image || image : image),
     }))} />
     <a href="/" className="brand"><Image src={logo} width={194} height={63} alt={dealer} /></a>
-    <a className="site-search-link" href="/tim-kiem/" aria-label="Tìm kiếm">
+    {path==='/' ? <HomeSpotlight
+      items={[...catalogue.map(({title,slug})=>({title,href:slug})),...nav.map(([title,href])=>({title,href}))]}
+      shortcuts={[
+        {title:'Khám phá xe Toyota',href:'/xe-toyota-moi/'},
+        {title:'Xem ưu đãi',href:'/uu-dai/'},
+        {title:'Đăng ký lái thử',href:'/dang-ky-lai-thu/'},
+      ]}
+    /> : <a className="site-search-link" href="/tim-kiem/" aria-label="Tìm kiếm">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
         <circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" />
       </svg>
-    </a>
+    </a>}
   </div>
 </header>
 <main id="main" className={isModel ? 'vehicle-detail' : undefined}>
