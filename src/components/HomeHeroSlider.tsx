@@ -100,7 +100,7 @@ export default function HomeHeroSlider({slides,firstImage}:{slides:Slide[];first
             setTransition(current=>current.index===position ? {...current,previous:null} : current)
           }}>
           {media.image
-            ? <Image className="hero-img hero-slide-image" src={media.image} alt="" fill sizes="100vw" loading="eager" />
+            ? <Image className="hero-img hero-slide-image" src={media.image} alt="" fill sizes="100vw" loading="eager" fetchPriority={active && position===0 ? 'high' : undefined} />
             : firstImage}
         </div>
       })}

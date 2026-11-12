@@ -18,11 +18,17 @@ export default function HomeOfferRail({children}:{children:ReactNode}) {
     let overflow=0
     let distance=0
     let stride=0
+    let stickyTop=0
+    let visible=false
+    let lastScrollLeft=NaN
     const cards=Array.from(row.querySelectorAll<HTMLAnchorElement>(':scope > a'))
 
     function scaleCards() {
       if (!row || !distance || !stride) return
-      const current=row.scrollLeft/stride
+      const scrollLeft=row.scrollLeft
+      if (scrollLeft===lastScrollLeft) return
+      lastScrollLeft=scrollLeft
+      const current=scrollLeft/stride
       cards.forEach((card,index)=>{
         const position=index-current
         // Hold at the front, then blend back into the moving row.
@@ -45,36 +51,44 @@ export default function HomeOfferRail({children}:{children:ReactNode}) {
     function sync() {
       frame=0
       if (!wrapper || !viewport || !row) return
-      if (!distance || row.matches(':focus-within')) return
-      const top=parseFloat(getComputedStyle(viewport).top)
-      const progress=Math.max(0,Math.min(1,(top-wrapper.getBoundingClientRect().top)/(distance+24)))
+      if (!distance || !visible || row.matches(':focus-within')) return
+      const progress=Math.max(0,Math.min(1,(stickyTop-wrapper.getBoundingClientRect().top)/(distance+24)))
       row.scrollLeft=progress*overflow
       scaleCards()
     }
 
     function schedule() {
-      if (!frame) frame=requestAnimationFrame(sync)
+      if (!frame && distance && visible) frame=requestAnimationFrame(sync)
     }
 
     function measure() {
-      if (!wrapper || !row) return
+      if (!wrapper || !viewport || !row) return
       overflow=Math.max(0,row.scrollWidth-row.clientWidth)
       wrapper.toggleAttribute('data-scroll-driven',desktop.matches && overflow>0)
       overflow=Math.max(0,row.scrollWidth-row.clientWidth)
       stride=(cards[1]?.offsetLeft ?? 0)-(cards[0]?.offsetLeft ?? 0)
       distance=desktop.matches ? Math.round(Math.min(overflow*.4, (cards.length-1)*125)) : 0
+      stickyTop=parseFloat(getComputedStyle(viewport).top) || 0
+      lastScrollLeft=NaN
       wrapper.style.setProperty('--offer-scroll-distance',distance+'px')
+      scaleCards()
       schedule()
     }
 
     const observer=new ResizeObserver(measure)
     observer.observe(row)
+    const visibilityObserver=new IntersectionObserver(([entry])=>{
+      visible=entry.isIntersecting
+      schedule()
+    },{rootMargin:'160px 0px'})
+    visibilityObserver.observe(wrapper)
     row.addEventListener('scroll',scaleCards,{passive:true})
     desktop.addEventListener('change',measure)
     window.addEventListener('scroll',schedule,{passive:true})
     measure()
     return ()=>{
       observer.disconnect()
+      visibilityObserver.disconnect()
       row.removeEventListener('scroll',scaleCards)
       desktop.removeEventListener('change',measure)
       window.removeEventListener('scroll',schedule)
