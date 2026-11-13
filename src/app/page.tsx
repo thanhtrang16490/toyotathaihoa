@@ -3,12 +3,14 @@ import Image, {getImageProps} from 'next/image'
 import ConsultationPopup from '../components/ConsultationPopup'
 import VehicleSupport from '../components/VehicleSupport'
 import Layout from '../components/SiteFrame'
-import {HomeAbout,HomeNews} from '../components/HomeEditorial'
+import {HomeAbout} from '../components/HomeEditorial'
+import HomeNews from '../components/HomeNews'
 import HomeTestimonials from '../components/HomeTestimonials'
+import HomeDealerGallery from '../components/HomeDealerGallery'
 import HomeModelRail from '../components/HomeModelRail'
 import HomeOfferRail from '../components/HomeOfferRail'
 import HomeHeroSlider from '../components/HomeHeroSlider'
-import {address, articlesInArchive, dealer, hours, phone} from '../catalog'
+import {address, articlesInArchive, dealer, entries, hours, phone} from '../catalog'
 import {getPublicCars,getPublishedNews} from '../site-content'
 import hero from '../assets/generated/corolla-cross-coastal-hero-v2.webp'
 import {homeShareImage,vehicleImagery,vehicleDetailImagery} from '../vehicle-imagery'
@@ -161,7 +163,13 @@ return (<Layout title={dealer} path="/">
     </div>
   </section>
   <HomeAbout />
-  <HomeNews articles={articles.slice(0,3)} />
+  <HomeNews articles={articles.slice(0,7).map(({slug,title,description,image,published,category,taxonomy})=>({
+    slug,title,description,image,published,topics:entries.filter(entry=>entry.kind==='category' &&
+      taxonomy?.includes(entry.slug.split('/').filter(Boolean).at(-1) ?? '') && !entry.slug.includes('/khong-phan-loai/'))
+      .map(entry=>entry.title.replace(/^Danh mục: /,'')),
+    category,
+  }))} />
   <HomeTestimonials />
+  <HomeDealerGallery />
 </Layout>)
 }

@@ -1,7 +1,3 @@
-'use client'
-
-import {useState} from 'react'
-
 const testimonials = [
   {avatar:'minh', name:'Anh Minh', location:'Hà Đông, Hà Nội', title:'Dịch vụ tốt!', review:'Anh Minh đánh giá cao sự nhiệt tình và chuyên nghiệp của nhân viên. Anh luôn cảm thấy được chào đón khi đến đại lý.'},
   {avatar:'mai-anh', name:'Chị Mai Anh', location:'Mỹ Đình, Hà Nội', title:'Thủ tục nhanh chóng!', review:'Chị Mai Anh hài lòng khi mua xe vì giá cả hợp lý, thủ tục nhanh và được nhân viên hỗ trợ hoàn tất giấy tờ.'},
@@ -10,38 +6,33 @@ const testimonials = [
   {avatar:'richard-nguyen', name:'Anh Richard Nguyễn', location:'Cầu Giấy, Hà Nội', title:'Xưởng dịch vụ khá tốt!', review:'Anh Richard Nguyễn yên tâm giao xe cho đội ngũ kỹ thuật viên vì tay nghề, tốc độ và chất lượng sửa chữa.'},
 ]
 
-export default function HomeTestimonials() {
-  const [active,setActive]=useState(0)
-  const {avatar,name,location,title,review}=testimonials[active]
-  function move(direction:number) {
-    setActive(current=>(current+direction+testimonials.length)%testimonials.length)
-  }
+const heading = 'Khách hàng nói gì về Toyota Thái Hòa Từ Liêm'
+const rows = [testimonials.slice(0,3), testimonials.slice(3)]
 
+export default function HomeTestimonials() {
   return <section id="home-testimonials" className="home-testimonials" aria-labelledby="home-testimonials-title">
-    <div className="wrap">
-      <h2 id="home-testimonials-title">Khách hàng nói gì về Toyota Thái Hòa Từ Liêm</h2>
-      <div id="home-testimonial-review" className="home-testimonial-stage" aria-live="polite">
-        <article key={avatar} className="home-testimonial-card">
-          <img className="home-testimonial-portrait" src={'/media/testimonials/'+avatar+'.webp'} alt="" width={240} height={240} loading="lazy" />
-          <div>
-            <div className="home-testimonial-stars">
-              <span aria-hidden="true">★★★★★</span><span className="home-testimonial-score">5/5 sao</span>
+    <div className="wrap home-testimonials-intro">
+      <h2 id="home-testimonials-title" aria-label={heading}>
+        {heading.split(' ').map((word,index)=><span key={index} aria-hidden="true" style={{animationDelay:`${index*45}ms`}}>{word}{' '}</span>)}
+      </h2>
+      <p>Chia sẻ của khách hàng về trải nghiệm mua xe, lái thử và sử dụng dịch vụ tại đại lý.</p>
+    </div>
+    {rows.map((row,index)=><div className="home-testimonial-lane" key={index}>
+      <div className="home-testimonial-track">
+        {[0,1].map(copy=><div className="home-testimonial-group" key={copy} aria-hidden={copy===1 || undefined}>
+          {[...row,...row].map(({avatar,name,location,title,review},position)=><article
+            key={avatar+position} className="home-testimonial-card" data-repeat={copy===1 || position>=row.length}
+            aria-hidden={position>=row.length || undefined}>
+            <div className="home-testimonial-author">
+              <img src={'/media/testimonials/'+avatar+'.webp'} alt="" width={48} height={48} loading="lazy" />
+              <div><strong>{name}</strong><span>{location}</span></div>
             </div>
+            <div className="home-testimonial-stars" aria-label="5 trên 5 sao"><span aria-hidden="true">★★★★★</span></div>
             <h3>{title}</h3>
             <p>{review}</p>
-            <div className="home-testimonial-author"><strong>{name}</strong><span>{location}</span></div>
-          </div>
-        </article>
+          </article>)}
+        </div>)}
       </div>
-      <div className="home-testimonial-controls" role="group" aria-label="Chọn đánh giá">
-        <button type="button" className="home-testimonial-arrow" aria-label="Đánh giá trước" onClick={()=>move(-1)}>←</button>
-        {testimonials.map((item,index)=><button key={item.avatar} type="button" className="home-testimonial-picker"
-          aria-label={'Xem đánh giá của '+item.name} aria-pressed={index===active}
-          aria-controls="home-testimonial-review" onClick={()=>setActive(index)}>
-          <img src={'/media/testimonials/'+item.avatar+'.webp'} alt="" width={40} height={40} loading="lazy" />
-        </button>)}
-        <button type="button" className="home-testimonial-arrow" aria-label="Đánh giá tiếp theo" onClick={()=>move(1)}>→</button>
-      </div>
-    </div>
+    </div>)}
   </section>
 }

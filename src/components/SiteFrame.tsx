@@ -32,6 +32,7 @@ export default async function SiteFrame({title,path,crumbs=[],noindex=false,sche
       image:details.get(slug)?.image || vehicleMenuImagery[slug] || (slug==='/toyota/vios/' ? variants?.[0]?.image || image : image),
     }))} />
     <a href="/" className="brand"><Image src={logo} width={194} height={63} alt={dealer} /></a>
+    <div className="header-actions">
     {path==='/' ? <HomeSpotlight
       items={[...catalogue.map(({title,slug})=>({title,href:slug})),...nav.map(([title,href])=>({title,href}))]}
       shortcuts={[
@@ -44,6 +45,14 @@ export default async function SiteFrame({title,path,crumbs=[],noindex=false,sche
         <circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" />
       </svg>
     </a>}
+      <a className="header-drive-link" href="/dang-ky-lai-thu/" aria-label="Đăng ký lái thử">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="2" />
+          <path d="M3.5 9.5h17M10.5 13.5l-3 5M13.5 13.5l3 5" />
+        </svg>
+        <span>Đăng ký lái thử</span>
+      </a>
+    </div>
   </div>
 </header>
 <main id="main" className={isModel ? 'vehicle-detail' : undefined}>

@@ -1,0 +1,36 @@
+.lead { color: var(--muted); margin: 12px 0 26px; }
+.card { min-width: 0; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+.card > a { display: grid; grid-template-rows: auto 1fr; height: 100%; text-decoration: none; border-radius: inherit; }
+.card[data-featured=true] { margin-bottom: 30px; }
+.photo { position: relative; overflow: hidden; aspect-ratio: 16/9; background: #f3f4f5; border-radius: 11px 11px 0 0; }
+.photo img { object-fit: cover; }
+.copy { display: grid; align-content: start; justify-items: start; gap: 10px; padding: clamp(16px, 2.8vw, 30px); }
+.copy h3, .copy p { margin: 0; }
+.copy h3 { line-height: 1.24; overflow-wrap: anywhere; }
+.card[data-featured=true] h3 { font-size: clamp(1.35rem, 2.6vw, 2rem); }
+.copy p, .copy time { color: var(--muted); font-size: .9rem; }
+.copy p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+.badge { padding: 3px 9px; border-radius: 4px; background: #f0f1f2; font-size: .78rem; font-weight: 650; }
+.read, .copy :global(.btn) { display: inline-flex; align-items: center; gap: 8px; font-weight: 650; }
+.read { font-size: .9rem; }
+.card a:is(:hover,:focus-visible) h3 { color: var(--red); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.filters button { padding: 8px 14px; min-height: 44px; border: 1px solid var(--line); border-radius: 4px; color: inherit; background: #fff; }
+.filters button:hover { background: #f0f1f2; }
+.filters button[aria-pressed=true] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+.grid:not(:empty) { margin-bottom: 24px; }
+@media (min-width: 761px) {
+  .card[data-featured=true] > a:has(.photo) { grid-template: auto / repeat(2,minmax(0,1fr)); }
+  .card[data-featured=true] .photo { aspect-ratio: auto; min-height: 300px; border-radius: 11px 0 0 11px; }
+  .card[data-featured=true] .copy { align-content: center; }
+}
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 560px) { .grid { grid-template-columns: minmax(0,1fr); } }
+@media (hover: hover) {
+  .photo img { filter: grayscale(1); }
+  .card a:is(:hover,:focus-visible) img { filter: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .photo img { transition: filter 240ms ease; }
+}
