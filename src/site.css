@@ -2021,10 +2021,6 @@ html:has(.spotlight[open]) { overflow: hidden; }
 @media (max-width: 1000px) {
   .home-offer-track { --offer-gap: 16px; grid-auto-columns: calc((100% - var(--offer-gap)) / 2); }
 }
-@media (max-width: 600px) {
-  .home-offer-track { --offer-gap: 12px; grid-auto-columns: 88%; }
-}
-
 @media (min-width: 1001px) {
   .home-offer-track {
     position: relative;
@@ -2087,11 +2083,14 @@ html:has(.spotlight[open]) { overflow: hidden; }
 @media (max-width: 600px) {
   .home-offer-heading { padding-block: 28px 16px; }
   .home-offer-track {
-    grid-auto-columns: calc(100% - 38px);
-    padding-block: 2px 20px;
-    scrollbar-width: thin;
-    scrollbar-color: #a1a8b0 transparent;
+    --offer-gap: 12px;
+    width: 100%;
+    grid-auto-columns: 100%;
+    padding: 2px 7.5% 20px;
+    scroll-padding-inline: 7.5%;
+    scrollbar-width: none;
   }
+  .home-offer-track > a { scroll-snap-align: center; }
   .home-highlights .home-offer-track > a {
     display: flex;
     flex-direction: column;
