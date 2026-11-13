@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 const testimonials = [
   {avatar:'minh', name:'Anh Minh', location:'Hà Đông, Hà Nội', title:'Dịch vụ tốt!', review:'Anh Minh đánh giá cao sự nhiệt tình và chuyên nghiệp của nhân viên. Anh luôn cảm thấy được chào đón khi đến đại lý.'},
   {avatar:'mai-anh', name:'Chị Mai Anh', location:'Mỹ Đình, Hà Nội', title:'Thủ tục nhanh chóng!', review:'Chị Mai Anh hài lòng khi mua xe vì giá cả hợp lý, thủ tục nhanh và được nhân viên hỗ trợ hoàn tất giấy tờ.'},
@@ -24,7 +26,7 @@ export default function HomeTestimonials() {
             key={avatar+position} className="home-testimonial-card" data-repeat={copy===1 || position>=row.length}
             aria-hidden={position>=row.length || undefined}>
             <div className="home-testimonial-author">
-              <img src={'/media/testimonials/'+avatar+'.webp'} alt="" width={48} height={48} loading="lazy" />
+              <Image src={'/media/testimonials/'+avatar+'.webp'} alt="" width={48} height={48} loading="lazy" />
               <div><strong>{name}</strong><span>{location}</span></div>
             </div>
             <div className="home-testimonial-stars" aria-label="5 trên 5 sao"><span aria-hidden="true">★★★★★</span></div>

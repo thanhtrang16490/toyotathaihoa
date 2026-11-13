@@ -15,8 +15,8 @@ function NewsCard({entry, featured=false}:{entry:NewsEntry; featured?:boolean}) 
     <a href={entry.slug}>
       {entry.image && <div className={styles.photo}>
         <Image src={entry.image} alt="" fill sizes={featured
-          ? '(max-width: 760px) 92vw, 640px'
-          : '(max-width: 560px) 92vw, (max-width: 900px) 46vw, 420px'} />
+          ? '(max-width: 600px) 88vw, (max-width: 760px) 80vw, 40vw'
+          : '(max-width: 325px) 88px, (max-width: 518px) 27vw, (max-width: 560px) 140px, (max-width: 600px) 44vw, (max-width: 900px) 40vw, 27vw'} />
       </div>}
       <div className={styles.copy}>
         {(entry.topics[0] || entry.category) && <span className={styles.badge}>{entry.topics[0] || entry.category}</span>}

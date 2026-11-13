@@ -23,6 +23,16 @@ export default function HomeModelRail({children,models}:{children:ReactNode;mode
     observer.observe(band)
     return ()=>observer.disconnect()
   },[])
+  function move(index:number) {
+    const element=rail.current
+    const tiles=element?.querySelectorAll<HTMLElement>('.home-model-tile')
+    const first=tiles?.[0]
+    const target=tiles?.[index]
+    if (element && first && target) element.scrollTo({
+      left:target.offsetLeft-first.offsetLeft,
+      behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',
+    })
+  }
   return <>
   <div className="home-model-filters" role="group" aria-label="Lọc theo loại xe">
     {['',...categories].map(value=><button key={value} type="button"
@@ -46,17 +56,9 @@ export default function HomeModelRail({children,models}:{children:ReactNode;mode
     </div>)}
   </div>
   {cards.length>1 && <nav className="home-model-dots" aria-label="Chọn dòng xe">
-    {cards.map(({model},index)=><button type="button" key={model.slug} aria-label={'Xem '+model.title}
-      aria-current={index===active?'true':undefined} onClick={()=>{
-        const element=rail.current
-        const tiles=element?.querySelectorAll<HTMLElement>('.home-model-tile')
-        const first=tiles?.[0]
-        const target=tiles?.[index]
-        if (element && first && target) element.scrollTo({
-          left:target.offsetLeft-first.offsetLeft,
-          behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',
-        })
-      }}/>)}
+    <button type="button" aria-label="Xe trước" disabled={active===0} onClick={()=>move(active-1)}>←</button>
+    <span aria-label={`Xe ${active+1} trên ${cards.length}`}>{active+1} / {cards.length}</span>
+    <button type="button" aria-label="Xe tiếp theo" disabled={active>=cards.length-1} onClick={()=>move(active+1)}>→</button>
   </nav>}
   </>
 }

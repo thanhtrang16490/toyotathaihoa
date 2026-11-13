@@ -34,3 +34,18 @@
 @media (prefers-reduced-motion: no-preference) {
   .photo img { transition: filter 240ms ease; }
 }
+
+@media (max-width: 560px) {
+  .lead { margin-bottom: 18px; }
+  .card[data-featured=true] { margin-bottom: 20px; }
+  .grid { gap: 10px; }
+  .grid .card > a:has(.photo) {
+    grid-template: auto / clamp(88px, 27vw, 140px) minmax(0, 1fr);
+  }
+  .grid .photo { aspect-ratio: auto; border-radius: 11px 0 0 11px; }
+  .grid .copy { gap: 5px; padding: 12px; }
+  .grid .copy h3 { font-size: 1rem; }
+  .grid .copy p, .grid .read { display: none; }
+  .filters { gap: 6px; }
+  .filters button { padding-inline: 10px; font-size: .875rem; }
+}
